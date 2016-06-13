@@ -1,0 +1,15 @@
+*.iml
+/.idea/
+/.gradle/
+/build/
+/lib/
+/out/
+/classes/
+/idea_modules/
+**/node_modules/
+*.txt
+*.log
+/src/main/resources/resources/js/angular/**/*.js
+/src/main/resources/resources/css/**/*.css
+nodejs
+.tscache

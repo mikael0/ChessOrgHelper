@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    #parse("static/head.vm")
+    <title>Spring Security Example</title>
+</head>
+<html>
+<body>
+
+<h1>Welcome to Stroy Project X!!</h1>
+
+<p><a href="/logout">Logout</a></p>
+
+</body>
+</html>
