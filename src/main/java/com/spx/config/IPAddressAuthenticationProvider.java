@@ -23,7 +23,9 @@ public class IPAddressAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(final Authentication authentication) {
-        final String serviceHostIPAddress = env.getProperty(Application.PROPERTY_SERVICE_HOST_URL);
+
+        //old hardcode
+        final String serviceHostIPAddress = "1.1.1.1";
 
         final WebAuthenticationDetails authDetails = (WebAuthenticationDetails) authentication.getDetails();
         final String userIPAddress = authDetails.getRemoteAddress();

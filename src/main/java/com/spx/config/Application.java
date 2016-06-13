@@ -22,31 +22,8 @@ import java.util.TimeZone;
 public class Application extends SpringBootServletInitializer {
 
     public static final String PROPERTIES_PATH = "classpath:myconfig.properties";
-    public static final String PROPERTY_MYSQL_SERVICE = "mysql.service";
     public static final String PROPERTY_MONGODB_SERVICE = "mongo.service";
-    public static final String PROPERTY_SERVICE_HOST_IP = "service.host.ip";
-    public static final String PROPERTY_SERVICE_HOST_URL = "service.host.url";
-    public static final String PROPERTY_MYSQL_DRIVER_CLASS = "mysql.driverclass";
-    public static final String PROPERTY_MYSQL_URL = "mysql.url";
     public static final String PROPERTY_MONGO_URI = "mongo.uri";
-    public static final String PROPERTY_HDFS_ADDRESS = "hdfs.address";
-    public static final String PROPERTY_HDFS_PATH_FOLDER_MAIN = "hdfs.path.folder.main";
-    public static final String PROPERTY_HDFS_PATH_FOLDER_SYSTEM = "hdfs.path.folder.system";
-    public static final String PROPERTY_HDFS_PATH_FOLDER_USERSPACE = "hdfs.path.folder.userspace";
-    public static final String PROPERTY_HDFS_USERNAME = "hdfs.username";
-    public static final String PROPERTY_HDFS_PATH = "hdfs.path";
-    public static final String PROPERTY_HDFS_BROWSER_PATH = "hdfs.browser.path";
-
-    public static final String PROPERTY_HDFS_BROWSER_FILE_ICON = "hdfs.browser.file";
-    public static final String PROPERTY_HDFS_BROWSER_FOLDER_ICON = "hdfs.browser.folder";
-
-    public static final String MAX_UPLOAD_SIZE = "upload.size";
-
-    public static final String PROPERTY_EMAIL_ADDRESS = "email.address";
-    public static final String PROPERTY_REPORT_FILENAMES = "report.fileNames";
-
-    public static final String PROPERTY_SPARK_APP_NAME = "spark.app.name";
-    public static final String PROPERTY_SPARK_APP_MASTER = "spark.app.master";
 
     public static void main(final String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));

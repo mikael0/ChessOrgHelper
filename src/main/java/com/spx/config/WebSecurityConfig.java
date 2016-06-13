@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        final String hostIp = env.getProperty(Application.PROPERTY_SERVICE_HOST_IP);
+        //final String hostIp = env.getProperty(Application.PROPERTY_SERVICE_HOST_IP);
 
 
         http.csrf().disable();
