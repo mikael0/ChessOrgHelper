@@ -85,6 +85,9 @@ dependencies {
             [group: 'org.mongodb', name: 'mongo-java-driver', version: '3.0.2'],
             [group: 'org.apache.velocity', name: 'velocity', version: '1.7'],
             [group: 'org.apache.commons', name: 'commons-csv', version: 1.1],
+            [group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'],
+            [group: 'hsqldb', name: 'hsqldb', version: '1.8.0.7'],
+
             [group: 'commons-io', name: 'commons-io', version: 2.4],
             [group: 'com.google.code.gson', name: 'gson', version: '1.7.2'],
 

@@ -1,5 +1,6 @@
 package com.spx.config;
 
+import com.spx.config.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -24,6 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
 
     private static RoleHierarchyImpl roleHierarchy() {
@@ -72,12 +76,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth,
-                                final IPAddressAuthenticationProvider ipAddressAuthenticationProvider) throws Exception {
-        auth.authenticationProvider(ipAddressAuthenticationProvider);
-        auth.inMemoryAuthentication().withUser("timofb").password("timofb").roles("SYSTEM_ADMIN");
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("engineer").password("engineer").roles("ENGINEER");
+    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+/*        auth.inMemoryAuthentication().withUser("timofb").password("timofb").roles("SYSTEM_ADMIN");
+        auth.inMemoryAuthentication().withUser("normal").password("normal").roles("USER");
+        auth.inMemoryAuthentication().withUser("engineer").password("engineer").roles("ENGINEER");*/
     }
 
 }
