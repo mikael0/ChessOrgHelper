@@ -9,7 +9,5 @@
 **/node_modules/
 *.txt
 *.log
-/src/main/resources/resources/js/angular/**/*.js
-/src/main/resources/resources/css/**/*.css
 nodejs
 .tscache
