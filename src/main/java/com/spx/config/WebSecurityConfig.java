@@ -2,6 +2,7 @@ package com.spx.config;
 
 import com.spx.config.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -13,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
@@ -46,6 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return handler;
     }
 
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         //final String hostIp = env.getProperty(Application.PROPERTY_SERVICE_HOST_IP);
@@ -77,7 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+        
 /*        auth.inMemoryAuthentication().withUser("timofb").password("timofb").roles("SYSTEM_ADMIN");
         auth.inMemoryAuthentication().withUser("normal").password("normal").roles("USER");
         auth.inMemoryAuthentication().withUser("engineer").password("engineer").roles("ENGINEER");*/
