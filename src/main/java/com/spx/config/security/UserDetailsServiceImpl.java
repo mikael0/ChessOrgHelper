@@ -23,12 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userDao.getUserByLogin(username).get(0);
-        if(user == null) {
-            new UsernameNotFoundException(String.format("Username %s not found", username));
+        try {
+            UserEntity user = userDao.getUserByLogin(username).get(0);
+            String authority = "ADMIN";
+            return new UserDetailsImpl(user, Collections.singleton(new SimpleGrantedAuthority(authority)));
         }
-        String authority = "ADMIN";
-        return new UserDetailsImpl(user, Collections.singleton(new SimpleGrantedAuthority(authority)));
+        catch (IndexOutOfBoundsException ex) {
+            throw new UsernameNotFoundException(String.format("Username %s not found", username));
+        }
     }
 }
 
