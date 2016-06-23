@@ -36,7 +36,6 @@ public class ViewControllers {
         return "index";
     }
 
-
     @RequestMapping(value = "/login")
     public String loginPage() {
         return "login";

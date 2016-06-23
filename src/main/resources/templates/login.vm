@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     #parse("static/head.vm")
-    <title>Spring Security </title>
+    <title>Stroy Project X</title>
 </head>
 <body>
 <div class="container" id="loginContainer">
