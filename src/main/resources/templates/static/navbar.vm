@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    #parse("static/head.vm")
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../test">Stroy Project X</a>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="../test">Home</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="../logout">Logout</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

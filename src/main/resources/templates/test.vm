@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <head>
     #parse("static/head.vm")
+    #parse("static/navbar.vm")
     <title>Stroy Project X</title>
 </head>
 <html>
 <body>
 
-<h1>Welcome to Stroy Project X!!</h1>
-
-<p><a href="/logout">Logout</a></p>
-
+<div class="container">
+    <h1>Welcome to Stroy Project X!!</h1>
+    <img src="img/dom.jpg">
+</div>
 </body>
 </html>

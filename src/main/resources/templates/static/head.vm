@@ -38,12 +38,12 @@
 
 <script src="/resources/lib/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
 
-<script src="/resources/lib/highcharts/js/highstock.js"></script>
+#*<script src="/resources/lib/highcharts/js/highstock.js"></script>*#
 
 <script src="/resources/lib/jstree/js/jstree.js"></script>
 <link href="/resources/lib/jstree/css/style.css" rel="stylesheet"/>
 
-<script src="/resources/lib/jspdf/js/jspdf.debug.js"></script>
+#*<script src="/resources/lib/jspdf/js/jspdf.debug.js"></script>*#
 <script src="/resources/lib/rgbcolor/js/rgbcolor.js"></script>
 <script src="/resources/lib/canvg/js/canvg.js"></script>
 <script src="/resources/lib/exporting/js/exporting.js"></script>

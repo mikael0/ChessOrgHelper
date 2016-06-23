@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <head>
     #parse("static/head.vm")
-    <title>Stroy Project X</title>
+    #parse("static/navbar.vm")
+    <title>Error</title>
 </head>
 <html>
 <body>
 
-<h1>This page doesn't exist</h1>
-
-<p><a href="/test">Main page</a></p>
+<div class="container">
+    <h1>This page doesn't exist</h1>
+</div>
 
 </body>
 </html>
