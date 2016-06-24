@@ -1,6 +1,7 @@
 package com.spx.parsers;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -22,7 +23,8 @@ public class DefSmetaFERParser {
 
     public String getFullHTML() {
         try {
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).timeout(9000)
+                    .get();
             return doc.outerHtml();
         }
         catch (IOException ex) {
