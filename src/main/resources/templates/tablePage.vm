@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    #parse("static/head.vm")
+    #parse("static/navbar.vm")
+    <title>Stroy Project X</title>
+</head>
+<html>
+<body>
+
+<div class="container">
+    <h1>Parser output: </h1>
+</div>
+</body>
+</html>

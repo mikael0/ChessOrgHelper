@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,6 +32,11 @@ public class ViewControllers {
         return "test";
     }
 
+    @RequestMapping(value = "/table")
+    public String parserTestPage(/*final ModelMap model*/) {
+        return "tablePage";
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String logoutPage() {
         return "index";
@@ -40,6 +46,8 @@ public class ViewControllers {
     public String loginPage() {
         return "login";
     }
+
+
 
 
 

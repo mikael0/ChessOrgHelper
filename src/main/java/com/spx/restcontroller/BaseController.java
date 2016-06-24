@@ -1,6 +1,7 @@
 package com.spx.restcontroller;
 
 
+import com.spx.parsers.DefSmetaFERParser;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,10 +19,15 @@ public class BaseController {
 
     @RequestMapping("/hello")
     public String sayHello(final Principal principal,
-                                             @RequestParam(value = "onlyDirectories", required = false) final boolean onlyDirectories,
-                                             @RequestParam("path") String path,
-                                             @RequestParam(value = "endPath", required = false) final String endPath) {
+                                             @RequestParam(value = "onlyDirectories", required = false) final boolean onlyDirectories) {
         return "hello";
+    }
+
+    @RequestMapping("/parser")
+    public String parser(final Principal principal,
+                           @RequestParam(value = "url", required = false) final String url) {
+        DefSmetaFERParser parser = new DefSmetaFERParser(url);
+        return parser.getFullHTML();
     }
 
 }
