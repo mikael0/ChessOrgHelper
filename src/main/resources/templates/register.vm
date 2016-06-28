@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="registration">
+<html>
     <head>
         #parse("static/head.vm")
         <script src="/resources/js/register/_module.js"></script>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div ng-app="Register" ng-controller="RegistrationController" flex layout="row" layout-align="center center">
+    <div ng-app="Register" ng-controller="RegisterController" flex layout="row" layout-align="center center">
         <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="50" class="md-whiteframe-z2">
             <md-content class="md-padding">
                 <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
