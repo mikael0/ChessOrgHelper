@@ -1,4 +1,4 @@
-package com.spx.config.security;
+package com.spx.service.security;
 
 import com.spx.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;

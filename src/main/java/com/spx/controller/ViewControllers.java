@@ -47,7 +47,10 @@ public class ViewControllers {
         return "login";
     }
 
-
+    @RequestMapping(value = "/register")
+    public String registerPage() {
+        return "register";
+    }
 
 
 

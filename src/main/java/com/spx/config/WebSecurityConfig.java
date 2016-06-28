@@ -1,6 +1,6 @@
 package com.spx.config;
 
-import com.spx.config.security.UserDetailsServiceImpl;
+import com.spx.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .expressionHandler(webExpressionHandler())
                 .antMatchers("/").permitAll() // '/**' permit all requests, change it to '/'.
-                .antMatchers("/rest/service/**").permitAll() //TODO: check if it service machine trying to access
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/rest/user/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

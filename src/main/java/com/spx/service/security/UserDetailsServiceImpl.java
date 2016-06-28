@@ -1,9 +1,8 @@
-package com.spx.config.security;
+package com.spx.service.security;
 
 import com.spx.dao.UserDao;
 import com.spx.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

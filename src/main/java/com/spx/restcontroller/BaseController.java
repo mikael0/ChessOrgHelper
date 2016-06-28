@@ -13,7 +13,7 @@ import java.security.Principal;
  * Created by timofb on 15-Feb-16.
  */
 @RestController
-@RequestMapping("/base")
+@RequestMapping("/rest/base")
 public class BaseController {
     private static final Logger LOGGER = Logger.getLogger(BaseController.class);
 
@@ -23,11 +23,14 @@ public class BaseController {
         return "hello";
     }
 
+    @Deprecated
     @RequestMapping("/parser")
     public String parser(final Principal principal,
                            @RequestParam(value = "url", required = false) final String url) {
         DefSmetaFERParser parser = new DefSmetaFERParser(url);
         return parser.getFullHTML();
     }
+
+
 
 }

@@ -61,4 +61,16 @@ public class UserDaoImpl implements UserDao{
             session.close();
         }
     }
+
+    @Override
+    public int addUser(final UserEntity userEntity) {
+        final Session session = this.sessionFactory.openSession();
+        try {
+            LOGGER.info("Add user to database in UserDAO:");
+            LOGGER.info(userEntity.toString());
+            return (Integer) session.save(userEntity);
+        } finally {
+            session.close();
+        }
+    }
 }

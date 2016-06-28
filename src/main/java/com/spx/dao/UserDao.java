@@ -11,4 +11,6 @@ public interface UserDao {
     List<UserEntity> userList();
     UserEntity getUserById(int id);
     List<UserEntity> getUserByLogin(String login);
+    int addUser(final UserEntity userEntity);
+
 }
