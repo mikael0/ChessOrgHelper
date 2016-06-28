@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .expressionHandler(webExpressionHandler())
                 .antMatchers("/").permitAll() // '/**' permit all requests, change it to '/'.
                 .antMatchers("/register/**").permitAll()
+                .antMatchers("/contruct/**").permitAll()
                 .antMatchers("/rest/user/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -75,6 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?auth=logout").permitAll()
                 .and().rememberMe().tokenValiditySeconds(Integer.MAX_VALUE);
+
+
     }
 
     @Override

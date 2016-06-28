@@ -4,10 +4,11 @@
   "dependencies": {
     "jquery": "latest",
     "font-awesome": "latest",
-    "angular-ui-router" : "latest",
-    "angular" : "latest",
-    "angular-material" : "latest",
-    "angular-aria" : "latest",
-    "angular-animate" : "latest"
+    "angular-ui-router": "latest",
+    "angular": "latest",
+    "angular-material": "latest",
+    "angular-aria": "latest",
+    "angular-animate": "latest",
+    "threejs": "latest"
   }
 }

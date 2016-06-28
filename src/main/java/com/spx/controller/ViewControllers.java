@@ -52,6 +52,10 @@ public class ViewControllers {
         return "register";
     }
 
+    @RequestMapping(value = "/contruct")
+    public String contruct() {
+        return "contruct";
+    }
 
 
 }
