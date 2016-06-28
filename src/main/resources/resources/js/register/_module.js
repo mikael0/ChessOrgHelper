@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
  /**
  * @module
- * @name Register
+ * @name RegisterModule
  */
- 
-angular.module('Register', []);
+
+ var RegisterModule = angular.module('Register', ['ngMaterial']);
