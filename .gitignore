@@ -11,3 +11,10 @@
 *.log
 nodejs
 .tscache
+/caches/
+/wrapper/
+/gradle/
+/daemon/
+/native/
+gradlew
+gradlew.bat

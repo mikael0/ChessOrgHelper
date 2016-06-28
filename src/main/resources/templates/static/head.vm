@@ -1,53 +1,10 @@
-<link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="/resources/lib/jquery/js/jquery-2.1.4.js"></script>
 
-<link href="/resources/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
-<link href="/resources/lib/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet"/>
-<link href="/resources/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet"/>
-<script src="/resources/lib/jquery-ui/jquery-ui.min.js"></script>
-
-<script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="/resources/lib/angularjs/angular.min.js"></script>
-
-<script src="/resources/lib/angularjs/angular-animate.min.js"></script>
-
-<script src="/resources/lib/angularjs/ui/sortable.js"></script>
-<script src="/resources/lib/angularjs/ui/ui-bootstrap-tpls-1.1.2.min.js"></script>
-
-<link href="/resources/lib/angularjs/ui-grid/ui-grid.min.css" rel="stylesheet"/>
-
-<script src="/resources/lib/angularjs/ui-grid/ui-grid.min.js"></script>
-
-<script src="/resources/lib/angularjs/plugins/fileupload/ng-file-upload-all.min.js"></script>
-
-<script src="/resources/lib/angularjs/plugins/tagsinput/ng-tags-input.min.js"></script>
-<link href="/resources/lib/angularjs/plugins/tagsinput/ng-tags-input.min.css" rel="stylesheet"/>
-<link href="/resources/lib/angularjs/plugins/tagsinput/ng-tags-input.bootstrap.min.css" rel="stylesheet"/>
-
-
-
-<link href="/resources/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-
-<link href="/resources/lib/sweetalert/css/sweetalert.css" rel="stylesheet"/>
-<script src="/resources/lib/sweetalert/js/sweetalert.min.js"></script>
-
-<script src="/resources/lib/validator/js/validator.js"></script>
-
-<script src="/resources/lib/momentjs/moment-with-locales.js"></script>
-
-<script src="/resources/lib/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
-
-#*<script src="/resources/lib/highcharts/js/highstock.js"></script>*#
-
-<script src="/resources/lib/jstree/js/jstree.js"></script>
-<link href="/resources/lib/jstree/css/style.css" rel="stylesheet"/>
-
-#*<script src="/resources/lib/jspdf/js/jspdf.debug.js"></script>*#
-<script src="/resources/lib/rgbcolor/js/rgbcolor.js"></script>
-<script src="/resources/lib/canvg/js/canvg.js"></script>
-
-
-<link href="/resources/css/index.css" rel="stylesheet"/>
-
+#*****************BOWER DEPENDENCIES************************#
+<link rel="stylesheet" href="/resources/lib/bower_components/angular-material/angular-material.css">
+<script src="/resources/lib/bower_components/jquery/dist/jquery.js"></script>
+<script src="/resources/lib/bower_components/angular/angular.js"></script>
+<script src="/resources/lib/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/resources/lib/bower_components/angular/angular.js"></script>
+<script src="/resources/lib/bower_components/angular-material/angular-material.js"></script>
+<script src="/resources/lib/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
