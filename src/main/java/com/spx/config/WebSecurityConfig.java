@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .expressionHandler(webExpressionHandler())
                 .antMatchers("/").permitAll() // '/**' permit all requests, change it to '/'.
                 .antMatchers("/register/**").permitAll()
-                .antMatchers("/contruct/**").permitAll()
+                .antMatchers("/construct/**").permitAll()
                 .antMatchers("/rest/user/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
