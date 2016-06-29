@@ -10,7 +10,7 @@
 
 4) View -> Tool Windows -> Gradle -> Refresh All Gradle Projects (первая кнопка на панели, 'обновить')
 
-5) Зайти в директорию проекта /resources/resources/lib и выполнить update bower для установки зависимостей 
+5) зайти в директорию проекта /resources/resources/lib и выполнить update bower для установки зависимостей 
 
 6) запустить src/main/java/com/spx/config/Application.java (правая кнопка мыши -> run Application.main())
 
