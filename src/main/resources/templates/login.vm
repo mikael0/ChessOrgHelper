@@ -4,27 +4,33 @@
     <title>Stroy Project X</title>
 </head>
 <body>
-<div class="container" id="loginContainer">
-    <div class="card card-container">
-        <form action="/login" method="POST" class="form-signin">
 
-            <div class="form-group">
-                <label>Login</label>
-                <input type="text" class="form-control" name="username" placeholder="Login" required=""/>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
-            </div>
-##            <div class="form-group">
-##                <input type="checkbox" name="_spring_security_remember_me"/>
-##            </div>
-            <div class="form-group">
-                <a href="/register" class="btn btn-lg btn-info btn-block">Register</a>
-            </div>
-            <div><input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Sign In"/></div>
-        </form>
-    </div>
+<div ng-controller="LoginController" ng-cloak ng-app="Login">
+    <form action="/login" method="POST" class="form-signin">
+        <md-card flex-offset="30" flex="40" class="md-whiteframe-7dp">
+            <md-content class="md-no-momentum">
+
+                <md-input-container class="md-block" layout="row"">
+                    <md-icon md-svg-src='/resources/svg/mail.svg'></md-icon>
+                    <label>Login</label>
+                    <input name="username" type="text" ng-required="true">
+                </md-input-container>
+
+                <md-input-container class="md-block" layout="row">
+                    <md-icon md-svg-src='/resources/svg/pin-code.svg'></md-icon>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-required="true">
+                </md-input-container>
+
+                <md-input-container layout="row" layout-align="center">
+                    <md-button type="submit" class="md-raised md-primary">Register</md-button>
+                </md-input-container>
+
+            </md-content>
+        </md-card>
+    </form>
 </div>
 
+<script src="/resources/js/login/_module.js"></script>
+<script src="/resources/js/login/login-controller.js"></script>
 </body>
