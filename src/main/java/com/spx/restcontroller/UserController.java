@@ -2,16 +2,14 @@ package com.spx.restcontroller;
 
 import com.spx.dao.UserDao;
 import com.spx.entity.UserEntity;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
@@ -32,7 +30,8 @@ public class UserController {
     PasswordEncoder encoder;
 
 
-    @RequestMapping("/register")
+    @ApiOperation(value = "Register new user")
+    @RequestMapping(value = "/register",  method = RequestMethod.POST)
     public ResponseEntity<String> registerUser(@RequestBody UserEntity user) {
         if ((user == null) || (user.getEmail() == null) || (user.getPassword() == null)) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);

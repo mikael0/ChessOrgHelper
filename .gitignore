@@ -2,7 +2,7 @@
 /.idea/
 /.gradle/
 /build/
-/lib/
+/lib/bower_components
 /out/
 /classes/
 /idea_modules/

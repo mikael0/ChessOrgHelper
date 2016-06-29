@@ -9,7 +9,7 @@
 
 <div class="container">
     <h1>Welcome to Stroy Project X!!</h1>
-    <img src="img/dom.jpg">
+    <img src="/resources/img/dom.jpg">
 </div>
 </body>
 </html>
