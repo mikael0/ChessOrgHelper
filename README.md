@@ -30,4 +30,16 @@
 
 5) теперь в случае обновления фронтенда не надо перезагружать сервер, достаточно вызвать Update
 
+------------------------
+Работа с Bower
+
+1)для установки и работы bower нужен npm, выполняем curl https://npmjs.org/install.sh | sh
+
+2)для установки bower выполняем npm install -g bower
+
+3)чтобы подтянуть все зависимости из нашего bower.json (расположен /resources/resources/lib) выполняем bower update
+
+4)для установки какого либо пакета, либо добавляем его в bower.json и затем выполняем bower update, либо выполняем bower install <package_name> --save
+
+
 
