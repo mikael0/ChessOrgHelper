@@ -57,5 +57,10 @@ public class ViewControllers {
         return "construct";
     }
 
+    @RequestMapping(value = "/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
+
 
 }
