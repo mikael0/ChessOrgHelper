@@ -1,8 +1,8 @@
-/*
-package com.emc.config;
+package com.spx.config;
 
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
+import com.spx.config.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.CloudFactory;
@@ -35,11 +35,6 @@ public class CloudDataSourceConfig {
     }
 
     @Bean
-    public DataSource mySqlDataSource() {
-        return cloud().getServiceConnector(env.getProperty(Application.PROPERTY_MYSQL_SERVICE), DataSource.class, null);
-    }
-
-    @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         final MongoClientURI mongoClientURI = new MongoClientURI(env.getProperty(Application.PROPERTY_MONGO_URI));
         return new SimpleMongoDbFactory(mongoClientURI);
@@ -68,5 +63,5 @@ public class CloudDataSourceConfig {
 }
 
 
-*/
+
 

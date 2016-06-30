@@ -1,3 +1,4 @@
+/*
 package com.spx.dao;
 
 import com.spx.entity.UserEntity;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+*/
 /**
  * Created by timofb on 21-Jun-16.
- */
+ *//*
+
 @Repository
 public class UserDaoImpl implements UserDao{
 
@@ -34,10 +37,12 @@ public class UserDaoImpl implements UserDao{
             session.close();
         }
 
+*/
 /*        String sql = "SELECT * FROM USERS";
         SQLQuery query = session.createSQLQuery(sql);
         query.addEntity(UserEntity.class);
-        return query.list();*/
+        return query.list();*//*
+
     }
 
     @Override
@@ -74,3 +79,4 @@ public class UserDaoImpl implements UserDao{
         }
     }
 }
+*/

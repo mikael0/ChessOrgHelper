@@ -1,4 +1,4 @@
-/*
+
 package com.spx.dao.mongo;
 
 import com.spx.dao.UserDao;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-*/
+
 /**
  * Created by timofb on 28-Jun-16.
- *//*
+ */
 
 @Repository
 public class MongoUserDaoImpl implements UserDao{
@@ -40,13 +40,13 @@ public class MongoUserDaoImpl implements UserDao{
 
     @Override
     public UserEntity getUserById(int id) {
-        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("_id").is(id));
+        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("id").is(id));
         return mongoOperations.findOne(query, UserEntity.class, COLLECTION_NAME);
     }
 
     @Override
     public List<UserEntity> getUserByLogin(String login) {
-        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("_login").is(login));
+        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("login").is(login));
         return mongoOperations.find(query, UserEntity.class, COLLECTION_NAME);
     }
 
@@ -57,4 +57,4 @@ public class MongoUserDaoImpl implements UserDao{
     }
 
 }
-*/
+

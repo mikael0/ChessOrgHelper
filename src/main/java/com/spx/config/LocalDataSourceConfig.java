@@ -29,17 +29,7 @@ public class LocalDataSourceConfig {
     @Autowired
     Environment env;
 
-
 /*    @Bean
-    public DriverManagerDataSource mySqlDataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.
-        dataSource.setDriverClassName(env.getProperty(Application.PROPERTY_MYSQL_DRIVER_CLASS));
-        dataSource.setUrl(env.getProperty(Application.PROPERTY_MYSQL_URL));
-        return dataSource;
-    }*/
-
-    @Bean
     public DataSource testDataSource() {
             return new EmbeddedDatabaseBuilder()
                     .setType(EmbeddedDatabaseType.HSQL)
@@ -47,12 +37,9 @@ public class LocalDataSourceConfig {
                     .addScript("classpath:db/test-data.sql")
                     .build();
 
-    }
+    }*/
 
-
-
-
-/*    @Bean
+    @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         final MongoClientURI mongoClientURI = new MongoClientURI(env.getProperty(Application.PROPERTY_MONGO_URI));
         return new SimpleMongoDbFactory(mongoClientURI);
@@ -63,5 +50,6 @@ public class LocalDataSourceConfig {
         final MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
         mongoTemplate.setWriteConcern(WriteConcern.SAFE);
         return mongoTemplate;
-    }*/
+    }
+
 }
