@@ -12,18 +12,18 @@
         <div layout="column" class="md-toolbar-tools-bottom inset">
             <user-avatar></user-avatar>
             <span></span>
-            <div>Nikita soset pisos</div>
+            <div>User</div>
         </div>
     </md-toolbar>
 
     <md-list>
-        <md-item ng-repeat="item in modules">
+        <md-list-item ng-repeat="item in modules" ng-click="toggle(item, selected)">
             <a style="cursor:pointer">
                 <md-item-content layout="row" layout-align="start center">
-                    <md-button md-ink-ripple class="md-primary">{{item.title}}</md-button>
+                    {{item.title}}
                 </md-item-content>
             </a>
-        </md-item>
+        </md-list-item>
     </md-list>
     <md-divider></md-divider>
     <md-input-container layout="row" layout-align="center">
