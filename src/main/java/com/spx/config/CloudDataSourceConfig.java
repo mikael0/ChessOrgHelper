@@ -34,6 +34,7 @@ public class CloudDataSourceConfig {
         return new CloudFactory().getCloud();
     }
 
+/*
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         final MongoClientURI mongoClientURI = new MongoClientURI(env.getProperty(Application.PROPERTY_MONGO_URI));
@@ -46,6 +47,7 @@ public class CloudDataSourceConfig {
         mongoTemplate.setWriteConcern(WriteConcern.SAFE);
         return mongoTemplate;
     }
+*/
 
 
 //    @Bean

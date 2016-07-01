@@ -2,6 +2,8 @@ package com.spx.config;
 
 import com.spx.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,8 +18,27 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.filter.CompositeFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Configuration
@@ -96,5 +117,69 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("normal").password("normal").roles("USER");
         auth.inMemoryAuthentication().withUser("engineer").password("engineer").roles("ENGINEER");*/
     }
+
+
+
+
+
+
+ /*   @Bean
+    public FilterRegistrationBean oauth2ClientFilterRegistration(
+            OAuth2ClientContextFilter filter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(filter);
+        registration.setOrder(-100);
+        return registration;
+    }
+
+
+    private Filter ssoFilter() {
+        CompositeFilter filter = new CompositeFilter();
+        List<Filter> filters = new ArrayList<>();
+        filters.add(ssoFilter(facebook(), "/login/facebook"));
+        filters.add(ssoFilter(github(), "/login/github"));
+        filter.setFilters(filters);
+        return filter;
+    }
+
+    private Filter ssoFilter(ClientResources client, String path) {
+        OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
+                path);
+        OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(client.getClient(),
+                oauth2ClientContext);
+        facebookFilter.setRestTemplate(facebookTemplate);
+        facebookFilter.setTokenServices(new UserInfoTokenServices(
+                client.getResource().getUserInfoUri(), client.getClient().getClientId()));
+        return facebookFilter;
+    }
+
+    private Filter csrfHeaderFilter() {
+        return new OncePerRequestFilter() {
+            @Override
+            protected void doFilterInternal(HttpServletRequest request,
+                                            HttpServletResponse response, FilterChain filterChain)
+                    throws ServletException, IOException {
+                CsrfToken csrf = (CsrfToken) request
+                        .getAttribute(CsrfToken.class.getName());
+                if (csrf != null) {
+                    Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
+                    String token = csrf.getToken();
+                    if (cookie == null
+                            || token != null && !token.equals(cookie.getValue())) {
+                        cookie = new Cookie("XSRF-TOKEN", token);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                    }
+                }
+                filterChain.doFilter(request, response);
+            }
+        };
+    }
+
+    private CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
+    }*/
 
 }
