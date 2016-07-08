@@ -26,6 +26,10 @@
                     <md-button type="submit" class="md-raised md-primary">Login</md-button>
                 </md-input-container>
 
+                <md-input-container layout="row" layout-align="center">
+                    <a href="/login">Login with Facebook</a>
+                </md-input-container>
+
             </md-content>
         </md-card>
     </form>

@@ -16,8 +16,8 @@ import java.util.TimeZone;
 
 
 @SpringBootApplication
+//@EnableCaching
 @EnableAutoConfiguration
-@EnableCaching
 @EnableSpringConfigured
 @ComponentScan("com.spx")
 public class Application extends SpringBootServletInitializer {
@@ -31,10 +31,10 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
+   /* @Bean
     public CacheManager cacheManager() {
         return new ConcurrentMapCacheManager("storageList");
-    }
+    }*/
 
 }
 

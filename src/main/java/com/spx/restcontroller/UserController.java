@@ -40,4 +40,9 @@ public class UserController {
         userDao.addUser(user);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
+
+    @RequestMapping("/details")
+    public Principal user(Principal principal) {
+        return principal;
+    }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-DashboardModule.controller("DashboardController", function($scope, $location, $window) {
+DashboardModule.controller("DashboardController", function($scope, $http, $location, $window) {
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -21,7 +21,14 @@ DashboardModule.controller("DashboardController", function($scope, $location, $w
     
     this.logout = function(){
         //console.log($location)
-        $window.location = '../logout'
+        //$window.location = '../logout';
+        $http.post('logout', {}).success(function() {
+            var link = window.location.href;
+            var href = link.substr(0, link.indexOf("/"));
+            window.location = href;
+        }).error(function(data) {
+            console.log("Logout failed");
+        });
     }
 
 });

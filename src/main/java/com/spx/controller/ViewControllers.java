@@ -42,10 +42,10 @@ public class ViewControllers {
         return "index";
     }
 
-    @RequestMapping(value = "/login")
+/*    @RequestMapping(value = "/login")
     public String loginPage() {
         return "login";
-    }
+    }*/
 
     @RequestMapping(value = "/register")
     public String registerPage() {

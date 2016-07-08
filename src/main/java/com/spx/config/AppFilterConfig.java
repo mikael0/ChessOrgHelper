@@ -2,7 +2,9 @@ package com.spx.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;
@@ -10,7 +12,7 @@ import javax.servlet.*;
 /**
  * Created by timofb on 24-Dec-15.
  */
-@Configuration
+//@Configuration
 public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -18,8 +20,9 @@ public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletIn
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF8");
         filter.setForceEncoding(true);
-        Filter[] filters = new Filter[1];
+        Filter[] filters = new Filter[2];
         filters[0] = filter;
+        filters[1] = new RequestContextFilter();
         return filters;
     }
 
@@ -61,6 +64,14 @@ public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletIn
 
         registration.setMultipartConfig(multipartConfigElement);*/
 
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+
+        super.onStartup(servletContext);
+        //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        servletContext.addListener(new RequestContextListener());
     }
 
 
