@@ -1,5 +1,5 @@
 
-package com.spx.dao.mongo;
+package com.spx.dao;
 
 import com.spx.dao.UserDao;
 import com.spx.entity.UserEntity;
