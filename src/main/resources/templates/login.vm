@@ -6,10 +6,10 @@
 <body>
 
 <div ng-controller="LoginController" ng-cloak ng-app="Login">
-    <form action="/login" method="POST" class="form-signin">
+    <iframe name="hiddenFrame" class="hide"></iframe>
+    <form action="/rest/user/formlogin" method="POST" class="form-signin" target="hiddenFrame" onsubmit="window.location.reload();">
         <md-card flex-offset="30" flex="40" class="md-whiteframe-7dp">
             <md-content class="md-no-momentum">
-
                 <md-input-container class="md-block" layout="row"">
                     <md-icon md-svg-src='/resources/svg/mail.svg'></md-icon>
                     <label>Login</label>
@@ -20,6 +20,7 @@
                     <md-icon md-svg-src='/resources/svg/pin-code.svg'></md-icon>
                     <label>Password</label>
                     <input name="password" type="password" ng-required="true">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </md-input-container>
 
                 <md-input-container layout="row" layout-align="center">

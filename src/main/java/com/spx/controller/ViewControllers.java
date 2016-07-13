@@ -6,9 +6,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @SuppressWarnings("HardcodedFileSeparator")
@@ -23,8 +27,14 @@ public class ViewControllers {
     private Environment environment;
 
     @RequestMapping(value = "/")
-    public String startPage() {
-        return "login";
+    public ModelAndView startPage(HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        ModelAndView model = new ModelAndView();
+        if (csrfToken != null) {
+            model.addObject("_csrf",csrfToken);
+        }
+        model.setViewName("login");
+        return model;
     }
 
     @RequestMapping(value = "/test")

@@ -70,7 +70,6 @@ public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletIn
     public void onStartup(ServletContext servletContext) throws ServletException {
 
         super.onStartup(servletContext);
-        //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         servletContext.addListener(new RequestContextListener());
     }
 
