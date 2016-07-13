@@ -1,6 +1,6 @@
 'use strict';
 
-RegisterModule.controller("RegisterController", function($scope, $http, $location) {
+RegisterModule.controller("RegisterController", function ($scope, $http, $location) {
     $scope.user = {};
     $scope.submit = function () {
         console.log("register!");
