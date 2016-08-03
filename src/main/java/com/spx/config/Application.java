@@ -1,5 +1,7 @@
 package com.spx.config;
 
+import com.spx.email.EmailEntity;
+import com.spx.email.EmailSender;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +31,8 @@ public class Application extends SpringBootServletInitializer {
     public static void main(final String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(Application.class, args);
+/*        EmailSender emailSender = new EmailSender("timofeevbog@gmail.com", "somepass");
+        emailSender.sendEmail(new EmailEntity("timofeevbog@gmail.com", "<html/>", "spx"));*/
     }
 
    /* @Bean
