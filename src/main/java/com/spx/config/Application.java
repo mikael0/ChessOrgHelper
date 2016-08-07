@@ -27,12 +27,14 @@ public class Application extends SpringBootServletInitializer {
     public static final String PROPERTIES_PATH = "classpath:myconfig.properties";
     public static final String PROPERTY_MONGODB_SERVICE = "mongo.service";
     public static final String PROPERTY_MONGO_URI = "mongo.uri";
+    public static final String EMAIL_HOST = "mail.smtp.host";
+    public static final String EMAIL_PORT = "mail.smtp.port";
+    public static final String EMAIL_ADDRESS = "mail.address";
+    public static final String EMAIL_PASSWORD = "mail.password";
 
     public static void main(final String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(Application.class, args);
-/*        EmailSender emailSender = new EmailSender("timofeevbog@gmail.com", "somepass");
-        emailSender.sendEmail(new EmailEntity("timofeevbog@gmail.com", "<html/>", "spx"));*/
     }
 
    /* @Bean

@@ -8,19 +8,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USERS")
 public class UserEntity {
-    private int sysId;
+    private String id;
     private String login;
     private String password;
     private String email;
+    private boolean activated;
 
     @Id
-    @Column(name = "SYS_ID", nullable = false)
-    public int getSysId() {
-        return sysId;
+    @Column(name = "_ID", nullable = false)
+    public String getId() {
+        return id;
     }
 
-    public void setSysId(int sysId) {
-        this.sysId = sysId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Basic
@@ -53,6 +54,16 @@ public class UserEntity {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "ACTIVATED", nullable = false)
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,20 +71,22 @@ public class UserEntity {
 
         UserEntity that = (UserEntity) o;
 
-        if (sysId != that.sysId) return false;
+        if (id != that.id) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
-
+        if (activated != that.activated) return false;
+        
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = sysId;
+        int result = id.hashCode();
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (activated != true ? 1 : 0);
         return result;
     }
 }

@@ -9,8 +9,9 @@ import java.util.List;
  */
 public interface UserDao {
     List<UserEntity> userList();
-    UserEntity getUserById(int id);
+    UserEntity getUserById(String id);
     List<UserEntity> getUserByLogin(String login);
-    int addUser(final UserEntity userEntity);
+    void activate(String id);
+    String addUser(final UserEntity userEntity);
 
 }

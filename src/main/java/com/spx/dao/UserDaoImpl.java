@@ -39,8 +39,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public UserEntity getUserById(int id) {
-        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("id").is(id));
+    public UserEntity getUserById(String id) {
+        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("_id").is(id));
         return mongoOperations.findOne(query, UserEntity.class, COLLECTION_NAME);
     }
 
@@ -51,9 +51,15 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public int addUser(final UserEntity userEntity) {
+    public String addUser(final UserEntity userEntity) {
         mongoOperations.insert(userEntity, COLLECTION_NAME);
-        return 1;
+        return userEntity.getId();
     }
 
+    @Override
+    public void activate(String id) {
+        UserEntity user = getUserById(id);
+        user.setActivated(true);
+        mongoOperations.save(user, COLLECTION_NAME);
+    }
 }

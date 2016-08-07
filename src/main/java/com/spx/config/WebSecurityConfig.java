@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/construct/**").permitAll()
                     .antMatchers("/rest/user/register/**").permitAll()
                     .antMatchers("/rest/user/formlogin/**").permitAll()
+                    .antMatchers("/rest/user/activate/**").permitAll()
                     .anyRequest()
                     .authenticated().and().logout().logoutSuccessUrl("/").permitAll()
                     .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))

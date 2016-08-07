@@ -14,21 +14,28 @@ public class EmailSender {
 
     private String fromAddress;
     private String fromPassword;
+    private String host;
+    private int port;
     private static final Logger LOGGER = Logger.getLogger(EmailSender.class);
 
 
-    public EmailSender(String fromAddress, String fromPassword) {
+    public EmailSender(String fromAddress, String fromPassword, String host, int port) {
         this.fromAddress = fromAddress;
         this.fromPassword = fromPassword;
+        this.host = host;
+        this.port = port;
     }
 
     public void sendEmail(EmailEntity entity) {
 
         Properties properties = System.getProperties();
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.ssl.enable", "true");
+
+        properties.put("mail.smtp.port", port);
         
 
         Session session = Session.getInstance(properties,

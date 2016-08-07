@@ -30,6 +30,12 @@
                 <input ng-model="user.password" type="password" ng-required="true">
             </md-input-container>
 
+            <md-input-container class="md-block" layout="row">
+                <md-icon md-svg-src='/resources/svg/pin-code.svg'></md-icon>
+                <label>Confirm password</label>
+                <input ng-model="confirm.password" type="password" ng-required="true">
+            </md-input-container>
+
             <md-input-container layout="row" layout-align="center">
                 <md-button ng-click="submit()" class="md-raised md-primary">Register</md-button>
             </md-input-container>

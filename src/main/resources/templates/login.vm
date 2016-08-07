@@ -32,6 +32,10 @@
                     <a href="/login">Login with Facebook</a>
                 </md-input-container>
 
+                <md-input-container layout="row" layout-align="center">
+                    <a href="/register">Register</a>
+                </md-input-container>
+
             </md-content>
         </md-card>
     </form>
