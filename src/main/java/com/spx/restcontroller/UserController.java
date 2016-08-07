@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +64,7 @@ public class UserController {
 
     @ApiOperation(value = "Form login")
     @RequestMapping(value = "/formlogin",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<String> formLogin(HttpServletRequest request) {
+    public ResponseEntity<String> formLogin(HttpServletRequest request, ModelMap model) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         String user = parameterMap.get("username")[0];
         String password = parameterMap.get("password")[0];

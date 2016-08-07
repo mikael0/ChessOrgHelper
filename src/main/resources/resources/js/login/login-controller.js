@@ -15,7 +15,22 @@ LoginModule.controller("LoginController", function ($scope, $http) {
     }
     $scope.redirect();
     $scope.submit = function () {
-        $scope.redirect();
+        var csrf_name = document.getElementById('csrf').name;
+        var csrf_value = document.getElementById('csrf').value;
+        var data = 'username=' + $scope.user.username + "&password=" + $scope.user.password + "&" + csrf_name + "=" + csrf_value;
+
+        $http({
+            method: 'POST',
+            url: "/rest/user/formlogin",
+            data: data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            var link = window.location.href;
+            var href = link.substr(0, link.indexOf("/", 8));
+            console.log(data);
+            window.location = href + "/dashboard";
+        }).error(function () {
+        });
     }
 
 });

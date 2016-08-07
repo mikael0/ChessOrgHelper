@@ -6,7 +6,7 @@ DashboardModule.controller("DashboardController", function ($scope, $http, $loca
     };
     $scope.modules = [
         {
-            link: '',
+            link: '/construct',
             title: 'Constructor',
         },
         {
