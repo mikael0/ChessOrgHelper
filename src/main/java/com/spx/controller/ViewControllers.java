@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 @SuppressWarnings("HardcodedFileSeparator")
@@ -75,13 +79,18 @@ public class ViewControllers {
     @RequestMapping(value = "/dashboard")
     public String dashboard(Principal principal) {
         String currUserId;
-        if (userDao.getUserByLogin(principal.getName(), true).size() == 0) {
+
+        if ((userDao.getUserByLogin(principal.getName(), false).size() == 0) &&
+                (userDao.getUserByLogin(principal.getName(), true).size() == 0))  {
             UserEntity externalUser = new UserEntity();
             UserEntity userEntity = new UserEntity();
             userEntity.setLogin(principal.getName());
             userEntity.setExternal(true);
             currUserId = userDao.addUser(userEntity);
         }
+
+
+
         return "dashboard";
     }
 
