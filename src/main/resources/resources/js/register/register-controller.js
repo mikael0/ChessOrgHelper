@@ -19,6 +19,7 @@ RegisterModule.controller("RegisterController", function ($scope, $http, $locati
             }
         });
     };
+
 });
 
 //exports.RegistrationController = RegistrationController;

@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserDao {
     List<UserEntity> userList();
     UserEntity getUserById(String id);
-    List<UserEntity> getUserByLogin(String login);
+    List<UserEntity> getUserByLogin(String login, boolean external);
     void activate(String id);
     String addUser(final UserEntity userEntity);
 

@@ -13,6 +13,7 @@ public class UserEntity {
     private String password;
     private String email;
     private boolean activated;
+    private boolean external;
 
     @Id
     @Column(name = "_ID", nullable = false)
@@ -50,8 +51,19 @@ public class UserEntity {
         return email;
     }
 
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Basic
+    @Column(name = "EXTERNAL")
+    public boolean isExternal() {
+        return external;
+    }
+
+    public void setExternal(boolean isExternal) {
+        this.external = isExternal;
     }
 
     @Basic
@@ -76,6 +88,7 @@ public class UserEntity {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (activated != that.activated) return false;
+        if (external != that.external) return false;
         
         return true;
     }

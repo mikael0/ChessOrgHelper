@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            UserEntity user = userDao.getUserByLogin(username).get(0);
+            UserEntity user = userDao.getUserByLogin(username, false).get(0);
             String authority = "ADMIN";
             return new UserDetailsImpl(user, Collections.singleton(new SimpleGrantedAuthority(authority)));
         }

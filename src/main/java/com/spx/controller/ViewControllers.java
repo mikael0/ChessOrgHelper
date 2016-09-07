@@ -2,17 +2,19 @@ package com.spx.controller;
 
 import com.spx.config.Application;
 
+import com.spx.dao.UserDao;
+import com.spx.entity.UserEntity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 
 @SuppressWarnings("HardcodedFileSeparator")
@@ -25,6 +27,9 @@ public class ViewControllers {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(value = "/")
     public ModelAndView startPage(HttpServletRequest request) {
@@ -68,7 +73,15 @@ public class ViewControllers {
     }
 
     @RequestMapping(value = "/dashboard")
-    public String dashboard() {
+    public String dashboard(Principal principal) {
+        String currUserId;
+        if (userDao.getUserByLogin(principal.getName(), true).size() == 0) {
+            UserEntity externalUser = new UserEntity();
+            UserEntity userEntity = new UserEntity();
+            userEntity.setLogin(principal.getName());
+            userEntity.setExternal(true);
+            currUserId = userDao.addUser(userEntity);
+        }
         return "dashboard";
     }
 

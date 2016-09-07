@@ -45,8 +45,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public List<UserEntity> getUserByLogin(String login) {
-        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("login").is(login));
+    public List<UserEntity> getUserByLogin(String login, boolean external) {
+        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("login").is(login).where("external").is(external));
         return mongoOperations.find(query, UserEntity.class, COLLECTION_NAME);
     }
 

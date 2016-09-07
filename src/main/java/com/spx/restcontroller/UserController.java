@@ -56,7 +56,8 @@ public class UserController {
         if ((user == null) || (user.getEmail() == null) || (user.getPassword() == null)) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
-        if (userDao.getUserByLogin(user.getLogin()).size() > 0) {
+        user.setExternal(false);
+        if (userDao.getUserByLogin(user.getLogin(), false).size() > 0) {
             return new ResponseEntity<String>(HttpStatus.CONFLICT);
         }
         user.setPassword(encoder.encode(user.getPassword()));
@@ -71,6 +72,17 @@ public class UserController {
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }
+
+/*    @ApiOperation(value = "Register new external user")
+    @RequestMapping(value = "/register/external",  method = RequestMethod.POST)
+    public ResponseEntity<String> registerExternalUser(@RequestBody UserEntity user) {
+        if (userDao.getUserByLogin(user.getLogin()).stream().filter(el->el.isExternal()).count() > 0) {
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
+        user.setActivated(true);
+        final String user_id = userDao.addUser(user);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }*/
 
     @RequestMapping("/activate/{id}")
     public ResponseEntity<String> activateUser(@PathVariable("id") String user_id, HttpServletResponse response) {
