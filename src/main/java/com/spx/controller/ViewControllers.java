@@ -86,8 +86,7 @@ public class ViewControllers {
     @RequestMapping("/external")
     public void externalLogin(Principal principal, HttpServletResponse response) {
         try {
-            if ((userDao.getUserByLogin(principal.getName(), false).size() == 0) &&
-                    (userDao.getUserByLogin(principal.getName(), true).size() == 0))  {
+            if (userDao.getUserByLogin(principal.getName(), true).size() == 0)  {
                 UserEntity externalUser = new UserEntity();
                 UserEntity userEntity = new UserEntity();
                 userEntity.setLogin(principal.getName());
