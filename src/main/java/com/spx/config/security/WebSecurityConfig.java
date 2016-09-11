@@ -1,5 +1,7 @@
-package com.spx.config;
+package com.spx.config.security;
 
+import com.spx.config.Application;
+import com.spx.dao.UserDao;
 import com.spx.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -43,6 +45,7 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 @PropertySource(Application.PROPERTIES_PATH)
+@Deprecated
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -66,60 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/resources/**");
     }
-
-    @Configuration
-    @EnableOAuth2Sso
-    @Order(1)
-    public static class ExternalWebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-        @Override
-        protected void configure(final HttpSecurity http) throws Exception {
-
-            http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/resources/**").permitAll()
-                    .antMatchers("/register/**").permitAll()
-                    .antMatchers("/construct/**").permitAll()
-                    .antMatchers("/rest/user/register/**").permitAll()
-                    .antMatchers("/rest/user/formlogin/**").permitAll()
-                    .antMatchers("/rest/user/activate/**").permitAll()
-                    .anyRequest()
-                    .authenticated().and().logout().logoutSuccessUrl("/").permitAll()
-                    .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
-                    .and().csrf().csrfTokenRepository(csrfTokenRepository())
-                    .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
-
-        }
-
-
-        private Filter csrfHeaderFilter() {
-            return new OncePerRequestFilter() {
-                @Override
-                protected void doFilterInternal(HttpServletRequest request,
-                                                HttpServletResponse response, FilterChain filterChain)
-                        throws ServletException, IOException {
-                    CsrfToken csrf = (CsrfToken) request
-                            .getAttribute(CsrfToken.class.getName());
-                    if (csrf != null) {
-                        Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-                        String token = csrf.getToken();
-                        if (cookie == null
-                                || token != null && !token.equals(cookie.getValue())) {
-                            cookie = new Cookie("XSRF-TOKEN", token);
-                            cookie.setPath("/");
-                            response.addCookie(cookie);
-                        }
-                    }
-                    filterChain.doFilter(request, response);
-                }
-            };
-        }
-
-        private CsrfTokenRepository csrfTokenRepository() {
-            HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-            repository.setHeaderName("X-XSRF-TOKEN");
-            return repository;
-        }
-    }
-
 
     @Configuration
     @Order(2)
@@ -166,13 +115,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .formLogin()
                     .loginPage("/")
-                    .defaultSuccessUrl("/dashboard")
+                    .defaultSuccessUrl("/construct")
                     .failureUrl("/login?auth=fail")
                     .permitAll()
                     .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                     .and().rememberMe().tokenValiditySeconds(Integer.MAX_VALUE);
-
-
         }
 
     }

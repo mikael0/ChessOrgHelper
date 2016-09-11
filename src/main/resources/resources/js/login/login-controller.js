@@ -7,7 +7,7 @@ LoginModule.controller("LoginController", function ($scope, $http) {
                 var link = window.location.href;
                 var href = link.substr(0, link.indexOf("/", 8));
                 console.log(data);
-                window.location = href + "/dashboard";
+                window.location = href + "/external";
             }
         }).error(function () {
         });

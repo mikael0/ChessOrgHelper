@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -78,20 +80,24 @@ public class ViewControllers {
 
     @RequestMapping(value = "/dashboard")
     public String dashboard(Principal principal) {
-        String currUserId;
-
-        if ((userDao.getUserByLogin(principal.getName(), false).size() == 0) &&
-                (userDao.getUserByLogin(principal.getName(), true).size() == 0))  {
-            UserEntity externalUser = new UserEntity();
-            UserEntity userEntity = new UserEntity();
-            userEntity.setLogin(principal.getName());
-            userEntity.setExternal(true);
-            currUserId = userDao.addUser(userEntity);
-        }
-
-
-
         return "dashboard";
+    }
+
+    @RequestMapping("/external")
+    public void externalLogin(Principal principal, HttpServletResponse response) {
+        try {
+            if ((userDao.getUserByLogin(principal.getName(), false).size() == 0) &&
+                    (userDao.getUserByLogin(principal.getName(), true).size() == 0))  {
+                UserEntity externalUser = new UserEntity();
+                UserEntity userEntity = new UserEntity();
+                userEntity.setLogin(principal.getName());
+                userEntity.setExternal(true);
+            }
+            response.sendRedirect("/dashboard");
+        }
+        catch (IOException ex) {
+            LOGGER.error("Unable to redirect after succesful external authorization");
+        }
     }
 
 
