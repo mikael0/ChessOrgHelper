@@ -1,4 +1,4 @@
-# StroyProjectX
+# ChessOrgHelper
 
 Для запуска:
 

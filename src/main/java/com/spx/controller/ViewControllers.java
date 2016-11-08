@@ -84,6 +84,8 @@ public class ViewControllers {
     public String dashboard(Principal principal, Model model) {
         if (principal instanceof Authentication) {
             model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
+            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
+                                            .getPrincipal()).getAuthorities().toArray()[0]);
         }
         return "dashboard";
     }

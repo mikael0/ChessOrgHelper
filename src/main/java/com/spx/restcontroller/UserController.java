@@ -62,6 +62,7 @@ public class UserController {
         }
         user.setPassword(encoder.encode(user.getPassword()));
         user.setActivated(true);
+        user.setRole(UserEntity.Roles.ROLE_SPECTATOR.toString());
 
         final Long user_id = userDao.addUser(user);
 

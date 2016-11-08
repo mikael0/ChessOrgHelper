@@ -1,21 +1,41 @@
 'use strict';
 
 DashboardModule.controller("DashboardController", function ($scope, $http, $location, $window) {
+
+    $scope.showSearch = true;
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
     $scope.modules = [
         {
-            link: '/construct',
-            title: 'Constructor',
+            link: '',
+            title: 'Schedule',
+            role: 'ROLE_SPECTATOR ROLE_ORGANIZER ROLE_PARTICIPANT'
         },
         {
             link: '',
-            title: 'Templates',
+            title: 'Standings',
+            role: 'ROLE_SPECTATOR ROLE_ORGANIZER ROLE_PARTICIPANT'
         },
         {
             link: '',
-            title: 'Profile',
+            title: 'Apply for participation',
+            role: 'ROLE_PARTICIPANT'
+        },
+        {
+            link: '',
+            title: 'Statistics',
+            role: 'ROLE_SPECTATOR ROLE_ORGANIZER ROLE_PARTICIPANT'
+        },
+        {
+            link: '',
+            title: 'Order tickets',
+            role: 'ROLE_SPECTATOR'
+        },
+        {
+            link: '',
+            title: 'Order housing',
+            role: 'ROLE_SPECTATOR ROLE_PARTICIPANT'
         }
     ];
 

@@ -6,12 +6,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USERS")
 public class UserEntity {
+
+    public enum Roles{
+        ROLE_PARTICIPANT,
+        ROLE_SPECTATOR,
+        ROLE_ORGANIZER
+    }
+
     private Long id;
     private String login;
     private String password;
     private String email;
     private boolean activated;
     private boolean external;
+    private String role;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -74,6 +82,16 @@ public class UserEntity {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    @Basic
+    @Column(name = "ROLE", nullable = false)
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
     }
 
     @Override

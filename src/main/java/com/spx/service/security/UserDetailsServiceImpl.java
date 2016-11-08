@@ -22,7 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             UserEntity user = userDao.getUserByLogin(username, false).get(0);
-            String authority = "ADMIN";
+//            String authority = "ADMIN";
+            String authority = user.getRole();
             return new UserDetailsImpl(user, Collections.singleton(new SimpleGrantedAuthority(authority)));
         }
         catch (IndexOutOfBoundsException ex) {

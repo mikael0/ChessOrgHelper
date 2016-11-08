@@ -20,11 +20,11 @@
 
     <md-list>
         <md-list-item ng-repeat="item in modules" ng-click="toggle(item, selected)">
-            <a style="cursor:pointer">
-                <md-item-content layout="row" layout-align="start center">
-                    {{item.title}}
-                </md-item-content>
-            </a>
+                    <md-item-content layout="row" layout-align="start center" ng-show="item.role.indexOf('$userRole') !== -1">
+                        <a style="cursor:pointer">
+                         {{item.title}}
+                        </a>
+                    </md-item-content>
         </md-list-item>
     </md-list>
     <md-divider></md-divider>
@@ -34,19 +34,19 @@
 </md-sidenav>
 <div layout="column" class="relative" layout-fill role="main">
 
-    <md-toolbar>
-        <md-tabs md-stretch-tabs class="md-primary" md-selected="data.selectedIndex">
-            <md-tab id="tab1" aria-controls="tab1-content">
-                2D
-            </md-tab>
-            <md-tab id="tab2" aria-controls="tab2-content">
-                3D
-            </md-tab>
-            <md-tab id="tab3" aria-controls="tab3-content">
-                Construction estimates
-            </md-tab>
-        </md-tabs>
-    </md-toolbar>
+##    <md-toolbar>
+##        <md-tabs md-stretch-tabs class="md-primary" md-selected="data.selectedIndex">
+##            <md-tab id="tab1" aria-controls="tab1-content">
+##                2D
+##            </md-tab>
+##            <md-tab id="tab2" aria-controls="tab2-content">
+##                3D
+##            </md-tab>
+##            <md-tab id="tab3" aria-controls="tab3-content">
+##                Construction estimates
+##            </md-tab>
+##        </md-tabs>
+##    </md-toolbar>
 
     <md-toolbar class="md-hue-1" ng-show="showSearch">
         <div class="md-toolbar-tools">
