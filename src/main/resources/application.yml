@@ -1,8 +1,8 @@
 security:
   oauth2:
     client:
-      clientId: 233668646673605
-      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+      clientId: 1795801387331791
+      clientSecret: 28ab883cda2d6ffdbe92d719aab4fe64
       accessTokenUri: https://graph.facebook.com/oauth/access_token
       userAuthorizationUri: https://www.facebook.com/dialog/oauth
       tokenName: oauth_token
@@ -19,3 +19,17 @@ spring:
   resources:
     chain:
       enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+
+hibernate:
+  dialect: org.hibernate.dialect.Oracle10gDialect
+
+oracle:
+  login: s172752
+  password: lkw664
+  url: jdbc:oracle:thin:@localhost:1521:orbis

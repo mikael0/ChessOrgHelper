@@ -1,8 +1,6 @@
 package com.spx.email;
 
-/**
- * Created by timofb on 07-Dec-15.
- */
+
 public class EmailEntity {
 
     private String address;

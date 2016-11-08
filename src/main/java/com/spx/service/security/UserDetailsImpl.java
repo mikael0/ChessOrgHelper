@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-/**
- * Created by timofb on 21-Jun-16.
- */
+
 public class UserDetailsImpl implements UserDetails {
 
     private UserEntity user;

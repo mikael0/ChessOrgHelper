@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
 
-/**
- * Created by timofb on 28-Jun-16.
- */
+
 @RestController
 @RequestMapping("/rest/user")
 public class UserController {
@@ -52,6 +51,7 @@ public class UserController {
     @SuppressWarnings("Hardcoded email template")
     @ApiOperation(value = "Register new user")
     @RequestMapping(value = "/register",  method = RequestMethod.POST)
+    @Transactional
     public ResponseEntity<String> registerUser(@RequestBody UserEntity user) {
         if ((user == null) || (user.getEmail() == null) || (user.getPassword() == null)) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -61,14 +61,14 @@ public class UserController {
             return new ResponseEntity<String>(HttpStatus.CONFLICT);
         }
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setActivated(false);
+        user.setActivated(true);
 
-        final String user_id = userDao.addUser(user);
+        final Long user_id = userDao.addUser(user);
 
-        final String message = "<html><h1>Activate your spx account</h1><a href=\"http://localhost:8080/rest/user/activate/" + user_id + "\"> here</a></html>";
-        final EmailEntity email = new EmailEntity(user.getEmail(), message, "Stroy Project X account activation");
-
-        sender.sendEmail(email);
+//        final String message = "<html><h1>Activate your spx account</h1><a href=\"http://localhost:8080/rest/user/activate/" + user_id + "\"> here</a></html>";
+//        final EmailEntity email = new EmailEntity(user.getEmail(), message, "Stroy Project X account activation");
+//
+//        sender.sendEmail(email);
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }
@@ -84,17 +84,17 @@ public class UserController {
         return new ResponseEntity<String>(HttpStatus.OK);
     }*/
 
-    @RequestMapping("/activate/{id}")
-    public ResponseEntity<String> activateUser(@PathVariable("id") String user_id, HttpServletResponse response) {
-        userDao.activate(user_id);
-        try {
-            response.sendRedirect("/");
-        }
-        catch (IOException ex) {
-            LOGGER.error("Unable to redirect after succesful account activation.");
-        }
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
+//    @RequestMapping("/activate/{id}")
+//    public ResponseEntity<String> activateUser(@PathVariable("id") String user_id, HttpServletResponse response) {
+//        userDao.activate(user_id);
+//        try {
+//            response.sendRedirect("/");
+//        }
+//        catch (IOException ex) {
+//            LOGGER.error("Unable to redirect after succesful account activation.");
+//        }
+//        return new ResponseEntity<String>(HttpStatus.OK);
+//    }
 
     @RequestMapping("/details")
     public Principal user(Principal principal) {
@@ -102,6 +102,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "Form login")
+    @Transactional
     @RequestMapping(value = "/formlogin",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> formLogin(HttpServletRequest request, ModelMap model) {
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -110,8 +111,11 @@ public class UserController {
         if ((user != null) && (password != null)) {
             try {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(user);
+
                 if (userDetails.isEnabled() && encoder.matches(password, userDetails.getPassword())) {
-                    doAutoLogin(user, password, request);
+
+                    doAutoLogin(userDetails, password, request);
+
                     return new ResponseEntity<String>(HttpStatus.OK);
                 }
             }
@@ -124,8 +128,8 @@ public class UserController {
 
     }
 
-    private void doAutoLogin(String username, String password, HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+    private void doAutoLogin(UserDetails userDetails, String password, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userDetails, password);
         SecurityContextHolder.getContext().setAuthentication(authRequest);
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());

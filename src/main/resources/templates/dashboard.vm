@@ -12,7 +12,9 @@
         <div layout="column" class="md-toolbar-tools-bottom inset">
             <user-avatar></user-avatar>
             <span></span>
-            <div>User</div>
+            <div>
+                $userName
+            </div>
         </div>
     </md-toolbar>
 
@@ -29,7 +31,7 @@
     <md-input-container layout="row" layout-align="center">
         <md-button class="md-raised md-warn" ng-click="dc.logout()">Logout</md-button>
     </md-input-container>
-    </md-sidenav>
+</md-sidenav>
 <div layout="column" class="relative" layout-fill role="main">
 
     <md-toolbar>

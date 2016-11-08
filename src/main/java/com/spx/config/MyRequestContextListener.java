@@ -7,9 +7,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.annotation.WebListener;
 
-/**
- * Created by timofb on 05-Jul-16.
- */
+
 @Configuration
 @WebListener
 public class MyRequestContextListener extends RequestContextListener {

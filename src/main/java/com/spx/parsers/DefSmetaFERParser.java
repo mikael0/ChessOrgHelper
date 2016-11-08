@@ -8,9 +8,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * Created by timofb on 24-Jun-16.
- */
+
 public class DefSmetaFERParser {
 
     private static final Logger LOGGER = Logger.getLogger(DefSmetaFERParser.class);

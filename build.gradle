@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
     }
 }
 
@@ -18,10 +19,20 @@ apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': 1
+        attributes 'Main-Class': 'com.spx.config.Application'
+    }
+}
+
 compileJava.options.encoding = 'UTF-8'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenLocal()
@@ -39,6 +50,10 @@ sourceSets {
 war {
     baseName = "spx"
     version = "1.0"
+}
+
+fatJar {
+    exclude 'META-INF/*.DSA'
 }
 
 configurations {
@@ -102,8 +117,9 @@ dependencies {
             [group: 'org.jsoup', name: 'jsoup', version: '1.8.3'],
             [group: 'io.springfox', name: 'springfox-swagger2', version: '2.0.1'],
             [group:'io.springfox', name: 'springfox-swagger-ui', version: '2.0.1'],
-            [group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.10.RELEASE']
+            [group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.10.RELEASE'],
 
+            [group: 'com.oracle', name: 'ojdbc6', version: '1']
 
 
 

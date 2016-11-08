@@ -1,17 +1,16 @@
 package com.spx.dao;
 
 import com.spx.entity.UserEntity;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-/**
- * Created by timofb on 21-Jun-16.
- */
+
 public interface UserDao {
     List<UserEntity> userList();
-    UserEntity getUserById(String id);
+    UserEntity getUserById(Long id);
     List<UserEntity> getUserByLogin(String login, boolean external);
-    void activate(String id);
-    String addUser(final UserEntity userEntity);
+//    void activate(String id);
+    Long addUser(final UserEntity userEntity);
 
 }

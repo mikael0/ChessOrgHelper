@@ -9,9 +9,6 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.*;
 
-/**
- * Created by timofb on 24-Dec-15.
- */
 //@Configuration
 public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 

@@ -39,9 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by timofb on 12-Jul-16.
- */
+
 @Configuration
 @EnableWebSecurity
 @PropertySource(Application.PROPERTIES_PATH)

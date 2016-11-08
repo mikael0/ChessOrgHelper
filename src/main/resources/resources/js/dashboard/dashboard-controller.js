@@ -19,6 +19,8 @@ DashboardModule.controller("DashboardController", function ($scope, $http, $loca
         }
     ];
 
+
+
     this.logout = function () {
         //console.log($location)
         //$window.location = '../logout';

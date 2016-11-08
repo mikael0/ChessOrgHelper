@@ -32,6 +32,10 @@ public class Application extends SpringBootServletInitializer {
     public static final String EMAIL_ADDRESS = "mail.address";
     public static final String EMAIL_PASSWORD = "mail.password";
 
+    public static final String ORACLE_USER = "oracle.user";
+    public static final String ORACLE_PASSWORD = "oracle.password";
+    public static final String ORACLE_URL = "oracle.url";
+
     public static void main(final String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(Application.class, args);

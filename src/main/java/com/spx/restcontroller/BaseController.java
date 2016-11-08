@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-/**
- * Created by timofb on 15-Feb-16.
- */
+
 @RestController
 @RequestMapping("/rest/base")
 public class BaseController {

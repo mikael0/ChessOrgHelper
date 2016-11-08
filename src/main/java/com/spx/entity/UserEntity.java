@@ -2,13 +2,11 @@ package com.spx.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by timofb on 21-Jun-16.
- */
+
 @Entity
 @Table(name = "USERS")
 public class UserEntity {
-    private String id;
+    private Long id;
     private String login;
     private String password;
     private String email;
@@ -16,12 +14,14 @@ public class UserEntity {
     private boolean external;
 
     @Id
-    @Column(name = "_ID", nullable = false)
-    public String getId() {
+    @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
+    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1, initialValue = 1)
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

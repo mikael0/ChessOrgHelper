@@ -10,6 +10,7 @@ LoginModule.controller("LoginController", function ($scope, $http) {
                 window.location = href + "/external";
             }
         }).error(function () {
+
         });
     }
     $scope.redirect();
@@ -17,7 +18,7 @@ LoginModule.controller("LoginController", function ($scope, $http) {
         var csrf_name = document.getElementById('csrf').name;
         var csrf_value = document.getElementById('csrf').value;
         var data = 'username=' + $scope.user.username + "&password=" + $scope.user.password + "&" + csrf_name + "=" + csrf_value;
-
+        console.log(data);
         $http({
             method: 'POST',
             url: "/rest/user/formlogin",
