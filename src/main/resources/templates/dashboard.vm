@@ -20,11 +20,13 @@
 
     <md-list>
         <md-list-item ng-repeat="item in modules" ng-click="toggle(item, selected)">
-                    <md-item-content layout="row" layout-align="start center" ng-show="item.role.indexOf('$userRole') !== -1">
+            <div style="cursor:pointer" ng-show="item.role.indexOf('$userRole') !== -1">
+                    <md-item-content layout="row" layout-align="start center">
                         <a style="cursor:pointer">
                          {{item.title}}
                         </a>
                     </md-item-content>
+            </div>
         </md-list-item>
     </md-list>
     <md-divider></md-divider>

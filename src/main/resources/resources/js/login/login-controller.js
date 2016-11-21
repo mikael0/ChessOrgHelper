@@ -1,6 +1,6 @@
 'use strict';
 
-LoginModule.controller("LoginController", function ($scope, $http) {
+LoginModule.controller("MainController", function ($scope, $http, $mdDialog) {
     $scope.redirect = function () {
         $http.get("/rest/user/details").success(function (data) {
             if (data.authenticated) {
@@ -14,6 +14,24 @@ LoginModule.controller("LoginController", function ($scope, $http) {
         });
     }
     $scope.redirect();
+    
+    $scope.showLoginDialog = function(ev) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: 'resources/html/login_dialog.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+  };
+
+   function DialogController($scope, $http, $mdDialog) {
     $scope.submit = function () {
         var csrf_name = document.getElementById('csrf').name;
         var csrf_value = document.getElementById('csrf').value;
@@ -31,6 +49,18 @@ LoginModule.controller("LoginController", function ($scope, $http) {
             window.location = href + "/dashboard";
         }).error(function () {
         });
-    }
+    };
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
 
 });
