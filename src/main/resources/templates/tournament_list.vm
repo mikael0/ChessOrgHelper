@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+	#parse("static/head.vm")
+    <title>ChessOrgHelper</title>
+</head>
+<body>
+<div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
+  <md-toolbar>
+    <div class="md-toolbar-tools container">
+      <span>ChessOrg</span>
+
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+
+     ## <div ng-repeat="item in modules">
+       ##           <div style="cursor:pointer" ng-show="item.role.indexOf('$userRole') !== -1">
+         ##                 <md-button class="md-cornered">
+           ##                    {{item.title}}
+             ##             </button>
+               ##   </div>
+     ## <div>
+
+      <md-button class="md-cornered" ng-disabled="true"> Tournament List </md-button>
+      <md-button class="md-cornered"> Statistics </md-button>
+      <md-button class="md-cornered"> Profile </md-button>
+    <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
+
+    </div>
+  </md-toolbar>
+    <div class="container" >
+            <md-content flex="65"  class="md-no-momentum margin-top">
+		<md-card>
+			<md-card-header>
+				<md-card-header-text> 
+					<span class="md-title"> First Tournament</span>
+					<span class="md-subhead" md-colors="{color: 'accent'}"> New Vasiuki</span>
+				</md-card-header-text>
+			</md-card-header>
+		        <md-card-content>	
+				<div layout="row">
+					<div flex="70" layout="column"> 
+						<span class="md-subhead"> Start date: 01.01.16 </span>
+						<span class="md-subhead"> End date: 01.01.17 </span>
+					</div>
+					<div flex layout="column">
+						<span class="md-subhead"> Total participants: 666 </span>
+						<span class="md-subhead"> Total spectators: 1488 </span>
+					</div>
+				</div>
+				<br>
+				<br>
+				<div layout="column">
+					<span class="md-subhead"> Organizer: Bender O. </span>
+					<span class="md-subhead"> Email: ostap.bender@rogaikopita.com </span>
+					<span class="md-subhead"> Phone: 8 921 123 45 67 </span>
+				</div>
+			</md-card-content>
+			<md-card-actions>
+				<div layout="row" layout-margin>
+					<md-button flex="30" class="md-raised md-cornered md-accent"> Participants </md-button>
+					<md-button flex="30" class="md-raised md-cornered md-accent"> Housing </md-button>
+					<md-button flex="40" class="md-cornered"> Schedule </md-button>
+				</div>
+			</md-card-actions>
+		</md-card>
+            </md-content>
+    </div>
+</div>
+
+<script src="resources/js/common/_module.js"></script>
+<script src="resources/js/common/common-controller.js"></script>
+</body>

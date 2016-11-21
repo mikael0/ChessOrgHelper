@@ -59,7 +59,7 @@ LoginModule.controller("MainController", function ($scope, $http, $mdDialog) {
             var link = window.location.href;
             var href = link.substr(0, link.indexOf("/", 8));
             console.log(data);
-            window.location = href + "/dashboard";
+            window.location = href + "/tournament_list";
         }).error(function () {
         });
     };

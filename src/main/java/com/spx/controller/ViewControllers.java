@@ -90,6 +90,16 @@ public class ViewControllers {
         return "dashboard";
     }
 
+    @RequestMapping(value = "/tournament_list")
+    public String tournamentList(Principal principal, Model model) {
+        if (principal instanceof Authentication) {
+            model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
+            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
+                    .getPrincipal()).getAuthorities().toArray()[0]);
+        }
+        return "tournament_list";
+    }
+
     @RequestMapping("/external")
     public void externalLogin(Principal principal, HttpServletResponse response) {
         try {

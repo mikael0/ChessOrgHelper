@@ -6,3 +6,17 @@
 md-dialog > form {
     overflow: visible;
 }
+
+.md-button[disabled] {
+  color: #6D6D6D;
+  background-color: transparent;
+}
+
+.container {
+	padding-right: 5%;
+	padding-left: 5%;
+}
+
+.margin-top {
+	margin-top: 2%;
+}
