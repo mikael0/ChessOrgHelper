@@ -1,0 +1,49 @@
+<md-dialog flex="50" aria-label="Register">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Register</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Login</label>
+                <input ng-model="user.login" type="text" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+            	<label>Email</label>
+            	<input ng-model="user.email" type="email" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+            	<label>Phone</label>
+            	<input ng-model="user.phone" type="tel" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+                <label>Password</label>
+                <input ng-model="user.password" type="password" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+                <label>Confirm password</label>
+                <input ng-model="confirm.password" type="password" ng-required="true">
+            </md-input-container>
+	</div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" layout-align="center">
+                <md-button ng-click="submit()" class="md-raised md-cornered md-accent md-primary">Register</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

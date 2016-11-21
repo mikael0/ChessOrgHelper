@@ -81,9 +81,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         private static RoleHierarchyImpl roleHierarchy() {
             final RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
             roleHierarchy.setHierarchy("" +
-                    "ROLE_SYSTEM_ADMIN > ROLE_ADMIN" +
-                    "ROLE_ADMIN > ROLE_ENGINEER" +
-                    "ROLE_ENGINEER > ROLE_USER"
+                    "ROLE_ORGANIZER > ROLE_PARTICIPANT" +
+                    "ROLE_PARTICIPANT > ROLE_SPECTATOR" +
+                    "ROLE_SPECTATOR > ROLE_USER"
             );
             return roleHierarchy;
         }

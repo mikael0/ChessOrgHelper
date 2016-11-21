@@ -20,6 +20,7 @@ public class UserEntity {
     private boolean activated;
     private boolean external;
     private String role;
+    private String phone;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -62,6 +63,16 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Basic
+    @Column(name = "PHONE", nullable = false, length = 30)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Basic
