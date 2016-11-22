@@ -2,8 +2,12 @@ package com.spx.controller;
 
 import com.spx.config.Application;
 
+import com.spx.dao.TournamentDao;
+import com.spx.dao.TournamentDaoImpl;
 import com.spx.dao.UserDao;
+import com.spx.entity.TournamentEntity;
 import com.spx.entity.UserEntity;
+import com.spx.service.security.UserDetailsImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -21,13 +25,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 
 @SuppressWarnings("HardcodedFileSeparator")
 @Controller
-
 @PropertySource(Application.PROPERTIES_PATH)
 public class ViewControllers {
 
@@ -38,6 +43,9 @@ public class ViewControllers {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    TournamentDao tournamentDao;
 
     @RequestMapping(value = "/")
     public ModelAndView startPage(HttpServletRequest request) {
@@ -92,12 +100,36 @@ public class ViewControllers {
 
     @RequestMapping(value = "/tournament_list")
     public String tournamentList(Principal principal, Model model) {
+        List<TournamentEntity> tournaments = tournamentDao.getAll();
         if (principal instanceof Authentication) {
             model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
-            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
-                    .getPrincipal()).getAuthorities().toArray()[0]);
+            Object role = ((UserDetails)((Authentication) principal)
+                    .getPrincipal()).getAuthorities().toArray()[0];
+            model.addAttribute("userRole", role);
+            model.addAttribute("tournamentList", tournaments);
+            if (role.equals(UserEntity.Roles.ROLE_ORGANIZER.toString())){
+
+            }
+            else {
+
+            }
         }
         return "tournament_list";
+    }
+
+    @RequestMapping(value = "/test_insert")
+    public String testInsert(Principal principal, Model model) {
+        TournamentEntity tournament = new TournamentEntity();
+        tournament.setName("First World Chess Championship in the name of V.I.Lenin");
+        tournament.setCity("Vasiuki");
+        tournament.setChiefOrganizer(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser());
+        tournament.setStartDate(new Date(System.currentTimeMillis()));
+        tournament.setEndDate(new Date(System.currentTimeMillis()));
+        tournament.setParticipantsNum(666l);
+        tournament.setSpectatorsNum(1488l);
+        tournament.setMaxParticipantsNum(65536l);
+        tournamentDao.addTournament(tournament);
+        return "dashboard";
     }
 
     @RequestMapping("/external")

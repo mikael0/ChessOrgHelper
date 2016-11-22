@@ -1,6 +1,8 @@
 package com.spx.entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -17,10 +19,13 @@ public class UserEntity {
     private String login;
     private String password;
     private String email;
+    private String name;
     private boolean activated;
     private boolean external;
     private String role;
     private String phone;
+
+    private Set<TournamentEntity> tournaments;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -59,7 +64,6 @@ public class UserEntity {
     public String getEmail() {
         return email;
     }
-
 
     public void setEmail(String email) {
         this.email = email;
@@ -103,6 +107,25 @@ public class UserEntity {
 
     public void setRole(String role){
         this.role = role;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chiefOrganizer")
+    public Set<TournamentEntity> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(Set<TournamentEntity> tournaments) {
+        this.tournaments = tournaments;
+    }
+
+    @Basic
+    @Column(name = "NAME", length=25)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
