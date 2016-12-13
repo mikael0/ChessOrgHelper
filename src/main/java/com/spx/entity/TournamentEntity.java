@@ -14,12 +14,13 @@ public class TournamentEntity {
 
     private Long id;
     private String name;
-    private String city;
+    private Long maxParticipantsNum;
     private Date startDate;
     private Date endDate;
-    private Long participantsNum;
-    private Long maxParticipantsNum;
-    private Long spectatorsNum;
+    private String country;
+    private String city;
+    private Long participantsNum = 0l;
+    private Long spectatorsNum = 0l;
 
     private UserEntity chiefOrganizer;
 
@@ -59,6 +60,16 @@ public class TournamentEntity {
     }
 
     @Basic
+    @Column(name = "COUNTRY", nullable = false, length = 50)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Basic
     @Column(name = "START_DATE", nullable = false)
     public Date getStartDate() {
         return startDate;
@@ -79,7 +90,7 @@ public class TournamentEntity {
     }
 
     @Basic
-    @Column(name = "PARTICIPANTS_NUM", nullable = false)
+    @Column(name = "PARTICIPANTS_NUM", nullable = true)
     public Long getParticipantsNum() {
         return participantsNum;
     }
@@ -99,7 +110,7 @@ public class TournamentEntity {
     }
 
     @Basic
-    @Column(name = "SPECTATORS_NUM", nullable = false)
+    @Column(name = "SPECTATORS_NUM", nullable = true)
     public Long getSpectatorsNum() {
         return spectatorsNum;
     }
@@ -151,22 +162,25 @@ public class TournamentEntity {
         housings.remove(housing);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        TournamentEntity that = (TournamentEntity) o;
+//
+//        if (id != that.id) return false;
+//
+//        return true;
+//    }
+//
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//
+//        return result;
+//    }
 
-        TournamentEntity that = (TournamentEntity) o;
 
-        if (id != that.id) return false;
-
-        return true;
-    }
-
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        return result;
-    }
 }

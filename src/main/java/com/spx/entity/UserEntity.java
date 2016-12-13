@@ -109,7 +109,7 @@ public class UserEntity {
         this.role = role;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chiefOrganizer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "chiefOrganizer")
     public Set<TournamentEntity> getTournaments() {
         return tournaments;
     }

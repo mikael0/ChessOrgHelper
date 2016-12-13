@@ -13,6 +13,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String username = authentication.getName();
+//        authentication.setAuthenticated(true);
         //String pw       = authentication.getCredentials().toString();
         return authentication;
 

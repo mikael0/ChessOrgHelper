@@ -99,7 +99,11 @@ public class ViewControllers {
     }
 
     @RequestMapping(value = "/tournament_list")
-    public String tournamentList(Principal principal, Model model) {
+    public String tournamentList(HttpServletRequest request, Principal principal, Model model) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            model.addAttribute("_csrf",csrfToken);
+        }
         List<TournamentEntity> tournaments = tournamentDao.getAll();
         if (principal instanceof Authentication) {
             model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
@@ -117,11 +121,18 @@ public class ViewControllers {
         return "tournament_list";
     }
 
+    @RequestMapping(value = "/create_tournament")
+    public String createTournament(Principal principal, Model model) {
+        return "tournament_list";
+    }
+
+
     @RequestMapping(value = "/test_insert")
     public String testInsert(Principal principal, Model model) {
         TournamentEntity tournament = new TournamentEntity();
         tournament.setName("First World Chess Championship in the name of V.I.Lenin");
         tournament.setCity("Vasiuki");
+        tournament.setCountry("USSR");
         tournament.setChiefOrganizer(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser());
         tournament.setStartDate(new Date(System.currentTimeMillis()));
         tournament.setEndDate(new Date(System.currentTimeMillis()));

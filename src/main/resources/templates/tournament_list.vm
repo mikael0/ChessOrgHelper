@@ -40,6 +40,7 @@
                  <span class="md-subhead" >
                        Wait while organizers will create something.
                  </span>
+            <br>
             #end
         #else
             <div class="test_size_not_0"> </div>
@@ -83,6 +84,7 @@
             </md-card>
             #end
          #end
+          <md-button class="md-raised md-cornered md-accent"  ng-click="showTournamentCreateDialog($event)">Create Tournament</md-button>
          </md-content>
     </div>
 </div>

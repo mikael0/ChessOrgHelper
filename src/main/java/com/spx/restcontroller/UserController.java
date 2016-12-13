@@ -130,7 +130,8 @@ public class UserController {
     }
 
     private void doAutoLogin(UserDetails userDetails, String password, HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userDetails, password);
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+        authRequest.setDetails(userDetails);
         SecurityContextHolder.getContext().setAuthentication(authRequest);
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());

@@ -1,0 +1,62 @@
+<md-dialog flex="50" aria-label="Create Tournament">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Tournament</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Tournament Name</label>
+                <input ng-model="tournament.name" type="text" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+                <label>Maximum participants</label>
+		 <md-select ng-model="tournament.maxParticipantsNum">
+            		<md-option ng-repeat="num in maxParticipantsNums" ng-value="num">
+              			{{num}}
+            		</md-option>
+          	</md-select>
+            </md-input-container>
+		
+	    <div layout="row">
+            	<md-input-container class="md-block" flex="50">
+            		<label>Start Date</label>
+            		<input ng-model="tournament.startDate" type="text" ng-required="true">
+            	</md-input-container>
+
+            	<md-input-container class="md-block" flex="50">
+            		<label>End Date</label>
+            		<input ng-model="tournament.endDate" type="text" ng-required="true">
+            	</md-input-container>
+	    </div>
+
+	    <span class="text-accent "> Location of holding </span>
+
+            <md-input-container class="md-block" layout="row">
+                <label>Country</label>
+                <input ng-model="tournament.country" type="text" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" layout="row">
+                <label>City</label>
+                <input ng-model="tournament.city" type="text" ng-required="true">
+            </md-input-container>
+	</div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" >
+                <md-button type="submit" class="md-raised md-cornered md-accent md-primary">Create</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
