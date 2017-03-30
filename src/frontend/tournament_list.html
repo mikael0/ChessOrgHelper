@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item" current>СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.html" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div class="tournamentListItem">
+				<h1 id="tournament_header">Первый шахматный турнир</h1>
+				<p id="place" class="fieldsBlock_header">СССР, Васюки</p>
+				<div class="blockInfo">
+					<div class="left">
+						<div class="textField">
+							<p>Дата начала: </p>
+							<p id="dateStart">16 November 1936</p>
+						</div>
+						<div class="textField">
+							<p>Дата окончания: </p>
+							<p id="endDate">18 November 1936</p>
+						</div>
+						<div class="hspacer"></div>
+						<div class="textField">
+							<p>Организатор: </p>
+							<p id="organizer">Беленко Михаил Вячеславович</p>
+						</div>
+						<div class="textField">
+							<p>Почтовый ящик: </p>
+							<p id="email">mikhail_belenko@mail.ru</p>
+						</div>
+						<div class="textField">
+							<p>Телефон: </p>
+							<p id="tel">+7 (999) 000 00 00</p>
+						</div>
+					</div>
+					<div class="right">
+						<div class="textField">
+							<p>Всего участников: </p>
+							<p id="playersCount">16</p>
+						</div>
+						<div class="textField">
+							<p>Куплено билетов: </p>
+							<p id="ticketsCount">22</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<button onclick="location.href='buy_tickets.html'">Купить билеты</button>
+				<button onclick="location.href='apply.html'">Подать заявку на участие</button>
+				<button onclick="location.href='schedule_tournament.html'">Посмотреть расписание</button>
+				<button onclick="location.href='statistics_tournament.html'">Узнать результаты</button>
+				<div class="hspacer"></div>
+			</div>
+			<div class="tournamentListItem">
+				<h1 id="tournament_header">Первый шахматный турнир</h1>
+				<p id="place" class="fieldsBlock_header">СССР, Васюки</p>
+				<div class="blockInfo">
+					<div class="left">
+						<div class="textField">
+							<p>Дата начала: </p>
+							<p id="dateStart">16 November 1936</p>
+						</div>
+						<div class="textField">
+							<p>Дата окончания: </p>
+							<p id="endDate">18 November 1936</p>
+						</div>
+						<div class="hspacer"></div>
+						<div class="textField">
+							<p>Организатор: </p>
+							<p id="organizer">Беленко Михаил Вячеславович</p>
+						</div>
+						<div class="textField">
+							<p>Почтовый ящик: </p>
+							<p id="email">mikhail_belenko@mail.ru</p>
+						</div>
+						<div class="textField">
+							<p>Телефон: </p>
+							<p id="tel">+7 (999) 000 00 00</p>
+						</div>
+					</div>
+					<div class="right">
+						<div class="textField">
+							<p>Всего участников: </p>
+							<p id="playersCount">16</p>
+						</div>
+						<div class="textField">
+							<p>Куплено билетов: </p>
+							<p id="ticketsCount">22</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<button onclick="location.href='buy_tickets.html'">Купить билеты</button>
+				<button onclick="location.href='apply.html'">Подать заявку на участие</button>
+				<button onclick="location.href='schedule_tournament.html'">Посмотреть расписание</button>
+				<button onclick="location.href='statistics_tournament.html'">Узнать результаты</button>
+				<div class="hspacer"></div>
+			</div>
+		</div>
+	</body>
+</html>
