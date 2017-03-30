@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body style="background: #747474;">
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+			</div>
+		</div>
+		<div id="loginBox" class="dialog">
+			<form action="" method="post" id="loginForm">
+				<h1>Вход</h1>
+				<input type="text" id="loginInput" placeholder="Логин"/>
+				<input type="password" id="passInput" placeholder="Пароль"/>
+				<div class="hint" data-tooltip="Вспомните">Забыли пароль?</div>
+				<button type="submit" onclick="location.href='tournament_list.html'">Войти</button>
+			</form>
+		</div>
+	</body>
+</html>
