@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item">СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item" current>РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.html" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<h1 id="tournament_header">Первый шахматный турнир</h1>
+			<div class="hspacer"></div>
+			<table>
+				<tr class="header">
+					<td>понедельник</td>
+					<td>вторник</td>
+					<td>среда</td>
+					<td>четверг</td>
+					<td>пятница</td>
+					<td>суббота</td>
+					<td>воскресенье</td>
+				</tr>
+				<tr class="week">
+					<td><p>1 ноября</p></td>
+					<td class="stage"><p>2 ноября</p><p>I тур</p></td>
+					<td><p>3 ноября</p></td>
+					<td class="stage"><p>4 ноября</p><p>II тур</p></td>
+					<td><p>5 ноября</p></td>
+					<td><p>6 ноября</p></td>
+					<td><p>7 ноября</p></td>
+				</tr>
+				<tr class="week">
+					<td class="stage"><p>8 ноября</p><p>Четвертьфинал</p></td>
+					<td class="stage"><p>9 ноября</p><p>Полуфинал</p></td>
+					<td><p>10 ноября</p></td>
+					<td class="stage"><p>11 ноября</p><p>Финал</p></td>
+					<td><p>12 ноября</p></td>
+					<td><p>13 ноября</p></td>
+					<td><p>14 ноября</p></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
