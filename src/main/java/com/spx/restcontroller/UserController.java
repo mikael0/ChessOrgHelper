@@ -4,6 +4,7 @@ import com.spx.dao.UserDao;
 import com.spx.email.EmailEntity;
 import com.spx.email.EmailSender;
 import com.spx.entity.UserEntity;
+import com.spx.service.security.UserDetailsImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -66,36 +68,26 @@ public class UserController {
 
         final Long user_id = userDao.addUser(user);
 
-//        final String message = "<html><h1>Activate your spx account</h1><a href=\"http://localhost:8080/rest/user/activate/" + user_id + "\"> here</a></html>";
-//        final EmailEntity email = new EmailEntity(user.getEmail(), message, "Stroy Project X account activation");
-//
-//        sender.sendEmail(email);
-
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-/*    @ApiOperation(value = "Register new external user")
-    @RequestMapping(value = "/register/external",  method = RequestMethod.POST)
-    public ResponseEntity<String> registerExternalUser(@RequestBody UserEntity user) {
-        if (userDao.getUserByLogin(user.getLogin()).stream().filter(el->el.isExternal()).count() > 0) {
-            return new ResponseEntity<String>(HttpStatus.OK);
-        }
-        user.setActivated(true);
-        final String user_id = userDao.addUser(user);
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }*/
+    @ApiOperation(value = "Update user data")
+    @RequestMapping(value = "/update",  method = RequestMethod.POST)
+    @Transactional
+    public ResponseEntity<String> updateUser(Principal principal,
+                                             @RequestBody UserEntity user) {
 
-//    @RequestMapping("/activate/{id}")
-//    public ResponseEntity<String> activateUser(@PathVariable("id") String user_id, HttpServletResponse response) {
-//        userDao.activate(user_id);
-//        try {
-//            response.sendRedirect("/");
-//        }
-//        catch (IOException ex) {
-//            LOGGER.error("Unable to redirect after succesful account activation.");
-//        }
-//        return new ResponseEntity<String>(HttpStatus.OK);
-//    }
+        if (user == null)
+            user = new UserEntity();
+
+       LOGGER.debug("user: "  + user);
+       if (user.getPassword() != null)
+          user.setPassword(encoder.encode(user.getPassword()));
+
+        userDao.updateUser(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser().getId(), user);
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
 
     @RequestMapping("/details")
     public Principal user(Principal principal) {

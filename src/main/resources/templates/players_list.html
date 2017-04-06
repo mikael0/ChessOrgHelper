@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item" current>СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.vm" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<h1>Первый шахматный турнир</h1>
+			<div class="left" style="width: 43%">
+				<p class="fieldsBlock_header">Участники</p>
+				<table id="playersTable" style="border: 1px solid #44dbbe; width: 100%">
+					<tr>
+						<td id="player0Index">1</td>
+						<td id="player0Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/rm.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="player1Index">2</td>
+						<td id="player1Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/rm.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="player2Index">3</td>
+						<td id="player2Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/rm.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="player3Index">4</td>
+						<td id="player3Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/rm.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="player4Index">5</td>
+						<td id="player4Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/rm.png" width="20"/></button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="right" style="width: 43%">
+				<p class="fieldsBlock_header">Заявки</p>
+				<table id="playersWaitingTable" style="border: 1px solid #44dbbe; width: 100%">
+					<tr>
+						<td id="playerW0Index">1</td>
+						<td id="playerW0Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/add.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="playerW1Index">2</td>
+						<td id="playerW1Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/add.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="playerW2Index">3</td>
+						<td id="playerW2Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/add.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="playerW3Index">4</td>
+						<td id="playerW3Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/add.png" width="20"/></button></td>
+					</tr>
+					<tr>
+						<td id="playerW4Index">5</td>
+						<td id="playerW4Name" class="adrCell" style="border-right: 0px;">Василий Пупкин</td>
+						<td class="playerCell"><button><img src="./img/user.png" width="20"/></button></td>
+						<td class="playerCell"><button><img src="./img/add.png" width="20"/></button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

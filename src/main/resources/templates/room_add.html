@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css" type="text/css">
+		
+		<script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body style="background: #747474;">
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item" current>СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.vm" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="createBox" class="dialogBig">
+			<form action="" method="post" id="registerForm">
+				<h1>Добавить зал</h1>
+				<p class="fieldsBlock_header">Адрес</p>
+				<select id="adr">
+					<option id="adr0">Адрес1</option>
+					<option id="adr1">Адрес2</option>
+				</select>
+				<p class="fieldsBlock_header">Количество мест</p>
+				<input type="number" id="placesCount" value="1" min="1" max="10000"/>
+				<div class="hspacer"></div>
+				<button type="submit" onclick="location.href='tournament_list.html'">Добавить</button>
+			</form>
+		</div>
+	</body>
+</html>

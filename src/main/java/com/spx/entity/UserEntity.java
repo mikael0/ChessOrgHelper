@@ -146,6 +146,17 @@ public class UserEntity {
     }
 
     @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("name=").append(name)
+          .append(" password=").append(password)
+          .append(" phone=").append(phone)
+          .append(" email=").append(email);
+
+        return sb.toString();
+    }
+
+    @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + (login != null ? login.hashCode() : 0);

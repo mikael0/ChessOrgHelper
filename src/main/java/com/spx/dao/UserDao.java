@@ -13,4 +13,5 @@ public interface UserDao {
 //    void activate(String id);
     Long addUser(final UserEntity userEntity);
 
+    void updateUser(Long id, UserEntity update);
 }

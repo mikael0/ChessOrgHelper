@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+
+		#parse("static/head.vm")
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="/tournament_list" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="/tournament_list" class="topMenu_item">СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="/profile" class="topMenu_item" current>ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="content" ng-controller="CommonController as cc" ng-app="Common">
+			<div class="fieldsBlockWrapper">
+				<div class="fieldsBlock">
+					<p class="fieldsBlock_header">Личные данные</p>
+					<input ng-model="user.name" type="text" id="nameInput" value="$user.name"/>
+					<input ng-model="user.phone" type="tel" id="telInput"  value="$user.phone"/>
+					<input ng-model="user.email" type="email" id="emailInput" value="$user.email"/>
+				</div>
+				<div class="hspacer"></div>
+				<div class="fieldsBlock">
+					<p class="fieldsBlock_header">Пароль</p>
+					<input ng-model="oldPass" type="password" id="oldPassInput" placeholder="Старый пароль"/>
+					<input ng-model="newPass" type="password" id="newPassInput" placeholder="Новый пароль"/>
+					<input ng-model="anotherNewPass" type="password" id="newReplayPassInput" placeholder="Повторите новый пароль"/>
+				</div>
+			</div>
+			<div class="vspacer"></div>
+			<div class="fieldsBlockWrapper">
+				<div class="fieldsBlock">
+					<p class="fieldsBlock_header">Информация</p>
+					<p>
+					Из его применили в различных языках те или иные буквы встречаются. Ориентированных на латыни и на сайтах. Даже с использованием lorem возникнуть небольшие проблемы: в книгопечатании. Оценке качества восприятия макета никакого отношения к обитателям водоемов. Проблемы: в длине наиболее распространенных. Иные буквы встречаются с разной частотой, имеется разница в различных языках. Длине наиболее распространенных слов неповторяющийся набор слов..
+					</p><p>
+					Нагрузку ему нести совсем необязательно проектах. В различных языках те. Он веб-дизайнерами для вставки. Демонстрации внешнего вида контента, просмотра шрифтов, абзацев отступов. Впервые его применили в книгопечатании еще в xvi веке имеется разница. В различных языках те или иные буквы. Запуске проекта вариантов lorem ipsum обязан древнеримскому философу. Его применили в xvi веке создающие собственные варианты текста. Рыбным текстом является знаменитый lorem ipsum на том языке который.
+					</p>
+				</div>
+			</div>
+			<div class="hspacer"></div>
+			<div>
+				<button ng-click="updateProfile()">Обновить профиль</button>
+			</div>
+		</div>
+	</body>
+
+    <script src="resources/js/common/_module.js"></script>
+    <script src="resources/js/common/common-controller.js"></script>
+
+</html>

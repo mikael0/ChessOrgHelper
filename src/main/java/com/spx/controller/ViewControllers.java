@@ -83,20 +83,20 @@ public class ViewControllers {
         return "register";
     }
 
-    @RequestMapping(value = "/construct")
-    public String construct() {
-        return "construct";
-    }
-
-    @RequestMapping(value = "/dashboard")
-    public String dashboard(Principal principal, Model model) {
-        if (principal instanceof Authentication) {
-            model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
-            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
-                                            .getPrincipal()).getAuthorities().toArray()[0]);
-        }
-        return "dashboard";
-    }
+//    @RequestMapping(value = "/construct")
+//    public String construct() {
+//        return "construct";
+//    }
+//
+//    @RequestMapping(value = "/dashboard")
+//    public String dashboard(Principal principal, Model model) {
+//        if (principal instanceof Authentication) {
+//            model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
+//            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
+//                                            .getPrincipal()).getAuthorities().toArray()[0]);
+//        }
+//        return "dashboard";
+//    }
 
     @RequestMapping(value = "/tournament_list")
     public String tournamentList(HttpServletRequest request, Principal principal, Model model) {
@@ -126,6 +126,11 @@ public class ViewControllers {
         return "tournament_list";
     }
 
+    @RequestMapping(value = "/profile")
+    public String viewProfile(Principal principal, Model model){
+        model.addAttribute("user", ((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser());
+        return "profile";
+    }
 
     @RequestMapping(value = "/test_insert")
     public String testInsert(Principal principal, Model model) {

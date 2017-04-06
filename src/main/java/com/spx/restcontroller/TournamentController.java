@@ -59,13 +59,6 @@ public class TournamentController {
     @RequestMapping(value = "/create",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<String> createTournament(Principal principal, @RequestBody TournamentEntity tournament) {
-//        for (Map.Entry<String, String> entry : tournament.entrySet()) {
-//            System.out.println(entry.getKey() + " : " + entry.getValue());
-//        }
-        System.out.println(tournament.toString());
-        System.out.println(tournament.getName());
-        System.out.println(tournament.getEndDate());
-        System.out.println(tournament.getStartDate());
         if ((tournament == null) || (tournament.getName() == null) || (tournament.getStartDate() == null
         )           || (tournament.getEndDate()) == null) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -77,8 +70,6 @@ public class TournamentController {
 //        if () {
 //            return new ResponseEntity<String>(HttpStatus.CONFLICT);
 //        }
-
-        System.out.println("In tournament create");
 
         final Long tournamentId = tournamentDao.addTournament(tournament);
 

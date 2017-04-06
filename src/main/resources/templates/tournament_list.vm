@@ -21,8 +21,8 @@
      ## <div>
 
       <md-button class="md-cornered" ng-disabled="true"> Tournament List </md-button>
-      <md-button class="md-cornered"> Statistics </md-button>
-      <md-button class="md-cornered"> Profile </md-button>
+      <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
+      <md-button class="md-cornered" href="/profile"> Profile </md-button>
     <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
 
     </div>

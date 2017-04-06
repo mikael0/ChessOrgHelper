@@ -54,6 +54,19 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
       };
 
 
+     $scope.updateProfile = function () {
+
+         if ($scope.user === undefined)
+             $scope.user = {}
+         if ( $scope.newPass === $scope.anotherNewPass)
+             $scope.user.password = $scope.newPass
+         $http.post("/rest/user/update", $scope.user).then(function successCallback(response) {
+             window.location = "/profile";
+         }, function errorCallback(response) {
+         });
+     }
+
+
         function TournamentCreateController($scope, $http, $mdDialog) {
         $scope.tournament = {};
         $scope.maxParticipantsNums = [16, 32, 48, 64];

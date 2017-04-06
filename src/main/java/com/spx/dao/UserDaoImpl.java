@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.ws.rs.QueryParam;
 import java.util.Date;
 import java.util.List;
 
@@ -107,24 +108,46 @@ public class UserDaoImpl implements UserDao{
                       .addEntity(UserEntity.class)
                       .setParameter("login", login);
         return q.list();
-//        final Query query = new Query(org.springframework.data.mongodb.core.query.Criteria.where("login").is(login).where("external").is(external));
-//        return mongoOperations.find(query, UserEntity.class, COLLECTION_NAME);
     }
 
     @Override
     public Long addUser(final UserEntity userEntity) {
         sessionFactory.getCurrentSession().save(userEntity);
         return userEntity.getId();
-//        mongoOperations.insert(userEntity, COLLECTION_NAME);
-//        return userEntity.getId();
 
     }
 
-//    @Override
-//    public void activate(String id) {
-//
-////        UserEntity user = getUserById(id);
-////        user.setActivated(true);
-////        mongoOperations.save(user, COLLECTION_NAME);
-//    }
+    @Override
+    public void updateUser(Long id, UserEntity update) {
+        StringBuilder query = new StringBuilder("update users set ");
+        if (update.getName() != null)
+            query.append("name = :name, ");
+        if (update.getPhone() != null)
+            query.append("phone = :phone, ");
+        if (update.getEmail() != null)
+            query.append("email = :email, ");
+        if (update.getPassword() != null)
+            query.append("password = :password, ");
+        query.replace(query.lastIndexOf(","), query.lastIndexOf(",") + 1, "");
+        query.append(" where users.id = :id");
+        Query q = sessionFactory.getCurrentSession()
+                .createSQLQuery(query.toString())
+                .addEntity(UserEntity.class);
+
+        q.setParameter("id", id);
+
+        if (update.getName() != null)
+            q.setParameter("name", update.getName());
+        if (update.getPhone() != null)
+            q.setParameter("phone", update.getPhone());
+        if (update.getEmail() != null)
+            q.setParameter("email", update.getEmail());
+        if (update.getPassword() != null)
+            q.setParameter("password", update.getPassword());
+
+        q.executeUpdate();
+
+    }
+
+
 }

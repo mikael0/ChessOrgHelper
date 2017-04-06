@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css" type="text/css">
+		
+		<script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body style="background: #747474;">
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item" current>СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.vm" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="createBox" class="dialogBig">
+			<form action="" method="post" id="registerForm">
+				<h1>Размещение</h1>
+				<div id="living">
+					<div style="width: 100%;">
+						<p class="fieldsBlock_header">Гостиница</p>
+						<select id="hotel">
+							<option id="hotel0">Москва</option>
+							<option id="hotel1">Континенталь</option>
+							<option id="hotel2">Ритц</option>
+						</select>
+					</div>
+					<input type="text" id="adr" placeholder="Адрес"/>
+					<div style="width: 100%;" id="livingRoom0">
+						<div style="width: 80%; display: inline-block;">
+							<p class="fieldsBlock_header">Номер</p>
+							<select id="hotelRoom">
+								<option id="hotelRoom0">Одиночный</option>
+								<option id="hotelRoom1">На двоих</option>
+								<option id="hotelRoom2">Пентхауз</option>
+							</select>
+						</div>
+						<div style="display: inline-block; width: 19%; float: right;">
+							<p class="fieldsBlock_header">Количество</p>
+							<input type="number" id="hotelRoomsCount" value="1" min="1" max="10"/>
+						</div>
+					</div>
+				</div>
+				<div class="hspacer"></div>
+				<div class="right" style="margin-right: 0;">
+					<button type="submit" onclick="location.href='tournament_list.html'">Добавить номер</button>
+				</div>
+				<div class="clear"></div>
+				<button type="submit" onclick="location.href='tournament_list.html'">Заказать</button>
+			</form>
+		</div>
+	</body>
+</html>

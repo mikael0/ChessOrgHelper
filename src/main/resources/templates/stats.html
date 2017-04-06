@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item">СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item" current>СТАТИСТИКА</a>
+					<a href="profile.vm" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div class="statisticsTop">
+			<h1 id="tournament_header">Поиск результатов</h1>
+			<select style="width: 80%">
+				<option id="tournament0">Первый турнир</option>
+				<option id="tournament1">Второй турнир</option>
+				<option id="tournament2">Третий турнир</option>
+			</select>
+		</div>
+		<div id="content" style="margin-top: 0;">
+			<h1 id="tournament_header">Первый шахматный турнир</h1>
+			<p id="place" class="fieldsBlock_header">СССР, Васюки</p>
+			<div class="blockInfo">
+				<div class="left">
+					<div class="textField">
+						<p>Дата начала: </p>
+						<p id="dateStart">16 November 1936</p>
+					</div>
+					<div class="textField">
+						<p>Дата окончания: </p>
+						<p id="endDate">18 November 1936</p>
+					</div>
+					<div class="hspacer"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<table>
+				<tr class="header">
+					<td>Дата</td>
+					<td>Команда1</td>
+					<td>Команда2</td>
+					<td>Результат</td>
+					<td>Этап</td>
+				</tr>
+				<tr>
+					<td>15.11.2016</td>
+					<td>Игрок Игрокович</td>
+					<td>Игрок Игрокович Второй</td>
+					<td>75:36</td>
+					<td>I тур</td>
+				</tr>
+				<tr>
+					<td>15.11.2016</td>
+					<td>Игрок Игрокович</td>
+					<td>Игрок Игрокович Второй</td>
+					<td>75:36</td>
+					<td>I тур</td>
+				</tr>
+				<tr>
+					<td>15.11.2016</td>
+					<td>Игрок Игрокович</td>
+					<td>Игрок Игрокович Второй</td>
+					<td>75:36</td>
+					<td>I тур</td>
+				</tr>
+			</table>
+			<div class="hspacer"></div>
+			<table>
+				<tr class="header">
+					<td>Место</td>
+					<td>Участник</td>
+					<td>Количество выигранных матчей</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>Игрок Игрокович</td>
+					<td>100500</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Игрок Игрокович Второй</td>
+					<td>100499</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Игрок Игрокович Третий</td>
+					<td>100498</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
