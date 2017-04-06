@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ChessOrgHelper system.">
+		
+        <link rel="stylesheet" href="./styles/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="scripts/ui.js"></script>
+		
+		<title>ChessOrgHelper</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div style="padding-left: 10%; padding-right: 10%;">
+				<a href="index.html" style="display: inline-block;">
+					<div id="headerLogo">
+						<div style="font-weight: bold; display: inline-block">CHESS</div>
+						ORG
+					</div>
+				</a>
+				<div id="topMenu">
+					<a href="tournament_list.html" class="topMenu_item" current>СПИСОК ТУРНИРОВ</a>
+					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
+					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
+					<a href="profile.html" class="topMenu_item">ПРОФИЛЬ</a>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<h1>Первый шахматный турнир</h1>
+			<table id="roomTable">
+				<tr class="header"><td>Зал</td><td>Адрес</td><td>Количество мест</td><td></td></tr>
+				<tr><td id="room0Index">1</td><td id="room0Adr" class="adrCell">Где-то</td><td id="room0Places">100500</td><td class="removeCell"><button><img src="./img/rm.png" width="30"/></button></td></tr>
+				<tr><td id="room1Index">2</td><td id="room1Adr" class="adrCell">Где-то</td><td id="room1Places">100500</td><td class="removeCell"><button><img src="./img/rm.png" width="30"/></button></td></tr>
+				<tr><td id="room2Index">3</td><td id="room2Adr" class="adrCell">Где-то</td><td id="room2Places">100500</td><td class="removeCell"><button><img src="./img/rm.png" width="30"/></button></td></tr>
+				<tr><td id="room3Index">4</td><td id="room3Adr" class="adrCell">Где-то</td><td id="rooь3Places">100500</td><td class="removeCell"><button><img src="./img/rm.png" width="30"/></button></td></tr>
+				<tr><td id="room4Index">5</td><td id="room4Adr" class="adrCell">Где-то</td><td id="room4Places">100500</td><td class="removeCell"><button><img src="./img/rm.png" width="30"/></button></td></tr>
+			</table>
+			<div class="hspacer"></div>
+			<button type="submit" onclick="location.href='room_add.html'">Добавить зал</button>
+		</div>
+	</body>
+</html>
