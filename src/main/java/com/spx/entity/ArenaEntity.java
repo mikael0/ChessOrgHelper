@@ -1,5 +1,7 @@
 package com.spx.entity;
 
+import com.google.gson.JsonObject;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ARENAS")
-public class ArenaEntity {
+public class ArenaEntity implements Parcelable {
 
     private Long id;
     private String address;
@@ -60,4 +62,13 @@ public class ArenaEntity {
     }
 
 
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("address", address);
+        json.addProperty("maxSpectators", maxSpectators);
+        json.addProperty("tournamentId", tournament.getId());
+        return json;
+    }
 }

@@ -19,9 +19,9 @@
             </md-input-container>
 
             <md-input-container class="md-block" layout="row"">
-            <md-icon md-svg-src='/resources/svg/mail.svg'></md-icon>
-            <label>Email</label>
-            <input ng-model="user.email" type="email" ng-required="true">
+                <md-icon md-svg-src='/resources/svg/mail.svg'></md-icon>
+                <label>Email</label>
+                <input ng-model="user.email" type="email" ng-required="true">
             </md-input-container>
 
             <md-input-container class="md-block" layout="row">

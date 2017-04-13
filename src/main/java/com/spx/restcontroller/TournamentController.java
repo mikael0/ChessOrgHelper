@@ -1,5 +1,7 @@
 package com.spx.restcontroller;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.spx.dao.TournamentDao;
 import com.spx.dao.UserDao;
 import com.spx.email.EmailSender;
@@ -23,10 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -76,6 +75,20 @@ public class TournamentController {
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
+
+
+    @ApiOperation(value = "Get Tournament by Id")
+    @RequestMapping(value = "/getById",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public @ResponseBody String getTournamentById(Principal principal, @RequestBody Long id) {
+
+        TournamentEntity entity = tournamentDao.getTournamentById(id);
+        if (entity != null)
+            return entity.toJson().toString();
+        else
+            return null;
+
+    }
 
 
 

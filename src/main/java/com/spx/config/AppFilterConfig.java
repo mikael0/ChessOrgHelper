@@ -8,6 +8,7 @@ import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;
+import java.io.File;
 
 //@Configuration
 public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -23,7 +24,7 @@ public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletIn
         return filters;
     }
 
-    private int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
+    private int maxUploadSizeInMb = 50 * 1024 * 1024; // 50 MB
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -53,13 +54,11 @@ public class AppFilterConfig extends AbstractAnnotationConfigDispatcherServletIn
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 
-        /*File uploadDirectory = ServiceConfiguration.CRM_STORAGE_UPLOADS_DIRECTORY;
-
         MultipartConfigElement multipartConfigElement =
-                new MultipartConfigElement(uploadDirectory.getAbsolutePath(),
+                new MultipartConfigElement("/home/mikael0/",
                         maxUploadSizeInMb, maxUploadSizeInMb * 2, maxUploadSizeInMb / 2);
 
-        registration.setMultipartConfig(multipartConfigElement);*/
+        registration.setMultipartConfig(multipartConfigElement);
 
     }
 

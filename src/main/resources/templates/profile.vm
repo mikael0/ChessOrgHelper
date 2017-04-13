@@ -13,53 +13,70 @@
 	</head>
 
 	<body>
-		<div id="header">
-			<div style="padding-left: 10%; padding-right: 10%;">
-				<a href="/tournament_list" style="display: inline-block;">
-					<div id="headerLogo">
-						<div style="font-weight: bold; display: inline-block">CHESS</div>
-						ORG
-					</div>
-				</a>
-				<div id="topMenu">
-					<a href="/tournament_list" class="topMenu_item">СПИСОК ТУРНИРОВ</a>
-					<a href="schedule.html" class="topMenu_item">РАСПИСАНИЕ</a>
-					<a href="stats.html" class="topMenu_item">СТАТИСТИКА</a>
-					<a href="/profile" class="topMenu_item" current>ПРОФИЛЬ</a>
+		<div layout="column" id="content" ng-controller="CommonController as cc" ng-app="Common">
+            <md-toolbar>
+                <div class="md-toolbar-tools container">
+                    <span>ChessOrg</span>
+
+                    <!-- fill up the space between left and right area -->
+                    <span flex></span>
+
+                    <md-button class="md-cornered" href="/tournament_list"> Tournament List </md-button>
+                    <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
+                    <md-button class="md-cornered" ng-disabled="true"> Profile </md-button>
+                    <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
 				</div>
-			</div>
-		</div>
-		<div id="content" ng-controller="CommonController as cc" ng-app="Common">
-			<div class="fieldsBlockWrapper">
-				<div class="fieldsBlock">
-					<p class="fieldsBlock_header">Личные данные</p>
-					<input ng-model="user.name" type="text" id="nameInput" value="$user.name"/>
-					<input ng-model="user.phone" type="tel" id="telInput"  value="$user.phone"/>
-					<input ng-model="user.email" type="email" id="emailInput" value="$user.email"/>
+			</md-toolbar>
+
+            <md-content layout-padding class="md-no-momentum">
+
+			<div layout="row">
+
+				<div layout="column" flex="50">
+                    <span  md-colors="{color: 'accent'}" class="md-subhead">Profile settings</span>
+					<md-input-container class="md-block" layout="row"">
+						<label>Name</label>
+						<input ng-model="user.name" type="text" ng-required="true" placeholder="$user.name">
+					</md-input-container>
+                    <md-input-container class="md-block" layout="row"">
+						<label>Phone</label>
+						<input ng-model="user.phone" type="tel" ng-required="true" placeholder="$user.phone">
+                    </md-input-container>
+                    <md-input-container class="md-block" layout="row"">
+						<label>Email</label>
+						<input ng-model="user.email" type="email" ng-required="true" placeholder="$user.email">
+                    </md-input-container>
+					<br>
+					<br>
+                    <span  md-colors="{color: 'accent'}" class="md-subhead">Password settings</span>
+                    <md-input-container class="md-block" layout="row"">
+                    <label>Enter password</label>
+                    <input ng-model="oldPass" type="password"/>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout="row"">
+                    <label class="md-accent">Enter new password</label>
+                    <input ng-model="newPass" type="password"/>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout="row"">
+                    <label>Enter new password again</label>
+                    <input ng-model="anotherNewPass" type="password"/>
+                    </md-input-container>
 				</div>
-				<div class="hspacer"></div>
-				<div class="fieldsBlock">
-					<p class="fieldsBlock_header">Пароль</p>
-					<input ng-model="oldPass" type="password" id="oldPassInput" placeholder="Старый пароль"/>
-					<input ng-model="newPass" type="password" id="newPassInput" placeholder="Новый пароль"/>
-					<input ng-model="anotherNewPass" type="password" id="newReplayPassInput" placeholder="Повторите новый пароль"/>
+
+
+				<div layout="column" flex="50" layout-align="start center">
+					<span class="md-subhead md-accent" md-colors="{color: 'accent'}">Information</span>
+					<span> You have $user.role priveleges</span>
 				</div>
-			</div>
-			<div class="vspacer"></div>
-			<div class="fieldsBlockWrapper">
-				<div class="fieldsBlock">
-					<p class="fieldsBlock_header">Информация</p>
-					<p>
-					Из его применили в различных языках те или иные буквы встречаются. Ориентированных на латыни и на сайтах. Даже с использованием lorem возникнуть небольшие проблемы: в книгопечатании. Оценке качества восприятия макета никакого отношения к обитателям водоемов. Проблемы: в длине наиболее распространенных. Иные буквы встречаются с разной частотой, имеется разница в различных языках. Длине наиболее распространенных слов неповторяющийся набор слов..
-					</p><p>
-					Нагрузку ему нести совсем необязательно проектах. В различных языках те. Он веб-дизайнерами для вставки. Демонстрации внешнего вида контента, просмотра шрифтов, абзацев отступов. Впервые его применили в книгопечатании еще в xvi веке имеется разница. В различных языках те или иные буквы. Запуске проекта вариантов lorem ipsum обязан древнеримскому философу. Его применили в xvi веке создающие собственные варианты текста. Рыбным текстом является знаменитый lorem ipsum на том языке который.
-					</p>
-				</div>
-			</div>
-			<div class="hspacer"></div>
-			<div>
-				<button ng-click="updateProfile()">Обновить профиль</button>
-			</div>
+
+            </div>
+
+					<md-input-container layout="row" layout-align="start">
+						<md-button ng-click="updateProfile()" class="md-raised md-primary">Update profile</md-button>
+					</md-input-container>
+
+			</md-content>
+
 		</div>
 	</body>
 

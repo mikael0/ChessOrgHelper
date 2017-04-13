@@ -1,16 +1,18 @@
 package com.spx.entity;
 
+import com.google.gson.JsonObject;
+import org.codehaus.jettison.json.JSONObject;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * Created by mikael0 on 22.11.16.
  */
 @Entity
 @Table(name = "TOURNAMENTS")
-public class TournamentEntity {
+public class TournamentEntity implements Parcelable {
 
     private Long id;
     private String name;
@@ -160,6 +162,24 @@ public class TournamentEntity {
 
     public void removeHousing(HousingEntity housing){
         housings.remove(housing);
+    }
+
+    public JsonObject toJson(){
+        JsonObject json = new JsonObject();
+        for (Field field : Arrays.asList(getClass().getDeclaredFields())) {
+            try {
+                if ( field.get(this) != null) {
+                    if (Parcelable.class.isAssignableFrom(field.getType()))
+                        json.add(field.getName(), ((Parcelable) field.get(this)).toJson());
+                    else
+                        json.addProperty(field.getName(), field.get(this).toString());
+                }
+
+            } catch (IllegalAccessException e){
+                e.printStackTrace();
+            }
+        }
+        return json;
     }
 
 //    @Override

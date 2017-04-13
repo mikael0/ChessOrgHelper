@@ -1,0 +1,83 @@
+<md-dialog flex="50" aria-label="Order Tickets">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Buy Tickets</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Tournament name</label>
+                <input ng-model="tournament.name" type="text" ng-disabled="true"/>
+       </md-input-container>
+
+        <div ng-repeat="ticketOrder in tickets" >
+            <div layout="row">
+                <md-input-container class="md-block" flex="80">
+                    <label>Game</label>
+                    <md-select ng-model="ticketOrder.game">
+                        <md-option ng-repeat="item in tournament.games" ng-value="text">
+                            {{item.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="20">
+                    <label>Amount</label>
+                    <input ng-model="ticketOrder.amount" type="number" ng-required="true">
+                </md-input-container>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex="80"></div>
+            <md-input-container layout-align="end end" flex="20">
+                <md-button ng-click="add()" class="md-primary md-cornered">Add</md-button>
+            </md-input-container>
+        </div>
+
+        <br>
+        <br>
+        <span> Order Housing </span>
+        <md-input-container class="md-block" layout="row">
+            <label>Housing</label>
+            <md-select ng-model="housing.name">
+            		<md-option ng-repeat="item in tournament.housings" ng-value="text">
+              			{{item.name}}
+            		</md-option>
+          	</md-select>
+        </md-input-container>
+
+        <div layout="row">
+            <md-input-container class="md-block" flex="80">
+                <label>Room</label>
+                <md-select ng-model="housing.room">
+                    <md-option ng-repeat="item in tournament.housings[housing.name].rooms" ng-value="text">
+                        {{item.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="20">
+                <label>Amount</label>
+                <input ng-model="housingAmount" type="number" ng-required="true">
+            </md-input-container>
+        </div>
+
+	</div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" >
+                <md-button type="submit" class="md-raised md-cornered md-accent md-primary">Order</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

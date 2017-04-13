@@ -56,6 +56,7 @@ public class ExternalWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/user/formlogin/**").permitAll()
                 .antMatchers("/rest/user/activate/**").permitAll()
                 .antMatchers("/rest/tournament/create/**").permitAll()
+                .antMatchers("/rest/tournament/getById/**").permitAll()
                 .anyRequest()
                 .authenticated().and().logout().logoutSuccessUrl("/").permitAll()
                 .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))

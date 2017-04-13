@@ -1,5 +1,7 @@
 package com.spx.entity;
 
+import com.google.gson.JsonObject;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -7,7 +9,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
-public class UserEntity {
+public class UserEntity implements Parcelable {
+
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("email", email);
+        return json;
+    }
 
     public enum Roles{
         ROLE_PARTICIPANT,

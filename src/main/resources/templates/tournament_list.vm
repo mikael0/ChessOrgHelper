@@ -2,6 +2,8 @@
 <head>
 	#parse("static/head.vm")
     <title>ChessOrgHelper</title>
+
+
 </head>
 <body>
 <div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
@@ -11,14 +13,6 @@
 
       <!-- fill up the space between left and right area -->
       <span flex></span>
-
-     ## <div ng-repeat="item in modules">
-       ##           <div style="cursor:pointer" ng-show="item.role.indexOf('$userRole') !== -1">
-         ##                 <md-button class="md-cornered">
-           ##                    {{item.title}}
-             ##             </button>
-               ##   </div>
-     ## <div>
 
       <md-button class="md-cornered" ng-disabled="true"> Tournament List </md-button>
       <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
@@ -45,6 +39,13 @@
         #else
             <div class="test_size_not_0"> </div>
             #foreach( $tournament in $tournamentList)
+##                <script type="text/javascript">
+##                    console.log("velocity: ");
+##                    console.log("$tournament");
+##                    tournamentJSON = "$tournament.json";
+##                    console.log($scope.tournamentJSON);
+##                </script>
+
             <md-card>
                 <md-card-header>
                     <md-card-header-text>
@@ -77,6 +78,10 @@
                             <md-button flex="20" class="md-raised md-cornered md-accent"> Participants </md-button>
                             <md-button flex="20" class="md-raised md-cornered md-accent"> Housing </md-button>
                             <md-button flex="20" class="md-raised md-cornered md-accent"> Arenas </md-button>
+                         #end
+                         #if ( $userRole == "ROLE_SPECTATOR")
+                             <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="showApplyDialog($event, '$tournament.id')"> Apply </md-button>
+                             <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="showBuyTicketsDialog($event, '$tournament.id')"> Buy tickets </md-button>
                          #end
                         <md-button flex="40" class="md-cornered"> Schedule </md-button>
                     </div>

@@ -1,5 +1,7 @@
 package com.spx.entity;
 
+import com.google.gson.JsonObject;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ROOMS")
-public class RoomEntity {
+public class RoomEntity implements Parcelable {
 
     private Long id;
     private String name;
@@ -58,5 +60,15 @@ public class RoomEntity {
 
     public void setAmount(Long amount) {
         this.amount = amount;
+    }
+
+
+    public JsonObject toJson(){
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("amount", amount);
+        json.addProperty("housingId", housing.getId());
+        return json;
     }
 }

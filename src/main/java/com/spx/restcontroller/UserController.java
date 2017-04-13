@@ -72,11 +72,10 @@ public class UserController {
     }
 
     @ApiOperation(value = "Update user data")
-    @RequestMapping(value = "/update",  method = RequestMethod.POST)
+    @RequestMapping(value = "/updateCurrent",  method = RequestMethod.POST)
     @Transactional
     public ResponseEntity<String> updateUser(Principal principal,
                                              @RequestBody UserEntity user) {
-
         if (user == null)
             user = new UserEntity();
 
@@ -84,7 +83,13 @@ public class UserController {
        if (user.getPassword() != null)
           user.setPassword(encoder.encode(user.getPassword()));
 
-        userDao.updateUser(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser().getId(), user);
+        UserEntity currentUser = ((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser();
+
+        userDao.updateUser(currentUser.getId(), user);
+
+        currentUser = userDao.getUserById(currentUser.getId());
+
+        ((UserDetailsImpl)((Authentication) principal).getPrincipal()).setUser(currentUser);
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }

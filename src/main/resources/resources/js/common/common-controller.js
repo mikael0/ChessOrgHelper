@@ -24,8 +24,6 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         },
     ];
 
-
-
     this.logout = function () {
         //console.log($location)
         //$window.location = '../logout';
@@ -38,8 +36,20 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         });
     }
 
+    $scope.updateProfile = function () {
+        if ($scope.user === undefined)
+            $scope.user = {}
+        if ( $scope.newPass === $scope.anotherNewPass)
+            $scope.user.password = $scope.newPass
+        $http.post("/rest/user/updateCurrent", $scope.user).then(function successCallback(response) {
+            window.location = "/profile";
+        }, function errorCallback(response) {
+        });
+    }
 
-     $scope.showTournamentCreateDialog = function(ev) {
+
+
+    $scope.showTournamentCreateDialog = function(ev) {
         $mdDialog.show({
           controller: TournamentCreateController,
           templateUrl: 'resources/html/create_tournament_dialog.tmpl.html',
@@ -49,25 +59,130 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
           fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
         })
         .then(function(answer) {
+
         }, function() {
+
         });
       };
 
 
-     $scope.updateProfile = function () {
+    $scope.showBuyTicketsDialog = function(ev, tournament) {
+        console.log(tournament);
+        $http.post( "/rest/tournament/getById", tournament).then(function successCallback(response) {
+            console.log(response);
+            $mdDialog.show({
+                controller: BuyTicketsController,
+                templateUrl: 'resources/html/buy_tickets_dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                locals: {
+                    tournament : response.data
+                },
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(answer) {
 
-         if ($scope.user === undefined)
-             $scope.user = {}
-         if ( $scope.newPass === $scope.anotherNewPass)
-             $scope.user.password = $scope.newPass
-         $http.post("/rest/user/update", $scope.user).then(function successCallback(response) {
-             window.location = "/profile";
-         }, function errorCallback(response) {
-         });
-     }
+                }, function() {
+
+                });
+        }, function errorCallback() {
+
+        });
+
+    };
+
+    $scope.showApplyDialog = function(ev, tournament) {
+        console.log(tournament);
+        $http.post( "/rest/tournament/getById", tournament).then(function successCallback(response) {
+            console.log(response);
+            $mdDialog.show({
+                controller: ApplyController,
+                templateUrl: 'resources/html/apply_dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                locals: {
+                    tournament : response.data
+                },
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+        }, function errorCallback() {
+
+        });
+
+    };
+
+    function BuyTicketsController($scope, $http, $mdDialog, tournament) {
+        console.log(tournament);
+        $scope.tournament = tournament;
+        $scope.tickets = [{}];
+
+        $scope.add = function () {
+            $scope.tickets.push({})
+        }
+
+        $scope.submit = function () {
+            //TODO: game controller
+
+        };
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
 
 
-        function TournamentCreateController($scope, $http, $mdDialog) {
+    function ApplyController($scope, $http, $mdDialog, tournament) {
+        console.log(tournament);
+        $scope.tournament = tournament;
+        $scope.user = {};
+
+        $scope.submit = function () {
+            //TODO: apply controller
+            console.log($scope.request)
+            $http.post("/rest/apply/request", $scope.request).then(function successCallback(response) {
+                window.location = "tournament_list";
+                var fd = new FormData();
+                fd.append('id', response.data);
+                fd.append('file', $scope.file);
+                $http.post("/rest/apply/confirmation", fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                    }).then(function(resp) {
+                        $scope.hide();
+                    })
+            }, function errorCallback(response) {
+            });
+
+        };
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
+
+
+    function TournamentCreateController($scope, $http, $mdDialog) {
         $scope.tournament = {};
         $scope.maxParticipantsNums = [16, 32, 48, 64];
         $scope.submit = function () {

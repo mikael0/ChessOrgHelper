@@ -1,5 +1,11 @@
 package com.spx.entity;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import jdk.nashorn.api.scripting.JSObject;
+import org.apache.hadoop.yarn.webapp.hamlet.HamletSpec;
+import org.codehaus.jettison.json.JSONObject;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "HOUSINGS")
-public class HousingEntity {
+public class HousingEntity implements Parcelable{
 
     private Long id;
     private String address;
@@ -56,5 +62,19 @@ public class HousingEntity {
 
     public void setRooms(Set<RoomEntity> rooms) {
         this.rooms = rooms;
+    }
+
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("address", address);
+        JsonArray rooms = new JsonArray();
+        for (RoomEntity room : this.rooms) {
+            rooms.add(room.toJson());
+        }
+        json.add("rooms", rooms);
+        json.addProperty("tournamentId", tournament.getId());
+        return json;
     }
 }
