@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<div layout="column" id="content" ng-controller="CommonController as cc" ng-app="Common">
+		<div ng-cloak layout="column" id="content" ng-controller="CommonController as cc" ng-app="Common">
             <md-toolbar>
                 <div class="md-toolbar-tools container">
                     <span>ChessOrg</span>

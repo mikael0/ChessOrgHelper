@@ -29,6 +29,8 @@ public class TournamentEntity implements Parcelable {
     private Set<ArenaEntity> arenas = new HashSet<ArenaEntity>();
     private Set<HousingEntity> housings = new HashSet<HousingEntity>();
 
+    private Set<TournamentInterestedUserEntity> interestedUsers = new HashSet<TournamentInterestedUserEntity>();
+
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TOURNAMENTS_SEQ")
@@ -147,6 +149,15 @@ public class TournamentEntity implements Parcelable {
         arenas.remove(arena);
     }
 
+    public void removeArenaById(Long id){
+        List<ArenaEntity> arenasToRemove = new ArrayList<>();
+        for (ArenaEntity arena : arenas){
+            if(arena.getId().equals(id))
+                arenasToRemove.add(arena);
+        }
+        arenas.removeAll(arenasToRemove);
+    }
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament")
     public Set<HousingEntity> getHousings() {
         return housings;
@@ -180,6 +191,15 @@ public class TournamentEntity implements Parcelable {
             }
         }
         return json;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament")
+    public Set<TournamentInterestedUserEntity> getInterestedUsers() {
+        return interestedUsers;
+    }
+
+    public void setInterestedUsers(Set<TournamentInterestedUserEntity> interestedUsers) {
+        this.interestedUsers = interestedUsers;
     }
 
 //    @Override

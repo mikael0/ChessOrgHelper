@@ -16,6 +16,7 @@ public class RoomEntity implements Parcelable {
     private Long id;
     private String name;
     private Long amount;
+    private Long booked;
 
     private HousingEntity housing;
 
@@ -70,5 +71,15 @@ public class RoomEntity implements Parcelable {
         json.addProperty("amount", amount);
         json.addProperty("housingId", housing.getId());
         return json;
+    }
+
+    @Basic
+    @Column(name = "BOOKED", nullable = true)
+    public Long getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Long booked) {
+        this.booked = booked;
     }
 }

@@ -55,7 +55,7 @@ public class ParticipationRequestController {
 
 
     @ApiOperation(value = "Upload file")
-    @RequestMapping(value = "/confiramtion",  method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "/confirmation",  method = RequestMethod.POST)
     @Transactional
     public ResponseEntity<String> createTournament(Principal principal,
                                                    @RequestParam Long id,

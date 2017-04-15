@@ -73,30 +73,12 @@ public class ViewControllers {
         return "index";
     }
 
-/*    @RequestMapping(value = "/login")
-    public String loginPage() {
-        return "login";
-    }*/
 
     @RequestMapping(value = "/register")
     public String registerPage() {
         return "register";
     }
 
-//    @RequestMapping(value = "/construct")
-//    public String construct() {
-//        return "construct";
-//    }
-//
-//    @RequestMapping(value = "/dashboard")
-//    public String dashboard(Principal principal, Model model) {
-//        if (principal instanceof Authentication) {
-//            model.addAttribute("userName", ((UserDetails)((Authentication) principal).getPrincipal()).getUsername());
-//            model.addAttribute("userRole", ((UserDetails)((Authentication) principal)
-//                                            .getPrincipal()).getAuthorities().toArray()[0]);
-//        }
-//        return "dashboard";
-//    }
 
     @RequestMapping(value = "/tournament_list")
     public String tournamentList(HttpServletRequest request, Principal principal, Model model) {
@@ -122,14 +104,34 @@ public class ViewControllers {
     }
 
     @RequestMapping(value = "/create_tournament")
-    public String createTournament(Principal principal, Model model) {
+    public String createTournament(Principal principal,
+                                   Model model) {
         return "tournament_list";
     }
 
     @RequestMapping(value = "/profile")
-    public String viewProfile(Principal principal, Model model){
+    public String viewProfile(Principal principal,
+                              Model model){
         model.addAttribute("user", ((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser());
         return "profile";
+    }
+
+    @RequestMapping(value = "/housing_settings")
+    public String viewHousingSettings(Principal principal,
+                                      Model model,
+                                      @RequestParam("tournamentId") Long tournamentId){
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        model.addAttribute("tournament", tournament);
+        return "housing_settings";
+    }
+
+    @RequestMapping(value = "/arena_settings")
+    public String viewArenaSettings(Principal principal,
+                                      Model model,
+                                      @RequestParam("tournamentId") Long tournamentId){
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        model.addAttribute("tournament", tournament);
+        return "arenas_settings";
     }
 
     @RequestMapping(value = "/test_insert")

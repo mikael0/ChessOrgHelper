@@ -1,0 +1,40 @@
+<md-dialog flex="50" aria-label="Order Tickets">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Arena</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Arena name</label>
+                <input ng-model="arena.name" type="text"/>
+       </md-input-container>
+
+        <md-input-container md-no-float="" class="md-block" layout="row">
+            <label>Arena address</label>
+            <input ng-model="arena.address" type="text"/>
+        </md-input-container>
+
+        <md-input-container md-no-float="" class="md-block" layout="row">
+            <label>Capacity</label>
+            <input ng-model="arena.maxSpectators" type="number"/>
+        </md-input-container>
+
+	</div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" >
+                <md-button type="submit" class="md-raised md-cornered md-accent md-primary">Add</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

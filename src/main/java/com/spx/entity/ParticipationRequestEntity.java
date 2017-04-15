@@ -80,7 +80,7 @@ public class ParticipationRequestEntity implements Parcelable {
     }
 
     @Basic
-    @Column(name = "CONFIRMATION", nullable = false)
+    @Column(name = "CONFIRMATION", nullable = true)
     public byte[] getConfirmation() {
         return confirmation;
     }

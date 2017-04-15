@@ -39,12 +39,6 @@
         #else
             <div class="test_size_not_0"> </div>
             #foreach( $tournament in $tournamentList)
-##                <script type="text/javascript">
-##                    console.log("velocity: ");
-##                    console.log("$tournament");
-##                    tournamentJSON = "$tournament.json";
-##                    console.log($scope.tournamentJSON);
-##                </script>
 
             <md-card>
                 <md-card-header>
@@ -76,8 +70,8 @@
                     <div layout="row" layout-margin>
                          #if ( $userRole == "ROLE_ORGANIZER" )
                             <md-button flex="20" class="md-raised md-cornered md-accent"> Participants </md-button>
-                            <md-button flex="20" class="md-raised md-cornered md-accent"> Housing </md-button>
-                            <md-button flex="20" class="md-raised md-cornered md-accent"> Arenas </md-button>
+                            <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="goToHousings($event, '$tournament.id')"> Housing </md-button>
+                            <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="goToArenas($event, '$tournament.id')"> Arenas </md-button>
                          #end
                          #if ( $userRole == "ROLE_SPECTATOR")
                              <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="showApplyDialog($event, '$tournament.id')"> Apply </md-button>

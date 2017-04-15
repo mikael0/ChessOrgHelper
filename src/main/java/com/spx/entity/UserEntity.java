@@ -38,6 +38,8 @@ public class UserEntity implements Parcelable {
 
     private Set<TournamentEntity> tournaments;
 
+    private Set<TournamentInterestedUserEntity> interested;
+
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
@@ -137,6 +139,15 @@ public class UserEntity implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<TournamentInterestedUserEntity> getInterested() {
+        return interested;
+    }
+
+    public void setInterested(Set<TournamentInterestedUserEntity> interested) {
+        this.interested = interested;
     }
 
     @Override

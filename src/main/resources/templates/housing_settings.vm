@@ -1,0 +1,66 @@
+<head>
+    #parse("static/head.vm")
+    <title>ChessOrgHelper</title>
+
+</head>
+<body>
+    <div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
+        <md-toolbar>
+            <div class="md-toolbar-tools container">
+                <span>ChessOrg</span>
+
+                <!-- fill up the space between left and right area -->
+                <span flex></span>
+
+                <md-button class="md-cornered" ng-disabled="true"> Housings </md-button>
+                <md-button class="md-cornered" href="tournament_list"> Tournament List </md-button>
+                <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
+                <md-button class="md-cornered" href="/profile"> Profile </md-button>
+                <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
+
+            </div>
+        </md-toolbar>
+        <div class="container">
+            <md-content flex="100"  class="md-no-momentum margin-top">
+                <md-card >
+                    <md-card-header>
+                        <md-card-header-text>
+                            <span class="md-title"> $tournament.name </span>
+                            <span class="md-subhead" md-colors="{color: 'accent'}"> $tournament.city </span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    #foreach( $housing in $tournament.housings)
+                        <md-card-content>
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" md-colors="{color: 'accent'}"> $housing.name </span>
+                                        <span class="md-subhead"> $housing.address </span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content>
+                                    #foreach($room in $housing.rooms)
+                                        <div flex="70" layout="column">
+                                            <span class="md-subhead"> Room type: $room.name </span>
+                                            <span class="md-subhead"> Available: $room.amount </span>
+                                            <span class="md-subhead"> Booked: $room.booked </span>
+                                        </div>
+                                       <br>
+                                    #end
+                                </md-card-content>
+                            </md-card>
+                        </md-card-content>
+                    #end
+                    <md-card-actions>
+                        <div layout="row" layout-margin>
+                            <md-button class="md-cornered md-raised" ng-click="showAddHousingDialog($event, '$tournament.id')"> Add </md-button>
+                        </div>
+                    </md-card-actions>
+                </md-card>
+            </md-content>
+        </div>
+    </div>
+    <script src="resources/js/common/_module.js"></script>
+    <script src="resources/js/common/common-controller.js"></script>
+
+</body>

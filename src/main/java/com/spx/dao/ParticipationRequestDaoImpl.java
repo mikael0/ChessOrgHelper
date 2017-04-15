@@ -24,7 +24,7 @@ public class ParticipationRequestDaoImpl implements ParticipationRequestDao{
 
     @Override
     public  List<ParticipationRequestEntity> listRequestsForTournament(Long tournamentId){
-        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from requests where requests.tournament.id = :id")
+        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from requests where requests.tournament_id = :id")
                 .addEntity(ParticipationRequestEntity.class)
                 .setParameter("id", tournamentId);
         return q.list();

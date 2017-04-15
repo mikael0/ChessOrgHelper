@@ -16,7 +16,11 @@ public class ArenaEntity implements Parcelable {
 
     private Long id;
     private String address;
+    private String name;
     private Long maxSpectators;
+
+    //workaround
+    private Long tournamentId;
 
     private TournamentEntity tournament;
 
@@ -70,5 +74,23 @@ public class ArenaEntity implements Parcelable {
         json.addProperty("maxSpectators", maxSpectators);
         json.addProperty("tournamentId", tournament.getId());
         return json;
+    }
+
+    @Basic
+    @Column(name = "NAME", nullable = false, length = 50)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(Long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 }

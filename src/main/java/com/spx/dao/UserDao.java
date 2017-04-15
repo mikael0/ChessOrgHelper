@@ -1,5 +1,6 @@
 package com.spx.dao;
 
+import com.spx.entity.TournamentEntity;
 import com.spx.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,4 +15,6 @@ public interface UserDao {
     Long addUser(final UserEntity userEntity);
 
     void updateUser(Long id, UserEntity update);
+
+    List<TournamentEntity> getTournamentsForUser(UserEntity user);
 }

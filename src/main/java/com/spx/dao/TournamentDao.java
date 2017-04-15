@@ -3,6 +3,7 @@ package com.spx.dao;
 import com.spx.entity.ArenaEntity;
 import com.spx.entity.HousingEntity;
 import com.spx.entity.TournamentEntity;
+import com.spx.entity.UserEntity;
 
 import java.util.List;
 
@@ -15,12 +16,13 @@ public interface TournamentDao {
     List<TournamentEntity> getTournamentsByOrganizer(Long orgId);
     TournamentEntity getTournamentById(Long id);
 
-//    Long addArena(ArenaEntity arena);
-//    Long addHousing(HousingEntity housing);
     Long addTournament(TournamentEntity tournament);
 
-//    void setParticipantsNum(Long num, Long tournamentId);
-//    void setSpectatorsNum(Long num, Long tournamentId);
-//    void setMaxParticipantsNum(Long num, Long tournamentId);
+    List<UserEntity> getInterestedUsers(TournamentEntity entity);
 
+    Long addHousing(HousingEntity housing);
+    Long addArena(ArenaEntity arena);
+
+    void updateTournament(TournamentEntity tournament);
 }
+

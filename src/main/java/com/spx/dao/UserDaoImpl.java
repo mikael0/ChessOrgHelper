@@ -2,6 +2,8 @@
 package com.spx.dao;
 
 import com.spx.dao.UserDao;
+import com.spx.entity.TournamentEntity;
+import com.spx.entity.TournamentInterestedUserEntity;
 import com.spx.entity.UserEntity;
 import org.apache.hadoop.yarn.webapp.hamlet.HamletSpec;
 import org.apache.log4j.Logger;
@@ -147,6 +149,16 @@ public class UserDaoImpl implements UserDao{
 
         q.executeUpdate();
 
+    }
+
+    @Override
+    public List<TournamentEntity> getTournamentsForUser(UserEntity user) {
+        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from tournaments where tournaments.id = (select tournament_id from interested where interested.user_id = :id)")
+                .addEntity(UserEntity.class)
+                .addEntity(TournamentEntity.class)
+                .addEntity(TournamentInterestedUserEntity.class)
+                .setParameter("id", user.getId());
+        return q.list();
     }
 
 

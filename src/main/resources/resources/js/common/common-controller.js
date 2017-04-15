@@ -34,20 +34,39 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         }).error(function (data) {
             console.log("Logout failed");
         });
-    }
+    };
 
     $scope.updateProfile = function () {
         if ($scope.user === undefined)
             $scope.user = {}
         if ( $scope.newPass === $scope.anotherNewPass)
             $scope.user.password = $scope.newPass
-        $http.post("/rest/user/updateCurrent", $scope.user).then(function successCallback(response) {
+        $http.post("/rest/user/updateCurrent", $scope.user)
+             .then(function successCallback(response) {
             window.location = "/profile";
         }, function errorCallback(response) {
         });
+    };
+
+
+    $scope.goToHousings = function(ev, tournamentId) {
+        console.log("id: " + tournamentId);
+        window.location = "/housing_settings?tournamentId=" + tournamentId;
+    };
+
+    $scope.goToArenas = function(ev, tournamentId) {
+        console.log("id: " + tournamentId);
+        window.location = "/arena_settings?tournamentId=" + tournamentId;
+    };
+
+    $scope.removeArena = function (tournamentId, arenaId) {
+        console.log("id: " + tournamentId);
+        var data = {"tournamentId" : tournamentId, "arenaId" : arenaId};
+        $http.post("/rest/tournament/remove_arena", data)
+            .then(function () {
+                window.location = "/arena_settings?tournamentId=" + tournamentId;
+            });
     }
-
-
 
     $scope.showTournamentCreateDialog = function(ev) {
         $mdDialog.show({
@@ -91,6 +110,59 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         });
 
     };
+
+    $scope.showAddHousingDialog = function(ev, tournament) {
+        console.log(tournament);
+        $http.post( "/rest/tournament/getById", tournament).then(function successCallback(response) {
+            console.log(response);
+            $mdDialog.show({
+                controller: AddHousingController,
+                templateUrl: 'resources/html/add_housing_dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                locals: {
+                    tournament : response.data
+                },
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+        }, function errorCallback() {
+
+        });
+
+    };
+
+    $scope.showAddArenaDialog = function(ev, tournament) {
+        console.log(tournament);
+        $http.post( "/rest/tournament/getById", tournament).then(function successCallback(response) {
+            console.log(response);
+            $mdDialog.show({
+                controller: AddArenaController,
+                templateUrl: 'resources/html/add_arena_dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                locals: {
+                    tournament : response.data
+                },
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+        }, function errorCallback() {
+
+        });
+
+    };
+
 
     $scope.showApplyDialog = function(ev, tournament) {
         console.log(tournament);
@@ -144,6 +216,73 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         };
     }
 
+    function AddHousingController($scope, $http, $mdDialog, tournament) {
+        console.log(tournament);
+        $scope.tournament = tournament;
+        // $scope.housing = {"tournament" : tournament};
+        $scope.housing = {"tournamentId": tournament.id};
+
+        $scope.housing.rooms= [ {} ];
+
+        $scope.add = function () {
+            $scope.housing.rooms.push({})
+        }
+
+        $scope.submit = function () {
+
+
+            console.log($scope.housing);
+
+            $http.post("/rest/tournament/add_housing", $scope.housing)
+                 .then(function (resp) {
+                     window.location = "/housing_settings?tournamentId=" + tournament.id;
+                     $scope.hide();
+                 });
+        };
+
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
+
+    function AddArenaController($scope, $http, $mdDialog, tournament) {
+        console.log(tournament);
+        $scope.tournament = tournament;
+        $scope.arena = {"tournamentId" : tournament.id};
+
+        $scope.submit = function () {
+
+            console.log($scope.arena);
+
+            $http.post("/rest/tournament/add_arena", $scope.arena)
+                .then(function (resp) {
+                    window.location = "/arena_settings?tournamentId=" + tournament.id;
+                    $scope.hide();
+                });
+        };
+
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
+
+
 
     function ApplyController($scope, $http, $mdDialog, tournament) {
         console.log(tournament);
@@ -154,14 +293,15 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
             //TODO: apply controller
             console.log($scope.request)
             $http.post("/rest/apply/request", $scope.request).then(function successCallback(response) {
-                window.location = "tournament_list";
                 var fd = new FormData();
                 fd.append('id', response.data);
                 fd.append('file', $scope.file);
+                console.log(fd);
                 $http.post("/rest/apply/confirmation", fd, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                     }).then(function(resp) {
+                        window.location = "tournament_list";
                         $scope.hide();
                     })
             }, function errorCallback(response) {

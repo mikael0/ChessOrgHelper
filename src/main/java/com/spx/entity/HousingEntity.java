@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import jdk.nashorn.api.scripting.JSObject;
 import org.apache.hadoop.yarn.webapp.hamlet.HamletSpec;
 import org.codehaus.jettison.json.JSONObject;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,6 +21,10 @@ public class HousingEntity implements Parcelable{
 
     private Long id;
     private String address;
+    private String name;
+
+    //workaround
+    private Long tournamentId;
 
     private Set<RoomEntity> rooms = new HashSet<RoomEntity>();
 
@@ -46,7 +52,7 @@ public class HousingEntity implements Parcelable{
         this.address = address;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = javax.persistence.CascadeType.ALL)
     public TournamentEntity getTournament() {
         return tournament;
     }
@@ -56,6 +62,7 @@ public class HousingEntity implements Parcelable{
     }
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "housing")
+    @Cascade({CascadeType.SAVE_UPDATE})
     public Set<RoomEntity> getRooms() {
         return rooms;
     }
@@ -76,5 +83,23 @@ public class HousingEntity implements Parcelable{
         json.add("rooms", rooms);
         json.addProperty("tournamentId", tournament.getId());
         return json;
+    }
+
+    @Basic
+    @Column(name = "NAME", nullable = false, length = 50)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(Long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 }

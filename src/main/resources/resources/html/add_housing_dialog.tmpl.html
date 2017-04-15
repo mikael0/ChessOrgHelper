@@ -1,0 +1,55 @@
+<md-dialog flex="50" aria-label="Order Tickets">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Housing</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Housing name</label>
+                <input ng-model="housing.name" type="text"/>
+       </md-input-container>
+
+        <md-input-container md-no-float="" class="md-block" layout="row">
+            <label>Housing address</label>
+            <input ng-model="housing.address" type="text"/>
+        </md-input-container>
+
+        <div layout="row">
+            <div flex="80"></div>
+            <md-input-container layout-align="end end" flex="20">
+                <md-button ng-click="add()" class="md-primary md-cornered md-raised">Add Room Type</md-button>
+            </md-input-container>
+        </div>
+
+        <div ng-repeat="room in housing.rooms" >
+            <div layout="row">
+                <md-input-container class="md-block" flex="80">
+                    <label>Type</label>
+                    <input ng-model="room.name" type="text" ng-required="true">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="20">
+                    <label>Amount</label>
+                    <input ng-model="room.amount" type="number" ng-required="true">
+                </md-input-container>
+            </div>
+        </div>
+	</div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" >
+                <md-button type="submit" class="md-raised md-cornered md-accent md-primary">Add</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
