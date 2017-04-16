@@ -59,9 +59,36 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         window.location = "/arena_settings?tournamentId=" + tournamentId;
     };
 
+    $scope.goToSchedule = function(tournamentId) {
+        console.log("id: " + tournamentId);
+        window.location = "/schedule?tournamentId=" + tournamentId;
+    };
+
     $scope.goToParticipants = function(ev, tournamentId) {
         console.log("id: " + tournamentId);
         window.location = "/participants_settings?tournamentId=" + tournamentId;
+    };
+
+    $scope.showGameInfo = function(ev, gameId, role) {
+        console.log("id: " + gameId);
+        //TODO: getgame by id
+        var resp = {}
+        $mdDialog.show({
+            controller: GameInfoController,
+            templateUrl: 'resources/html/game_info_dialog.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            locals: {
+                game: resp.data
+            },
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+            .then(function(answer) {
+
+            }, function() {
+
+            });
     };
 
     $scope.approveRequest = function(requestId, tournamentId) {

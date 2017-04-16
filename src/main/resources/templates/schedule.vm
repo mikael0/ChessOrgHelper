@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+	#parse("static/head.vm")
+    <title>ChessOrgHelper</title>
+
+</head>
+<body>
+<div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
+  <md-toolbar>
+    <div class="md-toolbar-tools container">
+      <span>ChessOrg</span>
+
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+
+      <md-button class="md-cornered" ng-disabled="true"> Schedule</md-button>
+      <md-button class="md-cornered" href="/tournament_list"> Tournament List </md-button>
+      <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
+      <md-button class="md-cornered" href="/profile"> Profile </md-button>
+    <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
+
+    </div>
+  </md-toolbar>
+    <div class="container" >
+        <md-content class="md-no-momentum margin-top">
+            <span class="md-title">$tournament.name</span>
+##            #foreach($game in $tournament.games)
+                <md-card>
+                    <md-card-header>
+                        <span class="md-subhead" md-colors="{color: 'accent'}"> $game.date</span>
+                    </md-card-header>
+                    <md-card-content>
+                        <span class="md-subhead"> $game.name</span>
+                    </md-card-content>
+                    <md-card-actions>
+                        <md-button flex="40" class="md-cornered md-accent" ng-click="showGameInfo($event, '$game.id', '$role')"> View </md-button>
+                    </md-card-actions>
+                </md-card>
+##            #end
+        </md-content>
+    </div>
+</div>
+
+<script src="resources/js/common/_module.js"></script>
+<script src="resources/js/common/common-controller.js"></script>
+</body>

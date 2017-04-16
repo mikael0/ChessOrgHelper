@@ -77,7 +77,7 @@
                              <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="showApplyDialog($event, '$tournament.id')"> Apply </md-button>
                              <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="showBuyTicketsDialog($event, '$tournament.id')"> Buy tickets </md-button>
                          #end
-                        <md-button flex="40" class="md-cornered"> Schedule </md-button>
+                        <md-button flex="40" class="md-cornered" ng-click="goToSchedule('$tournament.id')"> Schedule </md-button>
                     </div>
                 </md-card-actions>
             </md-card>

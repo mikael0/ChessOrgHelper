@@ -17,6 +17,7 @@ public class TournamentInterestedUserEntity implements Parcelable {
         json.add("user", user.toJson());
         json.addProperty("winCount", winCount);
         json.addProperty("rating", rating);
+        json.addProperty("role", role);
         return json;
     }
 

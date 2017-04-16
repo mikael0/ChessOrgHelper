@@ -36,36 +36,38 @@
             </md-input-container>
             <div ng-if="tournament !== undefined" layout="column">
                 <span class="md-title"> {{tournament.name}} </span>
-                <span class="md-subhead"> {{tournament.country}}, {{tournament.city}} </span>
+                <span class="md-subhead" md-colors="{color: 'accent'}"> {{tournament.country}}, {{tournament.city}} </span>
                 <br>
                 <span class="md-subhead"> Start date: {{tournament.startDate}} </span>
                 <span class="md-subhead"> End date: {{tournament.endDate}} </span>
                 <br>
-                <mdt-table mdt-row="{
-                      data: nutritionList,
-                      'column-keys': [
-                          'name',
-                          'calories',
-                          'fat',
-                          'carbs',
-                          'protein',
-                          'sodium',
-                          'calcium',
-                          'iron'
-                      ]
-                      }">
-                    <mdt-header-row>
-                        <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
-                        <mdt-column align-rule="right">Calories</mdt-column>
-                        <mdt-column align-rule="right">Fat (g)</mdt-column>
-                        <mdt-column align-rule="right">Carbs (g)</mdt-column>
-                        <mdt-column align-rule="right">Protein (g)</mdt-column>
-                        <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-                        <mdt-column align-rule="right">Calcium (%)</mdt-column>
-                        <mdt-column align-rule="right">Iron (%)</mdt-column>
-                    </mdt-header-row>
-                </mdt-table>
+                <div layout="row">
+                    <div md-colors="{color: 'accent'}" flex="10">
+                        Rating
+                    </div>
+                    <div md-colors="{color: 'accent'}" flex="30">
+                        Name
+                    </div>
+                    <div md-colors="{color: 'accent'}" flex="10">
+                        Win count
+                    </div>
+                </div>
+                <div ng-repeat="interested in tournament.interestedUsers | orderBy: rating | filter: { role: 'ROLE_PARTICIPANT'}">
+                    <div layout="row">
+                        <div flex="10">
+                            {{interested.rating}}
+                        </div>
+                        <div flex="30">
+                            {{interested.user.name}}
+                        </div>
+                        <div flex="10">
+                            {{interested.winCount}}
+                        </div>
+                    </div>
+                    <br>
+                </div>
             </div>
+        </md-content>
     </div>
 </div>
 

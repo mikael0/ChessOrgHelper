@@ -143,6 +143,15 @@ public class ViewControllers {
         return "arenas_settings";
     }
 
+    @RequestMapping(value = "/schedule")
+    public String viewSchedule(Principal principal,
+                                    Model model,
+                                    @RequestParam("tournamentId") Long tournamentId){
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        model.addAttribute("tournament", tournament);
+        model.addAttribute("role", ((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser().getRole());
+        return "schedule";
+    }
 
     @RequestMapping(value = "/participants_settings")
     public String viewParticipantsSettings(Principal principal,
