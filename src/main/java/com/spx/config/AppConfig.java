@@ -11,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan(basePackageClasses = UserController.class)
-@Import(SwaggerConfig.class)
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Override

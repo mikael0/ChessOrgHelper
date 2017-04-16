@@ -29,6 +29,8 @@ public class ParticipationRequestController {
 
     @Autowired
     ParticipationRequestDao participationRequestDao;
+    @Autowired
+    TournamentDao tournamentDao;
 
 //    @Autowired
 //    EmailSender sender;
@@ -46,12 +48,29 @@ public class ParticipationRequestController {
     public ResponseEntity<Long> createTournament(Principal principal,
                                                    @RequestBody ParticipationRequestEntity request) {
 
-
+        if (request.getTournament() == null)
+            request.setTournament(tournamentDao.getTournamentById(request.getTournamentId()));
+        if (request.getUserId() == null)
+            request.setUserId(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser().getId());
 
         Long id = participationRequestDao.addRequest(request);
 
         return new ResponseEntity<Long>(id, HttpStatus.OK);
     }
+
+
+    @ApiOperation(value = "Get Request by Id")
+    @RequestMapping(value = "/getById",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public @ResponseBody String getTournamentById(Principal principal, @RequestBody Long id) {
+
+        ParticipationRequestEntity entity = participationRequestDao.getRequestById(id);
+        if (entity != null)
+            return entity.toJson().toString();
+        else
+            return null;
+    }
+
 
 
     @ApiOperation(value = "Upload file")
@@ -70,7 +89,7 @@ public class ParticipationRequestController {
 
                 request.setConfirmation(aFile.getBytes());
 
-                participationRequestDao.addRequest(request);
+//                participationRequestDao.addRequest(request);
             }
         }
 

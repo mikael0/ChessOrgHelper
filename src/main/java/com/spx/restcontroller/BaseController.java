@@ -1,7 +1,6 @@
 package com.spx.restcontroller;
 
 
-import com.spx.parsers.DefSmetaFERParser;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +23,4 @@ public class BaseController {
         return "hello";
     }
 
-    @Deprecated
-    @RequestMapping(value="/parser",  method = RequestMethod.GET)
-    public String parser(final Principal principal,
-                           @RequestParam(value = "url", required = false) final String url) {
-        DefSmetaFERParser parser = new DefSmetaFERParser(url);
-        return parser.getFullHTML();
-    }
 }

@@ -14,7 +14,30 @@ public class TournamentInterestedUserEntity implements Parcelable {
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
+        json.add("user", user.toJson());
+        json.addProperty("winCount", winCount);
+        json.addProperty("rating", rating);
         return json;
+    }
+
+    @Basic
+    @Column(name = "WIN_COUNT", nullable = true)
+    public Long getWinCount() {
+        return winCount;
+    }
+
+    public void setWinCount(Long winCount) {
+        this.winCount = winCount;
+    }
+
+    @Basic
+    @Column(name = "RATING", nullable = true)
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
     }
 
     public enum RolesInTournament{
@@ -24,6 +47,9 @@ public class TournamentInterestedUserEntity implements Parcelable {
 
     private Long id;
     private String role;
+
+    private Long rating;
+    private Long winCount;
 
     private UserEntity user;
 

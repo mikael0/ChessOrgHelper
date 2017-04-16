@@ -2,9 +2,11 @@ package com.spx.controller;
 
 import com.spx.config.Application;
 
+import com.spx.dao.ParticipationRequestDao;
 import com.spx.dao.TournamentDao;
 import com.spx.dao.TournamentDaoImpl;
 import com.spx.dao.UserDao;
+import com.spx.entity.ParticipationRequestEntity;
 import com.spx.entity.TournamentEntity;
 import com.spx.entity.UserEntity;
 import com.spx.service.security.UserDetailsImpl;
@@ -25,10 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 
 @SuppressWarnings("HardcodedFileSeparator")
@@ -46,6 +45,9 @@ public class ViewControllers {
 
     @Autowired
     TournamentDao tournamentDao;
+
+    @Autowired
+    ParticipationRequestDao requestDao;
 
     @RequestMapping(value = "/")
     public ModelAndView startPage(HttpServletRequest request) {
@@ -116,6 +118,13 @@ public class ViewControllers {
         return "profile";
     }
 
+    @RequestMapping(value = "/statistics")
+    public String viewStatistics(Principal principal,
+                              Model model){
+        model.addAttribute("tournaments", tournamentDao.getAll());
+        return "statistics";
+    }
+
     @RequestMapping(value = "/housing_settings")
     public String viewHousingSettings(Principal principal,
                                       Model model,
@@ -132,6 +141,20 @@ public class ViewControllers {
         TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
         model.addAttribute("tournament", tournament);
         return "arenas_settings";
+    }
+
+
+    @RequestMapping(value = "/participants_settings")
+    public String viewParticipantsSettings(Principal principal,
+                                    Model model,
+                                    @RequestParam("tournamentId") Long tournamentId){
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        model.addAttribute("tournament", tournament);
+
+        Set<ParticipationRequestEntity> requests = tournament.getParticipationRequests();
+        model.addAttribute("requests", requests);
+
+        return "participants_settings";
     }
 
     @RequestMapping(value = "/test_insert")

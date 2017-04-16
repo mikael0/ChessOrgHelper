@@ -1,0 +1,90 @@
+<head>
+    #parse("static/head.vm")
+    <title>ChessOrgHelper</title>
+
+</head>
+<body>
+    <div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
+        <md-toolbar>
+            <div class="md-toolbar-tools container">
+                <span>ChessOrg</span>
+
+                <!-- fill up the space between left and right area -->
+                <span flex></span>
+
+                <md-button class="md-cornered" ng-disabled="true"> Participants </md-button>
+                <md-button class="md-cornered" href="tournament_list"> Tournament List </md-button>
+                <md-button class="md-cornered" href="/statistics"> Statistics </md-button>
+                <md-button class="md-cornered" href="/profile"> Profile </md-button>
+                <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
+
+            </div>
+        </md-toolbar>
+        <div class="container">
+            <md-content flex="100"  class="md-no-momentum margin-top">
+                <md-card >
+                    <md-card-header>
+                        <md-card-header-text>
+                            <span class="md-title"> $tournament.name </span>
+                            <span class="md-subhead" md-colors="{color: 'accent'}"> $tournament.city </span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content layout="column">
+                        <div layout="row">
+                            <div flex="50">
+                                <span class="md-title" > Approved participants</span>
+                            </div>
+                            <div flex="50">
+                                <span class="md-title" > Requests</span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="column" flex="50">
+                                #foreach( $interestedUser in $tournament.interestedUsers)
+                                    #if( $interestedUser.role == "ROLE_PARTICIPANT")
+                                        <md-card>
+                                            <md-card-header>
+                                                <md-card-header-text>
+                                                    <span class="md-title"> $interestedUser.user.name </span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <md-card-content>
+                                            </md-card-content>
+                                            <md-card-actions>
+                                                <div layout="row" layout-margin>
+                                                    <md-button class="md-cornered md-raised" ng-click="removeParticipant('$interestedUser.id', '$tournament.id')"> Remove </md-button>
+                                                </div>
+                                            </md-card-actions>
+                                        </md-card>
+                                    #end
+                                #end
+                            </div>
+                            <div layout="column" flex="50">
+                                  #foreach( $request in $requests)
+                                        <md-card>
+                                            <md-card-header>
+                                                <md-card-header-text>
+                                                    <span class="md-title"> $request.name $request.surname </span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <md-card-content>
+                                            </md-card-content>
+                                            <md-card-actions>
+                                                <div layout="row" layout-margin>
+                                                    <md-button class="md-cornered md-raised" ng-click="showRequestInfo($event, '$request.id')"> View Request </md-button>
+                                                    <md-button class="md-cornered md-raised" ng-click="approveRequest('$request.id', '$tournament.id')"> Approve </md-button>
+                                                </div>
+                                            </md-card-actions>
+                                        </md-card>
+                                   #end
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </md-content>
+        </div>
+    </div>
+    <script src="resources/js/common/_module.js"></script>
+    <script src="resources/js/common/common-controller.js"></script>
+
+</body>

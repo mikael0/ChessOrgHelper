@@ -47,18 +47,18 @@
         <span> Order Housing </span>
         <md-input-container class="md-block" layout="row">
             <label>Housing</label>
-            <md-select ng-model="housing.name">
-            		<md-option ng-repeat="item in tournament.housings" ng-value="text">
-              			{{item.name}}
+            <md-select ng-model="housing" >
+            		<md-option ng-repeat="(index, item) in tournament.housings" ng-value="{{ {index: index, address: item['address']} }}">
+              			{{item["address"]}}
             		</md-option>
           	</md-select>
         </md-input-container>
 
         <div layout="row">
             <md-input-container class="md-block" flex="80">
-                <label>Room</label>
+                <label>Room </label>
                 <md-select ng-model="housing.room">
-                    <md-option ng-repeat="item in tournament.housings[housing.name].rooms" ng-value="text">
+                    <md-option ng-repeat="item in tournament.housings[housing.index]['rooms']" ng-value="item.name">
                         {{item.name}}
                     </md-option>
                 </md-select>

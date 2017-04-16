@@ -18,8 +18,6 @@ import java.util.TimeZone;
 public class Application extends SpringBootServletInitializer {
 
     public static final String PROPERTIES_PATH = "classpath:myconfig.properties";
-    public static final String PROPERTY_MONGODB_SERVICE = "mongo.service";
-    public static final String PROPERTY_MONGO_URI = "mongo.uri";
     public static final String EMAIL_HOST = "mail.smtp.host";
     public static final String EMAIL_PORT = "mail.smtp.port";
     public static final String EMAIL_ADDRESS = "mail.address";

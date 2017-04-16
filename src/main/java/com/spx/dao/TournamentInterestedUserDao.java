@@ -9,6 +9,9 @@ import java.util.List;
 /**
  * Created by mikael0 on 15.04.17.
  */
-public interface TouramentInterestedUserDao {
+public interface TournamentInterestedUserDao {
     Long addInterestedUser(TournamentInterestedUserEntity entity);
+
+    TournamentInterestedUserEntity getInterestedById(Long id);
+    void removeInterestedUser(TournamentInterestedUserEntity entity);
 }

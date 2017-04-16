@@ -22,13 +22,13 @@ public class ParticipationRequestDaoImpl implements ParticipationRequestDao{
 
     }
 
-    @Override
-    public  List<ParticipationRequestEntity> listRequestsForTournament(Long tournamentId){
-        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from requests where requests.tournament_id = :id")
-                .addEntity(ParticipationRequestEntity.class)
-                .setParameter("id", tournamentId);
-        return q.list();
-    }
+//    @Override
+//    public  List<ParticipationRequestEntity> listRequestsForTournament(Long tournamentId){
+//        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from requests where requests.tournament_id = :id")
+//                .addEntity(ParticipationRequestEntity.class)
+//                .setParameter("id", tournamentId);
+//        return q.list();
+//    }
 
     @Override
     public ParticipationRequestEntity getRequestById(Long id) {
@@ -40,7 +40,7 @@ public class ParticipationRequestDaoImpl implements ParticipationRequestDao{
 
     @Override
     public Long addRequest(final ParticipationRequestEntity entity){
-        sessionFactory.getCurrentSession().save(entity);
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
         return entity.getId();
     }
 
@@ -51,5 +51,10 @@ public class ParticipationRequestDaoImpl implements ParticipationRequestDao{
                 .setParameter("id", id)
                 .setParameter("data", data);
         q.executeUpdate();
+    }
+
+    @Override
+    public void removeRequest(ParticipationRequestEntity entity) {
+        sessionFactory.getCurrentSession().delete(entity);
     }
 }

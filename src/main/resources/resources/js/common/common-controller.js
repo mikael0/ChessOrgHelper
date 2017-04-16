@@ -59,6 +59,29 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         window.location = "/arena_settings?tournamentId=" + tournamentId;
     };
 
+    $scope.goToParticipants = function(ev, tournamentId) {
+        console.log("id: " + tournamentId);
+        window.location = "/participants_settings?tournamentId=" + tournamentId;
+    };
+
+    $scope.approveRequest = function(requestId, tournamentId) {
+        console.log("reqId: " + requestId + "tourId: " + tournamentId);
+        var data = {"requestId" : requestId, "tournamentId" : tournamentId};
+        $http.post("/rest/tournament/approve_request", data)
+            .then(function (resp) {
+                window.location = "/participants_settings?tournamentId=" + tournamentId;
+            });
+    };
+
+    $scope.removeParticipant = function(interestedId, tournamentId) {
+        console.log("intId: " + interestedId + "tourId: " + tournamentId);
+        var data = {"interestedId" : interestedId, "tournamentId" : tournamentId};
+        $http.post("/rest/tournament/remove_participant", data)
+            .then(function (resp) {
+                window.location = "/participants_settings?tournamentId=" + tournamentId;
+            });
+    };
+
     $scope.removeArena = function (tournamentId, arenaId) {
         console.log("id: " + tournamentId);
         var data = {"tournamentId" : tournamentId, "arenaId" : arenaId};
@@ -67,6 +90,14 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
                 window.location = "/arena_settings?tournamentId=" + tournamentId;
             });
     }
+
+    $scope.getTournamentById = function(id) {
+        console.log(id);
+        $http.post("/rest/tournament/getById", id)
+            .then(function (resp) {
+                $scope.tournament = resp.data;
+            });
+    };
 
     $scope.showTournamentCreateDialog = function(ev) {
         $mdDialog.show({
@@ -164,6 +195,33 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
     };
 
 
+    $scope.showRequestInfo = function(ev, requestId) {
+        console.log(requestId);
+        $http.post( "/rest/apply/getById", requestId).then(function successCallback(response) {
+            console.log(response);
+            $mdDialog.show({
+                controller: ShowRequestController,
+                templateUrl: 'resources/html/show_request_dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                locals: {
+                    request : response.data
+                },
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+        }, function errorCallback() {
+
+        });
+
+    };
+
+
     $scope.showApplyDialog = function(ev, tournament) {
         console.log(tournament);
         $http.post( "/rest/tournament/getById", tournament).then(function successCallback(response) {
@@ -189,6 +247,27 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         });
 
     };
+
+    function ShowRequestController($scope, $http, $mdDialog, request) {
+        console.log(request);
+        $scope.request = request;
+
+        $scope.submit = function () {
+            $scope.hide();
+        };
+
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
 
     function BuyTicketsController($scope, $http, $mdDialog, tournament) {
         console.log(tournament);
@@ -288,6 +367,8 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         console.log(tournament);
         $scope.tournament = tournament;
         $scope.user = {};
+
+        $scope.request = {tournamentId : tournament.id}
 
         $scope.submit = function () {
             //TODO: apply controller

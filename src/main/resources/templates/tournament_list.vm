@@ -69,7 +69,7 @@
                 <md-card-actions>
                     <div layout="row" layout-margin>
                          #if ( $userRole == "ROLE_ORGANIZER" )
-                            <md-button flex="20" class="md-raised md-cornered md-accent"> Participants </md-button>
+                            <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="goToParticipants($event, '$tournament.id')"> Participants </md-button>
                             <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="goToHousings($event, '$tournament.id')"> Housing </md-button>
                             <md-button flex="20" class="md-raised md-cornered md-accent" ng-click="goToArenas($event, '$tournament.id')"> Arenas </md-button>
                          #end

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+	#parse("static/head.vm")
+    <title>ChessOrgHelper</title>
+
+
+</head>
+<body>
+<div ng-cloak ng-controller="CommonController as cc" ng-app="Common" >
+  <md-toolbar>
+    <div class="md-toolbar-tools container">
+      <span>ChessOrg</span>
+
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+
+      <md-button class="md-cornered" href="/tournament_list"> Tournament List </md-button>
+      <md-button class="md-cornered" href="/statistics" ng-disabled="true"> Statistics </md-button>
+      <md-button class="md-cornered" href="/profile"> Profile </md-button>
+    <md-button class="md-cornered md-accent" ng-click="cc.logout()"> Logout </md-button>
+
+    </div>
+  </md-toolbar>
+    <div class="container" >
+        <md-content class="md-no-momentum margin-top">
+            <span class="md-title">Statistics</span>
+            <md-input-container class="md-block" layout="row">
+                <label>Select tournament</label>
+                <md-select ng-model="id" ng-change="getTournamentById(id)">
+                    #foreach($tournament in $tournaments)
+                        <md-option ng-value="$tournament.id">
+                            $tournament.name
+                        </md-option>
+                    #end
+                </md-select>
+            </md-input-container>
+            <div ng-if="tournament !== undefined" layout="column">
+                <span class="md-title"> {{tournament.name}} </span>
+                <span class="md-subhead"> {{tournament.country}}, {{tournament.city}} </span>
+                <br>
+                <span class="md-subhead"> Start date: {{tournament.startDate}} </span>
+                <span class="md-subhead"> End date: {{tournament.endDate}} </span>
+                <br>
+                <mdt-table mdt-row="{
+                      data: nutritionList,
+                      'column-keys': [
+                          'name',
+                          'calories',
+                          'fat',
+                          'carbs',
+                          'protein',
+                          'sodium',
+                          'calcium',
+                          'iron'
+                      ]
+                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+                        <mdt-column align-rule="right">Calories</mdt-column>
+                        <mdt-column align-rule="right">Fat (g)</mdt-column>
+                        <mdt-column align-rule="right">Carbs (g)</mdt-column>
+                        <mdt-column align-rule="right">Protein (g)</mdt-column>
+                        <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+                        <mdt-column align-rule="right">Calcium (%)</mdt-column>
+                        <mdt-column align-rule="right">Iron (%)</mdt-column>
+                    </mdt-header-row>
+                </mdt-table>
+            </div>
+    </div>
+</div>
+
+<script src="resources/js/common/_module.js"></script>
+<script src="resources/js/common/common-controller.js"></script>
+</body>

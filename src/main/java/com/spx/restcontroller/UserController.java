@@ -1,8 +1,6 @@
 package com.spx.restcontroller;
 
 import com.spx.dao.UserDao;
-import com.spx.email.EmailEntity;
-import com.spx.email.EmailSender;
 import com.spx.entity.UserEntity;
 import com.spx.service.security.UserDetailsImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -40,9 +38,6 @@ public class UserController {
 
     @Autowired
     UserDao userDao;
-
-    @Autowired
-    EmailSender sender;
 
     @Autowired
     PasswordEncoder encoder;

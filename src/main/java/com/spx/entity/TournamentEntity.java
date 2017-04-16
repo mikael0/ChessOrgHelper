@@ -1,10 +1,12 @@
 package com.spx.entity;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.codehaus.jettison.json.JSONObject;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 /**
@@ -30,6 +32,8 @@ public class TournamentEntity implements Parcelable {
     private Set<HousingEntity> housings = new HashSet<HousingEntity>();
 
     private Set<TournamentInterestedUserEntity> interestedUsers = new HashSet<TournamentInterestedUserEntity>();
+
+    private Set<ParticipationRequestEntity> participationRequests = new HashSet<>();
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -180,6 +184,17 @@ public class TournamentEntity implements Parcelable {
         for (Field field : Arrays.asList(getClass().getDeclaredFields())) {
             try {
                 if ( field.get(this) != null) {
+                    if (Set.class.isAssignableFrom(field.getType())){
+                        if (Parcelable.class.isAssignableFrom((Class)((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0])) {
+                            JsonArray jsonArr = new JsonArray();
+                            for (Parcelable item : (Set<Parcelable>)field.get(this))
+                                jsonArr.add(item.toJson());
+                            json.add(field.getName(), jsonArr);
+                        } else {
+                            json.addProperty(field.getName(), field.get(this).toString());
+                        }
+                        continue;
+                    }
                     if (Parcelable.class.isAssignableFrom(field.getType()))
                         json.add(field.getName(), ((Parcelable) field.get(this)).toJson());
                     else
@@ -200,6 +215,15 @@ public class TournamentEntity implements Parcelable {
 
     public void setInterestedUsers(Set<TournamentInterestedUserEntity> interestedUsers) {
         this.interestedUsers = interestedUsers;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament", orphanRemoval = true)
+    public Set<ParticipationRequestEntity> getParticipationRequests() {
+        return participationRequests;
+    }
+
+    public void setParticipationRequests(Set<ParticipationRequestEntity> participationRequests) {
+        this.participationRequests = participationRequests;
     }
 
 //    @Override

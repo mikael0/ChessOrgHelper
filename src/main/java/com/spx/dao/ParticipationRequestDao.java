@@ -7,9 +7,11 @@ import java.util.List;
 
 
 public interface ParticipationRequestDao {
-    List<ParticipationRequestEntity> listRequestsForTournament(Long tournamentId);
+//    List<ParticipationRequestEntity> listRequestsForTournament(Long tournamentId);
     ParticipationRequestEntity getRequestById(Long id);
 
     Long addRequest(final ParticipationRequestEntity entity);
     void uploadFile(Long id, byte[] data);
+
+    void removeRequest(final ParticipationRequestEntity entity);
 }

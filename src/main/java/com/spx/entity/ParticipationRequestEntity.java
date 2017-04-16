@@ -1,8 +1,12 @@
 package com.spx.entity;
 
 import com.google.gson.JsonObject;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by mikael0 on 22.11.16.
@@ -17,7 +21,10 @@ public class ParticipationRequestEntity implements Parcelable {
     private Long position;
     private byte[] confirmation;
 
+    private Long tournamentId;
+
     private TournamentEntity tournament;
+    private Long userId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -32,6 +39,7 @@ public class ParticipationRequestEntity implements Parcelable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     public TournamentEntity getTournament() {
         return tournament;
     }
@@ -46,6 +54,9 @@ public class ParticipationRequestEntity implements Parcelable {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("tournamentId", tournament.getId());
+        json.addProperty("name", name);
+        json.addProperty("surname", surname);
+        json.addProperty("position", position);
         return json;
     }
 
@@ -87,5 +98,21 @@ public class ParticipationRequestEntity implements Parcelable {
 
     public void setConfirmation(byte[] confirmation) {
         this.confirmation = confirmation;
+    }
+
+    public Long getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(Long tournamentId) {
+        this.tournamentId = tournamentId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

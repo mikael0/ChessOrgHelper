@@ -2,9 +2,7 @@ package com.spx.restcontroller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.spx.dao.TournamentDao;
-import com.spx.dao.UserDao;
-import com.spx.email.EmailSender;
+import com.spx.dao.*;
 import com.spx.entity.*;
 import com.spx.service.security.UserDetailsImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -30,6 +28,7 @@ import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -44,6 +43,14 @@ public class TournamentController {
     @Autowired
     TournamentDao tournamentDao;
 
+    @Autowired
+    ParticipationRequestDao requestDao;
+
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    TournamentInterestedUserDao interestedUserDao;
 
 
     @ApiOperation(value = "Create Tournament")
@@ -115,6 +122,53 @@ public class TournamentController {
         tournament.removeArenaById(arenaId);
 
         tournamentDao.updateTournament(tournament);
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Approve request")
+    @RequestMapping(value = "/approve_request",  method = RequestMethod.POST)
+    @Transactional
+    public @ResponseBody ResponseEntity<String> approveRequest(Principal principal,
+                                                               @RequestBody Map<String, Long> data) {
+        Long requestId = data.get("requestId");
+        Long tournamentId = data.get("tournamentId");
+
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        ParticipationRequestEntity request = requestDao.getRequestById(requestId);
+        UserEntity user = userDao.getUserById(request.getUserId());
+
+        TournamentInterestedUserEntity interestedUser = new TournamentInterestedUserEntity();
+
+        interestedUser.setUser(user);
+        interestedUser.setTournament(tournament);
+        interestedUser.setRole(TournamentInterestedUserEntity.RolesInTournament.ROLE_PARTICIPANT.toString());
+        interestedUser.setRating(0l);
+        interestedUser.setWinCount(0l);
+
+        interestedUserDao.addInterestedUser(interestedUser);
+
+        //TODO: fix
+//        tournament.getParticipationRequests().remove(request);
+//        requestDao.removeRequest(request);
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "Remove participant")
+    @RequestMapping(value = "/remove_participant",  method = RequestMethod.POST)
+    @Transactional
+    public @ResponseBody ResponseEntity<String> removeParticipant(Principal principal,
+                                                               @RequestBody Map<String, Long> data) {
+        Long interestedId = data.get("interestedId");
+        Long tournamentId = data.get("tournamentId");
+
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        TournamentInterestedUserEntity interestedUser = interestedUserDao.getInterestedById(interestedId);
+
+        tournament.getInterestedUsers().remove(interestedUser);
+        interestedUserDao.removeInterestedUser(interestedUser);
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }
