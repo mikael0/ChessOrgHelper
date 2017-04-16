@@ -83,7 +83,9 @@
             </md-card>
             #end
          #end
+         #if ( $userRole == "ROLE_ORGANIZER" )
           <md-button class="md-raised md-cornered md-accent"  ng-click="showTournamentCreateDialog($event)">Create Tournament</md-button>
+         #end
          </md-content>
     </div>
 </div>

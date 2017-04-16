@@ -146,6 +146,9 @@ public class TournamentController {
         interestedUser.setRating(0l);
         interestedUser.setWinCount(0l);
 
+        tournament.setParticipantsNum(tournament.getParticipantsNum() + 1);
+        tournamentDao.updateTournament(tournament);
+
         interestedUserDao.addInterestedUser(interestedUser);
 
         //TODO: fix

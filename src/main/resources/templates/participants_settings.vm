@@ -32,10 +32,10 @@
                     <md-card-content layout="column">
                         <div layout="row">
                             <div flex="50">
-                                <span class="md-title" > Approved participants</span>
+                                <span class="md-title"> Approved participants</span>
                             </div>
                             <div flex="50">
-                                <span class="md-title" > Requests</span>
+                                <span class="md-title"> Requests</span>
                             </div>
                         </div>
                         <div layout="row">
@@ -52,7 +52,7 @@
                                             </md-card-content>
                                             <md-card-actions>
                                                 <div layout="row" layout-margin>
-                                                    <md-button class="md-cornered md-raised" ng-click="removeParticipant('$interestedUser.id', '$tournament.id')"> Remove </md-button>
+                                                    <md-button class="md-cornered md-raised md-accent" ng-click="removeParticipant('$interestedUser.id', '$tournament.id')"> Remove </md-button>
                                                 </div>
                                             </md-card-actions>
                                         </md-card>
@@ -72,7 +72,7 @@
                                             <md-card-actions>
                                                 <div layout="row" layout-margin>
                                                     <md-button class="md-cornered md-raised" ng-click="showRequestInfo($event, '$request.id')"> View Request </md-button>
-                                                    <md-button class="md-cornered md-raised" ng-click="approveRequest('$request.id', '$tournament.id')"> Approve </md-button>
+                                                    <md-button class="md-cornered md-raised md-accent" ng-click="approveRequest('$request.id', '$tournament.id')"> Approve </md-button>
                                                 </div>
                                             </md-card-actions>
                                         </md-card>
