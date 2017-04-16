@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * Created by burnaev on 4/16/17.
  */
-public interface TournamentScheduleDao {
+public interface TournamentGameDao {
 
-    List<TournamentScheduleEntity> getAll();
-    List<TournamentScheduleEntity> getGamesByPlayer(UserEntity player);
-    List<TournamentScheduleEntity> getGamesByDate(Date date);
+    List<TournamentGameEntity> getAll();
+    List<TournamentGameEntity> getGamesByPlayer(UserEntity player);
+    List<TournamentGameEntity> getGamesByDate(Date date);
 
-    Long addGame();
-    Long updateResult(Long gameId, String result);
+    Long addGame(TournamentGameEntity game);
+    void updateResult(TournamentGameEntity game);
 }
 

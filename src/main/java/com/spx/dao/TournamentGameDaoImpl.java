@@ -1,7 +1,7 @@
 package com.spx.dao;
 
-import com.spx.entity.TournamentEntity;
-import com.spx.entity.TournamentScheduleEntity;
+//import com.spx.entity.TournamentEntity;
+import com.spx.entity.TournamentGameEntity;
 import com.spx.entity.UserEntity;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -18,38 +18,48 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class TournamentScheduleDaoImpl {
+public class TournamentGameDaoImpl implements TournamentGameDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    List<TournamentScheduleEntity> getAll()
+    @Override
+    public List<TournamentGameEntity> getAll()
     {
         Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from games")
-                .addEntity(TournamentScheduleEntity.class);
+                .addEntity(TournamentGameEntity.class);
         return q.list();
     }
-    List<TournamentScheduleEntity> getGamesByPlayer(UserEntity player)
+
+    @Override
+    public List<TournamentGameEntity> getGamesByPlayer(UserEntity player)
     {
         Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from games where games.player1 = :player1 OR games.player2 = :player1")
-                .addEntity(TournamentScheduleEntity.class)
+                .addEntity(TournamentGameEntity.class)
                 .setParameter("player1", player);
         return q.list();
     }
-    List<TournamentScheduleEntity> getGamesByDate(Date date)
+
+    @Override
+    public List<TournamentGameEntity> getGamesByDate(Date date)
     {
         Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from games where games.gameDate = :date")
-                .addEntity(TournamentScheduleEntity.class)
+                .addEntity(TournamentGameEntity.class)
                 .setParameter("date", date);
         return q.list();
 
     }
 
-    Long addGame(TournamentScheduleEntity game)
+    @Override
+    public Long addGame(TournamentGameEntity game)
     {
         sessionFactory.getCurrentSession().save(game);
         return game.getId();
     }
-    Long updateResult(Long gameId, String result)
-    {}
+
+    @Override
+    public void updateResult(TournamentGameEntity game)
+    {
+        sessionFactory.getCurrentSession().update(game);
+    }
 }

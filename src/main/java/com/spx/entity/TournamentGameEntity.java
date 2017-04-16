@@ -11,10 +11,11 @@ import java.util.*;
  */
 @Entity
 @Table(name = "GAMES")
-public class TournamentScheduleEntity implements Parcelable{
+public class TournamentGameEntity implements Parcelable{
 
         private Long id;
         private TournamentEntity tournament;
+        private String group;
         private UserEntity player1;
         private UserEntity player2;
         private Date gameDate;
@@ -55,6 +56,14 @@ public class TournamentScheduleEntity implements Parcelable{
         }
 
         public void setStage(String stage) { this.stage = stage; }
+
+        @Basic
+        @Column(name = "GROUP", nullable = true)
+        public String getGroup() {
+        return group;
+    }
+
+        public void setGroup(String group) { this.group= group; }
 
 
         @Basic
