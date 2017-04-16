@@ -10,6 +10,7 @@ import com.spx.entity.ParticipationRequestEntity;
 import com.spx.entity.TournamentEntity;
 import com.spx.entity.UserEntity;
 import com.spx.service.security.UserDetailsImpl;
+import com.spx.utils.GenerateSchedule;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -197,6 +198,15 @@ public class ViewControllers {
             LOGGER.error("Unable to redirect after succesful external authorization");
         }
     }
+
+    @RequestMapping("/generate_schedule")
+    public String generateSchedule(Principal principal,
+                                   Model model, @RequestParam("tournamentId") Long tournamentId){
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+        GenerateSchedule.generateSchedule(tournament);
+        return "generate_schedule"; // what object to return
+    }
+
 
 
 
