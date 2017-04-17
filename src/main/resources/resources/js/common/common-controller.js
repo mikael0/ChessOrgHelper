@@ -69,18 +69,28 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         window.location = "/participants_settings?tournamentId=" + tournamentId;
     };
 
-    $scope.showGameInfo = function(ev, gameId, role) {
-        console.log("id: " + gameId);
+    $scope.generateSchedule = function (tournamentId) {
+        console.log("id: " + tournamentId);
+        var data = {"tournamentId": tournamentId};
+        $http.post("/rest/tournament/generate_schedule", data)
+            .then(function (resp) {
+                window.location = "/schedule?tournamentId=" + tournamentId;
+            });
+    };
+
+    $scope.showGameInfo = function(ev, gameId, tournamentId) {
+        console.log("id: " + tournamentId);
         //TODO: getgame by id
-        var resp = {}
+        var resp = { data: {"player1" : {user: {name: "First"}}, "player2": {user: {name: "Second"}}}};
         $mdDialog.show({
             controller: GameInfoController,
-            templateUrl: 'resources/html/game_info_dialog.tmpl.html',
+            templateUrl: 'resources/html/game_settings_dialog.tmpl.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true,
+            clickOutsideToClose: true,
             locals: {
-                game: resp.data
+                game: resp.data,
+                tournamentId: tournamentId
             },
             fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
         })
@@ -431,8 +441,10 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
 
 
     function TournamentCreateController($scope, $http, $mdDialog) {
+
         $scope.tournament = {};
         $scope.maxParticipantsNums = [16, 32, 48, 64];
+
         $scope.submit = function () {
             console.log($scope.tournament);
             $http.post("/rest/tournament/create", $scope.tournament).then(function successCallback(response) {
@@ -453,6 +465,34 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
           $mdDialog.hide(answer);
         };
       }
+
+    function GameInfoController($scope, $http, $mdDialog, game, tournamentId) {
+
+        $scope.winner = {};
+        $scope.availableResults = [game["player1"], game["player2"], "Draw"];
+
+        $scope.submit = function () {
+
+            console.log($scope.winner);
+            var data = {"gameId": game["id"],  "winners": $scope.winner}
+            $http.post("/rest/game/enter_results", data).then(function successCallback(response) {
+                window.location = "/schedule?tournamentId=" + tournamentId;
+                $scope.hide()
+            }, function errorCallback(response) {
+            });
+        };
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
 
 
 

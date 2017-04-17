@@ -5,9 +5,11 @@ import com.google.gson.JsonObject;
 import com.spx.dao.*;
 import com.spx.entity.*;
 import com.spx.service.security.UserDetailsImpl;
+import com.spx.utils.GenerateSchedule;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONObject;
+import org.jets3t.service.model.container.ObjectKeyAndVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.parsing.ParseState;
 import org.springframework.http.HttpStatus;
@@ -175,6 +177,23 @@ public class TournamentController {
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Generate schedule")
+    @RequestMapping(value = "/generate_schedule",  method = RequestMethod.POST)
+    @Transactional
+    public ResponseEntity<String> generateSchedule(Principal principal,
+                                   @RequestBody Map<String, Long> data){
+
+        Long tournamentId = data.get("tournamentId");
+
+        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+
+        GenerateSchedule.generateSchedule(tournament);
+
+        tournamentDao.updateTournament(tournament);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
 
 
 }

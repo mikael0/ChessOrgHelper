@@ -35,6 +35,8 @@ public class TournamentEntity implements Parcelable {
 
     private Set<ParticipationRequestEntity> participationRequests = new HashSet<>();
 
+    private Set<TournamentGameEntity> games = new HashSet<>();
+
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TOURNAMENTS_SEQ")
@@ -224,6 +226,15 @@ public class TournamentEntity implements Parcelable {
 
     public void setParticipationRequests(Set<ParticipationRequestEntity> participationRequests) {
         this.participationRequests = participationRequests;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament", orphanRemoval = true)
+    public Set<TournamentGameEntity> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<TournamentGameEntity> games) {
+        this.games = games;
     }
 
 //    @Override

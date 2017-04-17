@@ -14,15 +14,21 @@ import java.util.*;
 public class TournamentGameEntity implements Parcelable{
 
         private Long id;
+
         private TournamentEntity tournament;
+
         private String group;
-        private UserEntity player1;
-        private UserEntity player2;
+
+        private TournamentInterestedUserEntity player1;
+        private TournamentInterestedUserEntity player2;
+
         private Date gameDate;
         private String stage;
+
         private ArenaEntity arena; // Some doubts here!
+
         private Long availableTickets;
-        private String result;
+        private String result = "";
 
 
         @Id
@@ -57,8 +63,9 @@ public class TournamentGameEntity implements Parcelable{
 
         public void setStage(String stage) { this.stage = stage; }
 
+        //Because Oracle doesn't work with GROUP
         @Basic
-        @Column(name = "GROUP", nullable = true)
+        @Column(name = "GRP", nullable = true)
         public String getGroup() {
         return group;
     }
@@ -82,7 +89,7 @@ public class TournamentGameEntity implements Parcelable{
 
         public void setAvailableTickets(Long availableTickets) { this.availableTickets = availableTickets; }
 
-        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         public TournamentEntity getTournament() {
         return tournament;
     }
@@ -93,40 +100,40 @@ public class TournamentGameEntity implements Parcelable{
 
 
         @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-        public UserEntity getPlayer1() {
-        return player1;
-    }
+        public TournamentInterestedUserEntity getPlayer1() {
+            return player1;
+        }
 
-        public void setPlayer1(UserEntity player1) {
-        this.player1 = player1;
-    }
+        public void setPlayer1(TournamentInterestedUserEntity player1) {
+            this.player1 = player1;
+        }
 
         @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-        public UserEntity getPlayer2() {
-        return player2;
-    }
+        public TournamentInterestedUserEntity getPlayer2() {
+            return player2;
+        }
 
-        public void setPlayer2(UserEntity player2) {
-        this.player2 = player2;
-    }
+        public void setPlayer2(TournamentInterestedUserEntity player2) {
+            this.player2 = player2;
+        }
 
         @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         public ArenaEntity getArena() {
-        return arena;
-    }
+            return arena;
+        }
 
         public void setArena(ArenaEntity arena) {
-        this.arena = arena;
-    }
+            this.arena = arena;
+        }
 
         @Override
         public JsonObject toJson() {
             JsonObject json = new JsonObject();
             json.addProperty("id", id);
-            json.addProperty("player1", player1.getName());
-            json.addProperty("player2", player2.getName());
+            json.add("player1", player1.toJson());
+            json.add("player2", player2.toJson());
             json.addProperty("data", gameDate.toString());
-            json.addProperty("arena", arena.getName());
+            json.add("arena", arena.toJson());
             json.addProperty("stage", stage);
             json.addProperty("result", result);
             return json;

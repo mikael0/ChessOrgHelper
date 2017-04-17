@@ -199,13 +199,13 @@ public class ViewControllers {
         }
     }
 
-    @RequestMapping("/generate_schedule")
-    public String generateSchedule(Principal principal,
-                                   Model model, @RequestParam("tournamentId") Long tournamentId){
-        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
-        GenerateSchedule.generateSchedule(tournament);
-        return "generate_schedule"; // what object to return
-    }
+//    @RequestMapping("/generate_schedule")
+//    public String generateSchedule(Principal principal,
+//                                   Model model, @RequestParam("tournamentId") Long tournamentId){
+//        TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+//        GenerateSchedule.generateSchedule(tournament);
+//        return "generate_schedule"; // what object to return
+//    }
 
 
 

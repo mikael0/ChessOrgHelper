@@ -24,19 +24,74 @@
     <div class="container" >
         <md-content class="md-no-momentum margin-top">
             <span class="md-title">$tournament.name</span>
-##            #foreach($game in $tournament.games)
-                <md-card>
-                    <md-card-header>
-                        <span class="md-subhead" md-colors="{color: 'accent'}"> $game.date</span>
-                    </md-card-header>
-                    <md-card-content>
-                        <span class="md-subhead"> $game.name</span>
-                    </md-card-content>
-                    <md-card-actions>
-                        <md-button flex="40" class="md-cornered md-accent" ng-click="showGameInfo($event, '$game.id', '$role')"> View </md-button>
-                    </md-card-actions>
-                </md-card>
-##            #end
+            #if(${tournament.games.size()} == 0)
+                <br>
+                <br>
+                <br>
+                <div layout="column">
+                    <span class="md-display-3"> Schedule not generated </span>
+                    #if ( $role == "ROLE_ORGANIZER" )
+                        <span class="md-subhead" >
+                           Create it using GENERATE button below.
+                        </span>
+                        <div layout="row">
+                             <md-button flex="10" class="md-cornered md-accent md-raised" ng-click="generateSchedule('$tournament.id')"> Generate </md-button>
+                        </div>
+                    #else
+                        <span class="md-subhead" >
+                           Wait while organizers will create something.
+                        </span>
+                        <br>
+                    #end
+                </div>
+            #else
+                #foreach($game in $tournament.games)
+                    <md-card>
+                        <md-card-header>
+                            <span class="md-subhead" md-colors="{color: 'accent'}"> $game.gameDate</span>
+                        </md-card-header>
+                        <md-card-content>
+                            <div layout="column">
+                                <span class="md-subhead"> $game.player1.name vs $game.player2.name</span>
+                                <span class="md-subhead"> $game.stage</span>
+                                <span class="md-subhead"> $game.arena.name</span>
+                                #if ($game.result != "")
+                                    <span class="md-subhead"> $game.result</span>
+                                #end
+                            </div>
+                        </md-card-content>
+                        <md-card-actions>
+                            #if ($role == "ROLE_ORGANIZER")
+                                <md-button flex="40" class="md-cornered md-accent" ng-click="showGameInfo($event, '$game.id', '$tournament.id')"> Enter result </md-button>
+                            #end
+                        </md-card-actions>
+                    </md-card>
+                #end
+            #end
+
+
+            <md-card>
+                <md-card-header>
+                    <span class="md-subhead" md-colors="{color: 'accent'}"> $game.gameDate</span>
+                </md-card-header>
+                <md-card-content>
+                    <div layout="column">
+                        <span class="md-subhead"> $game.player1.user.name vs $game.player2.user.name</span>
+                        <span class="md-subhead"> $game.stage</span>
+                        <span class="md-subhead"> $game.arena.name</span>
+                        #if ($game.result != "")
+                            <span class="md-subhead"> $game.result</span>
+                        #end
+                    </div>
+                </md-card-content>
+                <md-card-actions>
+                    #if ($role == "ROLE_ORGANIZER")
+                        <md-button flex="40" class="md-cornered md-accent" ng-click="showGameInfo($event, '$game.id', '$tournament.id')"> Enter result </md-button>
+                    #end
+                </md-card-actions>
+            </md-card>
+
+
         </md-content>
     </div>
 </div>

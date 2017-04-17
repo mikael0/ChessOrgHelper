@@ -1,0 +1,33 @@
+<md-dialog flex="50" aria-label="Order Tickets">
+  <form ng-cloak ng-submit="submit()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Enter result</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+	<div class="md-dialog-content">
+	   <md-input-container md-no-float="" class="md-block" layout="row">
+                <label>Select winner</label>
+               <md-select ng-model="winner">
+                   <md-option ng-repeat="item in availableResults" ng-value="item">
+                       {{item.user === undefined ? "Draw" : item.user.name}}
+                   </md-option>
+               </md-select>
+       </md-input-container>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+            <md-input-container layout="row" >
+                <md-button type="submit" class="md-raised md-cornered md-accent md-primary">Ok</md-button>
+            </md-input-container>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
