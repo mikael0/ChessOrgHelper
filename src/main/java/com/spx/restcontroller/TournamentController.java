@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -53,6 +54,9 @@ public class TournamentController {
 
     @Autowired
     TournamentInterestedUserDao interestedUserDao;
+
+    @Autowired
+    TournamentGameDao tournamentGameDao;
 
 
     @ApiOperation(value = "Create Tournament")
@@ -79,6 +83,18 @@ public class TournamentController {
     public @ResponseBody String getTournamentById(Principal principal, @RequestBody Long id) {
 
         TournamentEntity entity = tournamentDao.getTournamentById(id);
+        if (entity != null)
+            return entity.toJson().toString();
+        else
+            return null;
+    }
+
+    @ApiOperation(value = "Get game by Id")
+    @RequestMapping(value = "/game_by_id",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public @ResponseBody String getGameById(Principal principal, @RequestBody Long id) {
+
+        TournamentGameEntity entity = tournamentGameDao.getGameById(id);
         if (entity != null)
             return entity.toJson().toString();
         else
@@ -188,9 +204,47 @@ public class TournamentController {
 
         TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
 
-        GenerateSchedule.generateSchedule(tournament);
+        List<TournamentGameEntity> games = GenerateSchedule.generateSchedule(tournament);
 
         tournamentDao.updateTournament(tournament);
+
+        for (TournamentGameEntity game : games) {
+            tournamentGameDao.addGame(game);
+        }
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Buy tickets")
+    @RequestMapping(value = "/buy_tickets",  method = RequestMethod.POST)
+    @Transactional
+    public ResponseEntity<String> buyTickets(Principal principal,
+                                                   @RequestBody Map<String, Long> data){
+
+        Long tournamentId = data.get("tournamentId");
+        Long gameId = data.get("gameId");
+        Long amount = data.get("amount");
+        Long roomId = data.get("roomId");
+
+        if (tournamentId != null && gameId != null){
+            TournamentEntity tournament = tournamentDao.getTournamentById(tournamentId);
+            tournament.setSpectatorsNum(tournament.getSpectatorsNum() + amount);
+            tournamentDao.updateTournament(tournament);
+
+            TournamentGameEntity game = tournamentGameDao.getGameById(gameId);
+            game.setAvailableTickets(game.getAvailableTickets() - amount);
+            tournamentGameDao.updateResult(game);
+        }
+
+        if (roomId != null) {
+            RoomEntity room = tournamentDao.getRoomById(roomId);
+            room.setAmount(room.getAmount() - amount);
+            room.setBooked(room.getBooked() + amount);
+            tournamentDao.updateRoom(room);
+        }
+
+
+
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 

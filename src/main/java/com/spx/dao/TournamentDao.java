@@ -1,9 +1,7 @@
 package com.spx.dao;
 
-import com.spx.entity.ArenaEntity;
-import com.spx.entity.HousingEntity;
-import com.spx.entity.TournamentEntity;
-import com.spx.entity.UserEntity;
+import com.spx.entity.*;
+import org.jets3t.service.utils.gatekeeper.GatekeeperMessage;
 
 import java.util.List;
 
@@ -16,6 +14,8 @@ public interface TournamentDao {
     List<TournamentEntity> getTournamentsByOrganizer(Long orgId);
     TournamentEntity getTournamentById(Long id);
 
+    RoomEntity getRoomById(Long id);
+
     Long addTournament(TournamentEntity tournament);
 
     List<UserEntity> getInterestedUsers(TournamentEntity entity);
@@ -24,5 +24,6 @@ public interface TournamentDao {
     Long addArena(ArenaEntity arena);
 
     void updateTournament(TournamentEntity tournament);
+    void updateRoom(RoomEntity room);
 }
 

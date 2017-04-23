@@ -13,6 +13,7 @@ public interface TournamentGameDao {
     List<TournamentGameEntity> getAll();
     List<TournamentGameEntity> getGamesByPlayer(UserEntity player);
     List<TournamentGameEntity> getGamesByDate(Date date);
+    TournamentGameEntity getGameById(Long id);
 
     Long addGame(TournamentGameEntity game);
     void updateResult(TournamentGameEntity game);

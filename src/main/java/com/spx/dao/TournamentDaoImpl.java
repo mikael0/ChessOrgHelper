@@ -40,6 +40,14 @@ public class TournamentDaoImpl implements TournamentDao {
     }
 
     @Override
+    public RoomEntity getRoomById(Long id) {
+        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from rooms where rooms.id = :id")
+                .addEntity(RoomEntity.class)
+                .setParameter("id", id);
+        return (RoomEntity)q.list().get(0);
+    }
+
+    @Override
     public List<TournamentEntity> getTournamentsByOrganizer(Long orgId) {
         Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from tournaments where tournaments.chiefOrganizer.id = :id")
                 .addEntity(TournamentEntity.class)
@@ -84,6 +92,11 @@ public class TournamentDaoImpl implements TournamentDao {
     @Override
     public void updateTournament(TournamentEntity tournament) {
        sessionFactory.getCurrentSession().update(tournament);
+    }
+
+    @Override
+    public void updateRoom(RoomEntity room) {
+        sessionFactory.getCurrentSession().update(room);
     }
 
 }

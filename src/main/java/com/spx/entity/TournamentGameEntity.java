@@ -30,7 +30,6 @@ public class TournamentGameEntity implements Parcelable{
         private Long availableTickets;
         private String result = "";
 
-
         @Id
         @Column(name = "ID", nullable = false)
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAMES_SEQ")
@@ -50,7 +49,7 @@ public class TournamentGameEntity implements Parcelable{
             return gameDate;
         }
 
-        public void setGameDate(Date startDate) {
+        public void setGameDate(Date gameDate) {
             this.gameDate = gameDate;
         }
 
@@ -98,8 +97,7 @@ public class TournamentGameEntity implements Parcelable{
         this.tournament = tournament;
     }
 
-
-        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         public TournamentInterestedUserEntity getPlayer1() {
             return player1;
         }
@@ -108,7 +106,7 @@ public class TournamentGameEntity implements Parcelable{
             this.player1 = player1;
         }
 
-        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         public TournamentInterestedUserEntity getPlayer2() {
             return player2;
         }
@@ -117,7 +115,7 @@ public class TournamentGameEntity implements Parcelable{
             this.player2 = player2;
         }
 
-        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         public ArenaEntity getArena() {
             return arena;
         }

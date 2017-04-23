@@ -1,6 +1,7 @@
 package com.spx.dao;
 
 //import com.spx.entity.TournamentEntity;
+import com.spx.entity.TournamentEntity;
 import com.spx.entity.TournamentGameEntity;
 import com.spx.entity.UserEntity;
 import org.hibernate.Query;
@@ -51,6 +52,14 @@ public class TournamentGameDaoImpl implements TournamentGameDao {
     }
 
     @Override
+    public TournamentGameEntity getGameById(Long id) {
+        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from games where games.id = :id")
+                .addEntity(TournamentGameEntity.class)
+                .setParameter("id", id);
+        return (TournamentGameEntity)q.list().get(0);
+    }
+
+    @Override
     public Long addGame(TournamentGameEntity game)
     {
         sessionFactory.getCurrentSession().save(game);
@@ -62,4 +71,6 @@ public class TournamentGameDaoImpl implements TournamentGameDao {
     {
         sessionFactory.getCurrentSession().update(game);
     }
+
+
 }

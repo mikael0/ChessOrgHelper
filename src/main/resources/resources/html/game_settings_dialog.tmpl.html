@@ -11,16 +11,14 @@
     </md-toolbar>
 
     <md-dialog-content>
-	<div class="md-dialog-content">
 	   <md-input-container md-no-float="" class="md-block" layout="row">
                 <label>Select winner</label>
                <md-select ng-model="winner">
-                   <md-option ng-repeat="item in availableResults" ng-value="item">
-                       {{item.user === undefined ? "Draw" : item.user.name}}
+                   <md-option ng-repeat="variant in availableResults" ng-value="variant.id">
+                       {{variant.user === undefined ? "Draw" : variant.user.name}}
                    </md-option>
                </md-select>
        </md-input-container>
-
     </md-dialog-content>
 
     <md-dialog-actions layout="row">

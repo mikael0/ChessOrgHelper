@@ -32,15 +32,6 @@ public class ParticipationRequestController {
     @Autowired
     TournamentDao tournamentDao;
 
-//    @Autowired
-//    EmailSender sender;
-
-//    @Autowired
-//    PasswordEncoder encoder;
-
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-
 
     @ApiOperation(value = "Apply")
     @RequestMapping(value = "/request",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

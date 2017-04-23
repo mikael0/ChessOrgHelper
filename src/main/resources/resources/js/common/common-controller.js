@@ -80,25 +80,27 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
 
     $scope.showGameInfo = function(ev, gameId, tournamentId) {
         console.log("id: " + tournamentId);
-        //TODO: getgame by id
-        var resp = { data: {"player1" : {user: {name: "First"}}, "player2": {user: {name: "Second"}}}};
-        $mdDialog.show({
-            controller: GameInfoController,
-            templateUrl: 'resources/html/game_settings_dialog.tmpl.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: true,
-            locals: {
-                game: resp.data,
-                tournamentId: tournamentId
-            },
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-        })
-            .then(function(answer) {
+        $http.post("/rest/tournament/game_by_id", gameId)
+            .then(function (resp) {
+                // var resp = { data: {"player1" : {user: {name: "First"}}, "player2": {user: {name: "Second"}}}};
+                $mdDialog.show({
+                    controller: GameInfoController,
+                    templateUrl: 'resources/html/game_settings_dialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    locals: {
+                        game: resp.data,
+                        tournamentId: tournamentId
+                    },
+                    fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                })
+                    .then(function(answer) {
 
-            }, function() {
+                    }, function() {
 
-            });
+                    });
+            })
     };
 
     $scope.approveRequest = function(requestId, tournamentId) {
@@ -311,12 +313,28 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         $scope.tournament = tournament;
         $scope.tickets = [{}];
 
+        console.log("tournament: " + $scope.tournament);
         $scope.add = function () {
             $scope.tickets.push({})
         }
 
         $scope.submit = function () {
-            //TODO: game controller
+            console.log($scope.tickets);
+            for (var i = 0; i < $scope.tickets.length; i++) {
+                var ticket = $scope.tickets[i];
+                console.log(ticket);
+                var data = {"tournamentId": tournament.id, "gameId": ticket.gameId, "amount": ticket.amount};
+                console.log(data);
+                $http.post("/rest/tournament/buy_tickets", data)
+                    .then(function (resp) {
+                    });
+            }
+            var housingData = {"roomId": $scope.housing.roomId, "amount": $scope.housing.amount};
+            $http.post("/rest/tournament/buy_tickets", housingData)
+                .then(function (resp) {
+                    window.location = "/tournament_list"
+                    $scope.hide();
+                });
 
         };
         $scope.hide = function() {
@@ -398,8 +416,6 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         };
     }
 
-
-
     function ApplyController($scope, $http, $mdDialog, tournament) {
         console.log(tournament);
         $scope.tournament = tournament;
@@ -414,6 +430,8 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
                 var fd = new FormData();
                 fd.append('id', response.data);
                 fd.append('file', $scope.file);
+                console.log("data:" + response.data);
+                console.log("file:" + $scope.file);
                 console.log(fd);
                 $http.post("/rest/apply/confirmation", fd, {
                     transformRequest: angular.identity,
@@ -438,7 +456,6 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
             $mdDialog.hide(answer);
         };
     }
-
 
     function TournamentCreateController($scope, $http, $mdDialog) {
 
@@ -472,9 +489,12 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         $scope.availableResults = [game["player1"], game["player2"], "Draw"];
 
         $scope.submit = function () {
-
             console.log($scope.winner);
-            var data = {"gameId": game["id"],  "winners": $scope.winner}
+            if ($scope.winner === "both"){
+                $scope.winner = [game["player1"]["id"], game["player2"]["id"]]
+            }
+            console.log($scope.winner);
+            var data = {"gameId": game["id"],  "winner1": $scope.winner[0], "winner2": $scope.winner[1]}
             $http.post("/rest/game/enter_results", data).then(function successCallback(response) {
                 window.location = "/schedule?tournamentId=" + tournamentId;
                 $scope.hide()
@@ -497,6 +517,25 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
 
 
 
-});
+})
+    .directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);
+
 
 

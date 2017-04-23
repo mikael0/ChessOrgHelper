@@ -43,7 +43,7 @@
                 <br>
                 <div layout="row">
                     <div md-colors="{color: 'accent'}" flex="10">
-                        Rating
+                        Score
                     </div>
                     <div md-colors="{color: 'accent'}" flex="30">
                         Name

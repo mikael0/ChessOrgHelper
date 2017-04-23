@@ -3,6 +3,7 @@ package com.spx.entity;
 import com.google.gson.JsonObject;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 

@@ -21,9 +21,9 @@
             <div layout="row">
                 <md-input-container class="md-block" flex="80">
                     <label>Game</label>
-                    <md-select ng-model="ticketOrder.game">
-                        <md-option ng-repeat="item in tournament.games" ng-value="text">
-                            {{item.name}}
+                    <md-select ng-model="ticketOrder.gameId">
+                        <md-option ng-repeat="item in tournament.games" ng-value="item.id">
+                            {{item.player1.user.name}} vs {{item.player2.user.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -57,8 +57,8 @@
         <div layout="row">
             <md-input-container class="md-block" flex="80">
                 <label>Room </label>
-                <md-select ng-model="housing.room">
-                    <md-option ng-repeat="item in tournament.housings[housing.index]['rooms']" ng-value="item.name">
+                <md-select ng-model="housing.roomId">
+                    <md-option ng-repeat="item in tournament.housings[housing.index]['rooms']" ng-value="item.id">
                         {{item.name}}
                     </md-option>
                 </md-select>
@@ -66,7 +66,7 @@
 
             <md-input-container class="md-block" flex="20">
                 <label>Amount</label>
-                <input ng-model="housingAmount" type="number" ng-required="true">
+                <input ng-model="housing.amount" type="number" ng-required="true">
             </md-input-container>
         </div>
 
