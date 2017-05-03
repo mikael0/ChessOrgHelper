@@ -20,15 +20,15 @@
 
             </div>
         </md-toolbar>
-            <md-content flex="noshrink" class="md-no-momentum margin-top" layout="column">
-                <md-card layout="column" flex="noshrink">
-                    <md-card-header>
-                        <md-card-header-text>
+            <md-content layout-padding flex="noshrink" class="md-no-momentum margin-top" layout="column">
+##                <md-card layout="column" flex="noshrink">
+##                    <md-card-header>
+##                        <md-card-header-text>
                             <span class="md-title"> $tournament.name </span>
                             <span class="md-subhead" md-colors="{color: 'accent'}"> $tournament.city </span>
-                        </md-card-header-text>
-                    </md-card-header>
-                    <md-card-content flex="noshrink">
+##                        </md-card-header-text>
+##                    </md-card-header>
+##                    <md-card-content flex="noshrink">
                         <div layout="row">
                             <div flex="50">
                                 <span class="md-title"> Approved participants</span>
@@ -43,17 +43,16 @@
                                     #if( $interestedUser.role == "ROLE_PARTICIPANT")
                                         <md-card flex="noshrink">
                                             <md-card-header>
-##                                                <md-card-header-text>
-##                                                    <span class="md-title"> $interestedUser.user.name </span>
-##                                                </md-card-header-text>
+                                                <md-card-header-text>
+                                                    <span class="md-title"> $interestedUser.user.name </span>
+                                                </md-card-header-text>
                                             </md-card-header>
                                             <md-card-content>
-                                                    <span class="md-title"> $interestedUser.user.name </span>
                                             </md-card-content>
                                             <md-card-actions>
-                                                <div layout="row" layout-margin>
-                                                    <md-button class="md-cornered md-raised md-accent" ng-click="removeParticipant('$interestedUser.id', '$tournament.id')"> Remove </md-button>
-                                                </div>
+##                                                <div layout="row" layout-margin>
+##                                                    <md-button class="md-cornered md-raised md-accent" ng-click="removeParticipant('$interestedUser.id', '$tournament.id')"> Remove </md-button>
+##                                                </div>
                                             </md-card-actions>
                                         </md-card>
                                     #end
@@ -61,14 +60,14 @@
                             </div>
                             <div layout="column" flex="50" >
                                   #foreach( $request in $requests)
+                                      #if ($request.viewed != true)
                                         <md-card flex="noshrink">
                                             <md-card-header>
-##                                                <md-card-header-text>
-##                                                    <span class="md-title"> $request.name $request.surname </span>
-##                                                </md-card-header-text>
+                                                <md-card-header-text>
+                                                    <span class="md-title"> $request.name $request.surname </span>
+                                                </md-card-header-text>
                                             </md-card-header>
                                             <md-card-content>
-                                                    <span class="md-title"> $request.name $request.surname </span>
                                             </md-card-content>
                                             <md-card-actions>
                                                 <div layout="row" layout-margin>
@@ -77,11 +76,12 @@
                                                 </div>
                                             </md-card-actions>
                                         </md-card>
+                                      #end
                                    #end
                             </div>
                         </div>
-                    </md-card-content>
-                </md-card>
+##                    </md-card-content>
+##                </md-card>
             </md-content>
     <script src="resources/js/common/_module.js"></script>
     <script src="resources/js/common/common-controller.js"></script>

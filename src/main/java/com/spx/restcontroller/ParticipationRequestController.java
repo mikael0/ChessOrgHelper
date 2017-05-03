@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.security.Principal;
@@ -43,6 +44,7 @@ public class ParticipationRequestController {
             request.setTournament(tournamentDao.getTournamentById(request.getTournamentId()));
         if (request.getUserId() == null)
             request.setUserId(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser().getId());
+        request.setViewed(false);
 
         Long id = participationRequestDao.addRequest(request);
 
@@ -65,24 +67,27 @@ public class ParticipationRequestController {
 
 
     @ApiOperation(value = "Upload file")
-    @RequestMapping(value = "/confirmation",  method = RequestMethod.POST)
+    @RequestMapping(value = "/confirmation",  method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
     public ResponseEntity<String> createTournament(Principal principal,
-                                                   @RequestParam Long id,
-                                                   @RequestParam CommonsMultipartFile[] fileUpload) {
+                                                   @RequestPart("id") Long id,
+                                                   @RequestPart("file") MultipartFile fileUpload) {
 
         ParticipationRequestEntity request = participationRequestDao.getRequestById(id);
 
-        if (fileUpload != null && fileUpload.length > 0) {
-            for (CommonsMultipartFile aFile : fileUpload){
+//        if (fileUpload != null && fileUpload.length > 0) {
+//            for (MultipartFile aFile : fileUpload){
 
-                System.out.println("Saving file: " + aFile.getOriginalFilename());
+                System.out.println("Saving file: " + fileUpload.getOriginalFilename());
 
-                request.setConfirmation(aFile.getBytes());
+                try {
+                    request.setConfirmation(fileUpload.getBytes());
+                }
+                catch (Exception e) {}
 
-//                participationRequestDao.addRequest(request);
-            }
-        }
+                participationRequestDao.updateRequest(request);
+//            }
+//        }
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }

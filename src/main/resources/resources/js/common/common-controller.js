@@ -424,22 +424,27 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         $scope.request = {tournamentId : tournament.id}
 
         $scope.submit = function () {
-            //TODO: apply controller
             console.log($scope.request)
             $http.post("/rest/apply/request", $scope.request).then(function successCallback(response) {
-                var fd = new FormData();
-                fd.append('id', response.data);
-                fd.append('file', $scope.file);
-                console.log("data:" + response.data);
-                console.log("file:" + $scope.file);
-                console.log(fd);
-                $http.post("/rest/apply/confirmation", fd, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                    }).then(function(resp) {
-                        window.location = "tournament_list";
-                        $scope.hide();
-                    })
+                window.location = "tournament_list";
+                $scope.hide();
+                // var fd = new FormData();
+                // fd.append('id', response.data);
+                // fd.append('file', $scope.file);
+                // console.log("data:" + response.data);
+                // console.log("file:" + $scope.file);
+                // console.log(fd);
+            //     $http.post("/rest/apply/confirmation", fd, {
+            //         transformRequest: angular.identity,
+            //         headers: {'Content-Type': 'multipart/form-data',
+            //                     'Accept': 'multipart/form-data'},
+            //         params: {
+            //             'fd': fd
+            //         }
+            //         }).then(function(resp) {
+            //             window.location = "tournament_list";
+            //             $scope.hide();
+            //         })
             }, function errorCallback(response) {
             });
 
@@ -490,11 +495,14 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
 
         $scope.submit = function () {
             console.log($scope.winner);
-            if ($scope.winner === "both"){
+            if ($scope.winner === undefined){
                 $scope.winner = [game["player1"]["id"], game["player2"]["id"]]
+            } else {
+                $scope.winner = [$scope.winner];
             }
             console.log($scope.winner);
             var data = {"gameId": game["id"],  "winner1": $scope.winner[0], "winner2": $scope.winner[1]}
+            console.log(data);
             $http.post("/rest/game/enter_results", data).then(function successCallback(response) {
                 window.location = "/schedule?tournamentId=" + tournamentId;
                 $scope.hide()

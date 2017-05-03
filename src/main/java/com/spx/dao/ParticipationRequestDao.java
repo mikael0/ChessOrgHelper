@@ -13,5 +13,6 @@ public interface ParticipationRequestDao {
     Long addRequest(final ParticipationRequestEntity entity);
     void uploadFile(Long id, byte[] data);
 
+    void updateRequest(final ParticipationRequestEntity entity);
     void removeRequest(final ParticipationRequestEntity entity);
 }

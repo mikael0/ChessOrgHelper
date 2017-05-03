@@ -164,14 +164,16 @@ public class TournamentController {
         interestedUser.setRating(0l);
         interestedUser.setWinCount(0l);
 
-        tournament.setParticipantsNum(tournament.getParticipantsNum() + 1);
-        tournamentDao.updateTournament(tournament);
-
         interestedUserDao.addInterestedUser(interestedUser);
 
+        tournament.setParticipantsNum(tournament.getParticipantsNum() + 1);
+        tournament.getInterestedUsers().add(interestedUser);
+        tournamentDao.updateTournament(tournament);
+
+        request.setViewed(true);
+
+        requestDao.removeRequest(request);
         //TODO: fix
-//        tournament.getParticipationRequests().remove(request);
-//        requestDao.removeRequest(request);
 
         return new ResponseEntity<String>(HttpStatus.OK);
     }
@@ -189,6 +191,9 @@ public class TournamentController {
         TournamentInterestedUserEntity interestedUser = interestedUserDao.getInterestedById(interestedId);
 
         tournament.getInterestedUsers().remove(interestedUser);
+
+        tournamentDao.updateTournament(tournament);
+
         interestedUserDao.removeInterestedUser(interestedUser);
 
         return new ResponseEntity<String>(HttpStatus.OK);
@@ -242,7 +247,6 @@ public class TournamentController {
             room.setBooked(room.getBooked() + amount);
             tournamentDao.updateRoom(room);
         }
-
 
 
         return new ResponseEntity<String>(HttpStatus.OK);

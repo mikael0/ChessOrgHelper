@@ -54,7 +54,13 @@ public class ParticipationRequestDaoImpl implements ParticipationRequestDao{
     }
 
     @Override
+    public void updateRequest(ParticipationRequestEntity entity) {
+        sessionFactory.getCurrentSession().update(entity);
+    }
+
+
+    @Override
     public void removeRequest(ParticipationRequestEntity entity) {
-        sessionFactory.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().update(entity);
     }
 }

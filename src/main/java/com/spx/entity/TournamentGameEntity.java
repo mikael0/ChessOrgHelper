@@ -28,7 +28,7 @@ public class TournamentGameEntity implements Parcelable{
         private ArenaEntity arena; // Some doubts here!
 
         private Long availableTickets;
-        private String result = "";
+        private String result = " ";
 
         @Id
         @Column(name = "ID", nullable = false)

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.ws.rs.Consumes;
 
 /**
  * Created by mikael0 on 22.11.16.
@@ -25,6 +26,8 @@ public class ParticipationRequestEntity implements Parcelable {
 
     private TournamentEntity tournament;
     private Long userId;
+
+    private Boolean viewed;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -57,6 +60,7 @@ public class ParticipationRequestEntity implements Parcelable {
         json.addProperty("name", name);
         json.addProperty("surname", surname);
         json.addProperty("position", position);
+        json.addProperty("viewed", viewed);
         return json;
     }
 
@@ -114,5 +118,15 @@ public class ParticipationRequestEntity implements Parcelable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "VIEWED", nullable = false)
+    public Boolean getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
     }
 }

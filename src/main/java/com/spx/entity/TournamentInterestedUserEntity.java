@@ -88,7 +88,7 @@ public class TournamentInterestedUserEntity implements Parcelable {
         this.user = user;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public TournamentEntity getTournament() {
         return tournament;
     }

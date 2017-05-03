@@ -33,10 +33,11 @@ public class TournamentDaoImpl implements TournamentDao {
 
     @Override
     public TournamentEntity getTournamentById(Long id) {
-        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from tournaments where tournaments.id = :id")
-                .addEntity(TournamentEntity.class)
-                .setParameter("id", id);
-        return (TournamentEntity)q.list().get(0);
+//        Query q = sessionFactory.getCurrentSession().createSQLQuery("select * from tournaments where tournaments.id = :id")
+//                .addEntity(TournamentEntity.class)
+//                .setParameter("id", id);
+//        return (TournamentEntity)q.list().get(0);
+         return (TournamentEntity)sessionFactory.getCurrentSession().get(TournamentEntity.class, id);
     }
 
     @Override

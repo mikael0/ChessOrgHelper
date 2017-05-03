@@ -64,11 +64,11 @@ public class GameController {
         TournamentGameEntity game = gameDao.getGameById(gameId);
 
         TournamentInterestedUserEntity player1 = interestedDao.getInterestedById(winner1Id);
-        player1.setWinCount(player1.getWinCount() + 1);
+        if (winner2Id == null)
+            player1.setWinCount(player1.getWinCount() + 1);
         TournamentInterestedUserEntity player2 = null;
         if (winner2Id != null) {
             player2 = interestedDao.getInterestedById(winner2Id);
-            player2.setWinCount(player2.getWinCount() + 1);
             player2.setRating(player2.getRating() + 1);
             player1.setRating(player1.getRating() + 1);
             game.setResult("Draw");

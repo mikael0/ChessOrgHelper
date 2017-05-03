@@ -55,8 +55,8 @@
                                 <span class="md-subhead"> $game.player1.user.name vs $game.player2.user.name</span>
                                 <span class="md-subhead"> $game.stage</span>
                                 <span class="md-subhead"> $game.arena.name</span>
-                                #if ($game.result != "")
-                                    <span class="md-subhead"> $game.result</span>
+                                #if ($game.result != " ")
+                                    <span class="md-subhead">Result: $game.result</span>
                                 #end
                             </div>
                         </md-card-content>
