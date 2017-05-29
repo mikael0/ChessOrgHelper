@@ -2,11 +2,12 @@ import com.spx.dao.TournamentDao;
 import com.spx.entity.*;
 
 import java.util.List;
+import java.util.Objects;
 
-/**
- * Created by Александр on 29.05.2017.
- */
+
 public class TestTournamentDaoImpl implements TournamentDao {
+    private TournamentEntity _tournament;
+
     @Override
     public List<TournamentEntity> getAll() {
         return null;
@@ -19,6 +20,8 @@ public class TestTournamentDaoImpl implements TournamentDao {
 
     @Override
     public TournamentEntity getTournamentById(Long id) {
+        if (Objects.equals(_tournament.getId(), id))
+            return _tournament;
         return null;
     }
 
@@ -29,6 +32,7 @@ public class TestTournamentDaoImpl implements TournamentDao {
 
     @Override
     public Long addTournament(TournamentEntity tournament) {
+        _tournament = tournament;
         return tournament.getId();
     }
 
@@ -49,7 +53,7 @@ public class TestTournamentDaoImpl implements TournamentDao {
 
     @Override
     public void updateTournament(TournamentEntity tournament) {
-
+        _tournament = tournament;
     }
 
     @Override
