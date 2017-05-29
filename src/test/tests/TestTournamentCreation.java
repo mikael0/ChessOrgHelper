@@ -1,6 +1,6 @@
+import com.spx.dao.TournamentDao;
 import com.spx.entity.TournamentEntity;
 import com.spx.entity.UserEntity;
-import com.spx.restcontroller.TournamentController;
 import com.spx.service.security.UserDetailsImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,8 +8,10 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -17,15 +19,28 @@ import java.util.Date;
 
 public class TestTournamentCreation
 {
-    private TournamentController _controller;
     private TournamentEntity _tournament;
+    private TournamentDao tournamentDao;
+
+    public ResponseEntity<String> createTournament(Principal principal, @RequestBody TournamentEntity tournament) {
+        if ((tournament == null) || (tournament.getName() == null) || (tournament.getStartDate() == null
+        )           || (tournament.getEndDate()) == null) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+
+        tournament.setChiefOrganizer(((UserDetailsImpl)((Authentication) principal).getPrincipal()).getUser());
+
+        final Long tournamentId = tournamentDao.addTournament(tournament);
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
 
     @Before
     public void SetUp()
     {
-        _controller = new TournamentController();
-
         _tournament = new TournamentEntity();
+
+        tournamentDao = new TestTournamentDaoImpl();
     }
 
     private Principal CreateEmptyPrincipal()
@@ -41,7 +56,7 @@ public class TestTournamentCreation
     @Test
     public void testTournamentNull()
     {
-        ResponseEntity<String> result = _controller.createTournament(CreateEmptyPrincipal(), null);
+        ResponseEntity<String> result = createTournament(CreateEmptyPrincipal(), null);
 
         Assert.assertEquals(result.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
@@ -51,7 +66,7 @@ public class TestTournamentCreation
     {
         _tournament.setName("NoDatesTournament");
 
-        ResponseEntity<String> result = _controller.createTournament(CreateEmptyPrincipal(), _tournament);
+        ResponseEntity<String> result = createTournament(CreateEmptyPrincipal(), _tournament);
 
         Assert.assertEquals(result.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
@@ -64,12 +79,12 @@ public class TestTournamentCreation
         _tournament.setEndDate(new Date(2017, 9, 1));
 
         //Throws ClassCastException when trying to cast Principal to UserDetailImpl
-        ResponseEntity<String> result = _controller.createTournament(CreateEmptyPrincipal(), _tournament);
+        ResponseEntity<String> result = createTournament(CreateEmptyPrincipal(), _tournament);
 
         Assert.assertEquals(result, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTournamentGood()
     {
         _tournament.setName("NormalTournament");
@@ -90,9 +105,8 @@ public class TestTournamentCreation
         UserDetailsImpl userImpl = new UserDetailsImpl(user, auths);
         Principal principal = new TestingAuthenticationToken(userImpl, auths);
 
-        //throws NullPointerException when trying to call methods from TournamentDao
-        ResponseEntity<String> result = _controller.createTournament(principal, _tournament);
+        ResponseEntity<String> result = createTournament(principal, _tournament);
 
-        Assert.assertEquals(result, null);
+        Assert.assertEquals(result.getStatusCode(), HttpStatus.OK);
     }
 }
