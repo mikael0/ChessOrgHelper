@@ -52,6 +52,7 @@ public class ExternalWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/resources/**").permitAll()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/construct/**").permitAll()
+                .antMatchers("/rest/user/registerTest/**").permitAll()
                 .antMatchers("/rest/user/register/**").permitAll()
                 .antMatchers("/rest/user/formlogin/**").permitAll()
                 .antMatchers("/rest/user/activate/**").permitAll()

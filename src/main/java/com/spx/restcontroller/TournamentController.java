@@ -211,7 +211,12 @@ public class TournamentController {
 
         List<TournamentGameEntity> games = GenerateSchedule.generateSchedule(tournament);
 
+        if (games == null) {
+            return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+        }
+
         tournamentDao.updateTournament(tournament);
+
 
         for (TournamentGameEntity game : games) {
             tournamentGameDao.addGame(game);

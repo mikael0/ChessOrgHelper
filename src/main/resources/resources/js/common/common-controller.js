@@ -75,6 +75,9 @@ CommonModule.controller("CommonController", function ($scope, $http, $location, 
         $http.post("/rest/tournament/generate_schedule", data)
             .then(function (resp) {
                 window.location = "/schedule?tournamentId=" + tournamentId;
+            }, function () {
+                alert('Not enough participants')
+                window.location = "/schedule?tournamentId=" + tournamentId;
             });
     };
 

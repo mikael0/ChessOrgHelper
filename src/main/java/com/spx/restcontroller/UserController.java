@@ -47,6 +47,30 @@ public class UserController {
 
     @SuppressWarnings("Hardcoded email template")
     @ApiOperation(value = "Register new user")
+    @RequestMapping(value = "/registerTest",  method = RequestMethod.GET)
+    @Transactional
+    public ResponseEntity<String> registerUsersTest() {
+
+        for (int i = 1; i <= 16; i++) {
+            UserEntity user = new UserEntity();
+            user.setName("user" + i);
+            user.setLogin("user" + i);
+            user.setPhone("1234567890");
+            user.setPassword(encoder.encode("1"));
+            user.setEmail("user" + i + "@coh.ru");
+            user.setRole(UserEntity.Roles.ROLE_SPECTATOR.toString());
+            user.setExternal(false);
+            user.setActivated(true);
+
+            userDao.addUser(user);
+        }
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+
+    @SuppressWarnings("Hardcoded email template")
+    @ApiOperation(value = "Register new user")
     @RequestMapping(value = "/register",  method = RequestMethod.POST)
     @Transactional
     public ResponseEntity<String> registerUser(@RequestBody UserEntity user) {

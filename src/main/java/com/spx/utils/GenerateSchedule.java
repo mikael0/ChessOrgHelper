@@ -18,6 +18,11 @@ public class GenerateSchedule {
     public static List<TournamentGameEntity> generateSchedule(TournamentEntity tournament) {
         TournamentInterestedUserEntity[] interestedUsers = new TournamentInterestedUserEntity[tournament.getInterestedUsers().size()];
         tournament.getInterestedUsers().toArray(interestedUsers);
+
+        if (interestedUsers.length % 16 != 0) {
+            return null;
+        }
+
         ArrayList<TournamentGameEntity> games = new ArrayList<>();
         for(int i = 0; i < tournament.getMaxParticipantsNum()/4; i++)
         {
