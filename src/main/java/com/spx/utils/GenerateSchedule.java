@@ -18,16 +18,16 @@ public class GenerateSchedule {
     public static List<TournamentGameEntity> generateSchedule(TournamentEntity tournament) {
         TournamentInterestedUserEntity[] interestedUsers = new TournamentInterestedUserEntity[tournament.getInterestedUsers().size()];
         tournament.getInterestedUsers().toArray(interestedUsers);
-
-        if (interestedUsers.length % 16 != 0) {
-            return null;
-        }
+//
+//        if (interestedUsers.length % 16 != 0) {
+//            return null;
+//        }
 
         ArrayList<TournamentGameEntity> games = new ArrayList<>();
-        for(int i = 0; i < tournament.getMaxParticipantsNum()/4; i++)
+        for(int i = 0; i < tournament.getMaxParticipantsNum(); i++)
         {
             try {
-                games.addAll(generateForOneGroup(i, Arrays.copyOfRange(interestedUsers, i * 4, i * 4 + 4), tournament));
+                games.addAll(generateForOneGroup(i, interestedUsers, tournament));
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -36,16 +36,16 @@ public class GenerateSchedule {
         return games;
     }
 
-    private static List<TournamentGameEntity> generateForOneGroup(int group,TournamentInterestedUserEntity arr[],TournamentEntity tournament){
+    private static List<TournamentGameEntity> generateForOneGroup(int num,TournamentInterestedUserEntity arr[],TournamentEntity tournament){
         ArrayList<TournamentGameEntity> gamesForGroup = new ArrayList<>();
-        for( int i = 1; i < 4; i++){
-            for( int j = 2; j < 4; j++){
-                if( i == j ) j++;
-                if( j < i ) j+=2;
-                if( j >= 4) break;
+        for( int i = num + 1; i < arr.length; i++){
+//            for( int j = 2; j < 4; j++){
+//                if( i == j ) j++;
+//                if( j < i ) j+=2;
+//                if( j >= 4) break;
                 TournamentGameEntity game = new TournamentGameEntity();
-                game.setPlayer1(arr[i]);
-                game.setPlayer2(arr[j]);
+                game.setPlayer1(arr[num]);
+                game.setPlayer2(arr[i]);
                 game.setArena(((ArenaEntity)tournament.getArenas().toArray()[new Random().nextInt(tournament.getArenas().size())]));
 
                 Calendar date = Calendar.getInstance();
@@ -69,13 +69,13 @@ public class GenerateSchedule {
 
                 game.setTournament(tournament);
                 game.setAvailableTickets(game.getArena().getMaxSpectators());
-                game.setGroup("group " + group);
+                game.setGroup("group");
                 game.setStage("Group");
 
                 tournament.getGames().add(game);
 
                 gamesForGroup.add(game);
-            }
+//            }
         }
         return gamesForGroup;
     }

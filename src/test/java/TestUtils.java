@@ -30,7 +30,7 @@ public class TestUtils {
 
     public static TournamentEntity CreateTournament(){
         TournamentEntity tournament = new TournamentEntity();
-        tournament.setId(21L);
+        tournament.setId(123L);
         tournament.setName("Tournament");
         tournament.setStartDate(new Date(2017, 8, 15));
         tournament.setEndDate(new Date(2017, 9, 15));
