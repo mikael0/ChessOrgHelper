@@ -39,7 +39,6 @@ public class ParticipationRequestController {
     @Transactional
     public ResponseEntity<Long> createTournament(Principal principal,
                                                    @RequestBody ParticipationRequestEntity request) {
-
         if (request.getTournament() == null)
             request.setTournament(tournamentDao.getTournamentById(request.getTournamentId()));
         if (request.getUserId() == null)

@@ -1,6 +1,9 @@
 package com.spx.restcontroller;
 
+import com.spx.dao.ParticipationRequestDao;
+import com.spx.dao.TournamentDao;
 import com.spx.dao.UserDao;
+import com.spx.entity.ParticipationRequestEntity;
 import com.spx.entity.UserEntity;
 import com.spx.service.security.UserDetailsImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -8,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -68,6 +72,36 @@ public class UserController {
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
+    @Autowired
+    ParticipationRequestDao participationRequestDao;
+    @Autowired
+    TournamentDao tournamentDao;
+
+    @ApiOperation(value = "Register new user")
+    @RequestMapping(value = "/applyTest",  method = RequestMethod.GET)
+    @Transactional
+    public ResponseEntity<String> applyUsersTest(Principal principal, @RequestParam("id") Long tournamentId) {
+
+        for (int i = 1; i <= 16; i++) {
+
+            ParticipationRequestEntity request = new ParticipationRequestEntity();
+
+            request.setName("user");
+            request.setSurname("" + i);
+            request.setPosition(Long.valueOf(i));
+
+            if (request.getTournament() == null)
+                request.setTournament(tournamentDao.getTournamentById(tournamentId));
+            if (request.getUserId() == null)
+                request.setUserId(userDao.getUserByLogin("user" + i,false).get(0).getId());
+            request.setViewed(false);
+
+            Long id = participationRequestDao.addRequest(request);
+        }
+
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
 
     @SuppressWarnings("Hardcoded email template")
     @ApiOperation(value = "Register new user")
@@ -83,6 +117,7 @@ public class UserController {
         }
         user.setPassword(encoder.encode(user.getPassword()));
         user.setActivated(true);
+        user.setName("Ostap Bender");
         user.setRole(user.getLogin().equals("admin") ?  UserEntity.Roles.ROLE_ORGANIZER.toString() : UserEntity.Roles.ROLE_SPECTATOR.toString());
 
         final Long user_id = userDao.addUser(user);
